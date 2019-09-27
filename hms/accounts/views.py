@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render
-
+from .models import UserProfile
 # Create your views here.
 from .forms import UserProfileForm, ExtendedUserCreationForm
 
@@ -28,9 +28,20 @@ def register(request):
         form = ExtendedUserCreationForm()
         profile_form = UserProfileForm()
 
-    context = {'form' : form, 'profile_form' : profile_form}
+    context = {'form': form, 'profile_form': profile_form}
 
     return render(request, 'accounts/register.html', context)
 
+
 def testing(request):
-    return render(request,'accounts/testing.html')
+    return render(request, 'accounts/testing.html')
+
+
+def student_details_view(request):
+    current_user = request.user
+    print(current_user)
+    obj = UserProfile.objects.get(user=current_user)
+    print(obj.user.first_name)
+    print(obj.user.last_name)
+    context = {'location': obj.location}
+    return render(request, 'accounts/detail_view.html', context)
