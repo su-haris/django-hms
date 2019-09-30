@@ -3,7 +3,7 @@ from django.db import transaction
 from django.shortcuts import render
 from .models import UserProfile, Room
 # Create your views here.
-from .forms import UserProfileForm, ExtendedUserCreationForm
+from .forms import UserProfileForm, ExtendedUserCreationForm, RoomCreationForm
 
 
 def register(request):
@@ -66,13 +66,26 @@ def room_select(request, tag):
 
     # print(obj.room.no)
 
-
     word = tag
     # print(word)
     robj = Room.objects.get(no=word)
     print(robj.no)
     obj.room = robj
-    #print(obj.room.no)
+    # print(obj.room.no)
     obj.save()
     transaction.commit()
     return render(request, 'accounts/testing.html')
+
+
+def addroom(request):
+    if request.method == 'POST':
+        form = RoomCreationForm(request.POST)
+
+        if form.is_valid():
+            room = form.save()
+
+    else:
+        form = RoomCreationForm()
+
+    context = {'form': form}
+    return render(request, 'accounts/add_room.html', context)

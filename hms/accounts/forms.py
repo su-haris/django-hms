@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.forms import ModelForm
 from django import forms
 
-from .models import UserProfile
+from .models import UserProfile, Room
 
 
 class ExtendedUserCreationForm(UserCreationForm):
@@ -31,3 +31,9 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('location', 'age', 'dob', 'gender')
+
+
+class RoomCreationForm(forms.ModelForm):
+    class Meta:
+        model = Room
+        fields = ('no', 'room_type', 'capacity', 'present')
