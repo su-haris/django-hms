@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login
+from django.db import transaction
 from django.shortcuts import render
-from .models import UserProfile
+from .models import UserProfile, Room
 # Create your views here.
 from .forms import UserProfileForm, ExtendedUserCreationForm
 
@@ -43,5 +44,35 @@ def student_details_view(request):
     obj = UserProfile.objects.get(user=current_user)
     print(obj.user.first_name)
     print(obj.user.last_name)
-    context = {'location': obj.location}
+    context = {'name': obj.user.first_name, 'location': obj.location, 'age': obj.age,
+               'gender': obj.gender, 'room': obj.room.no}
     return render(request, 'accounts/detail_view.html', context)
+
+
+def room_all_view(request):
+    rooms = Room.objects.all()
+    roomdata = []
+    for x in rooms:
+        y = {'no': x.no, 'type': x.room_type, 'present': x.present}
+        roomdata.append(y)
+    context = {'roomdata': roomdata}
+    return render(request, 'accounts/room_all.html', context)
+
+
+def room_select(request, tag):
+    current_user = request.user
+    print(current_user)
+    obj = UserProfile.objects.get(user=current_user)
+
+    # print(obj.room.no)
+
+
+    word = tag
+    # print(word)
+    robj = Room.objects.get(no=word)
+    print(robj.no)
+    obj.room = robj
+    #print(obj.room.no)
+    obj.save()
+    transaction.commit()
+    return render(request, 'accounts/testing.html')
