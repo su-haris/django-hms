@@ -3,14 +3,15 @@
     <h2>Room No: {{y.no}}</h2>
     <h3>Room Type: {{y.type}} </h3>
     <h3>Occupied by: {{y.present}}</h3>
-    <script>
-        var a = {{y.no}}
-    </script>
+
 
 
     <form method="POST" action="{% url 'roomselect' y.no %}">
             {% csrf_token %}
-
-        <input type="submit" id="{{y.no}}" value="Select Room">
+        {% if y.remains > 0 %}
+            <input type="submit" id="{{y.no}}" value="Select Room">
+        {% else %}
+            <h3>Room Full</h3>
+        {% endif %}
     </form>
 {% endfor %}

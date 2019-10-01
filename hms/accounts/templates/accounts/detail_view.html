@@ -4,3 +4,8 @@
 <h3> Age </h3> {{ age }}
 <h3> Gender </h3> {{ gender }}
 <h3> Room </h3> {{ room }}
+{% if room == 'Not Assigned' %}
+    <form action="{% url 'rooms' %}">
+        <input type="submit" value="Select Room">
+    </form>
+{% endif %}
