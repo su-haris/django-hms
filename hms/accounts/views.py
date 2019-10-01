@@ -44,8 +44,17 @@ def student_details_view(request):
     obj = UserProfile.objects.get(user=current_user)
     print(obj.user.first_name)
     print(obj.user.last_name)
-    context = {'name': obj.user.first_name, 'location': obj.location, 'age': obj.age,
-               'gender': obj.gender, 'room': obj.room.no}
+
+    try:
+        context = {'name': obj.user.first_name, 'location': obj.location, 'age': obj.age,
+                   'gender': obj.gender, 'room': obj.room.no}
+    except:
+        context = {'name': obj.user.first_name, 'location': obj.location, 'age': obj.age,
+                   'gender': obj.gender, 'room': 'Not Assigned'}
+
+    # context = {'name': obj.user.first_name, 'location': obj.location, 'age': obj.age,
+    #            'gender': obj.gender, 'room': obj.room.no}
+
     return render(request, 'accounts/detail_view.html', context)
 
 
