@@ -70,6 +70,17 @@ def room_all_view(request):
     return render(request, 'accounts/room_all.html', context)
 
 
+def room_all_view_warden(request):
+    rooms = Room.objects.all()
+    roomdata = []
+    for x in rooms:
+        remains = x.capacity - x.present
+        y = {'no': x.no, 'type': x.room_type, 'present': x.present, 'remains': remains}
+        roomdata.append(y)
+    context = {'roomdata': roomdata}
+    return render(request, 'accounts/room_all_warden.html', context)
+
+
 def room_select(request, tag):
     current_user = request.user
     print(current_user)
@@ -87,7 +98,8 @@ def room_select(request, tag):
     obj.save()
     robj.save()
     transaction.commit()
-    return render(request, 'accounts/testing.html')
+    context = {'room': tag}
+    return render(request, 'accounts/confirm.html', context)
 
 
 def addroom(request):
@@ -102,3 +114,24 @@ def addroom(request):
 
     context = {'form': form}
     return render(request, 'accounts/add_room.html', context)
+
+
+def room_details(request, tag):
+    studs = UserProfile.objects.all()
+    studdata = []
+    rm = str(tag)
+    print(studs[1].room.no)
+    print(rm)
+    for x in studs:
+        try:
+            y = x.room.no
+            if y == rm:
+                l = {'name': x.user.first_name, 'username': x.user.username, 'room': x.room.no}
+                print(l)
+                studdata.append(l)
+        except:
+            print('error')
+
+    context = {'studdata': studdata, 'room': tag}
+    print(context)
+    return render(request, 'accounts/room_stud.html', context)

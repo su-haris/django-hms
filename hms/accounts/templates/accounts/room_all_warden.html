@@ -1,0 +1,16 @@
+<h1>All Rooms</h1>
+{% for y in roomdata %}
+    <h2>Room No: {{y.no}}</h2>
+    <h3>Room Type: {{y.type}} </h3>
+    <h3>Occupied by: {{y.present}}</h3>
+
+
+
+    <form method="POST" action="{% url 'roomdetails' y.no %}">
+            {% csrf_token %}
+
+            <input type="submit" id="{{y.no}}" value="View Inmates">
+
+
+    </form>
+{% endfor %}
