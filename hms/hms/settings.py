@@ -25,7 +25,7 @@ SECRET_KEY = 'vm2$ml#d!fr*$!0^uof)(+g+11)1a*8(+7kt5ro3##7-89zkhf'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
