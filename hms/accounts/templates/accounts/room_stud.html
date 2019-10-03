@@ -1,4 +1,14 @@
-<h1>Room {{ room }}</h1>
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+
+<div class="w3-display-topleft w3-padding-large w3-xlarge">
+      HMS<br>
+    Room {{ room }}
+    </div>
+<div style="padding-top: 40px; padding-left: 20px;"></div>
+    <div style="border: 5px solid white; width:40%; margin: auto; text-align: center">
 {% for y in studdata %}
     <h2>Username: {{y.username}}</h2>
     <h3>Name: {{y.name}} </h3>
@@ -8,3 +18,17 @@
 
 
 {% endfor %}
+        </div>
+</div>
+{% endblock %}
+
+<!--<h1>Room {{ room }}</h1>-->
+<!--{% for y in studdata %}-->
+<!--    <h2>Username: {{y.username}}</h2>-->
+<!--    <h3>Name: {{y.name}} </h3>-->
+
+
+
+
+
+<!--{% endfor %}-->

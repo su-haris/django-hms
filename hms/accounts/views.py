@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.shortcuts import render, redirect
 from .models import UserProfile, Room
@@ -39,37 +40,52 @@ def testing(request):
     return render(request, 'accounts/testing.html')
 
 
+@login_required()
 def student_details_view(request):
     current_user = request.user
     print(current_user)
-    obj = UserProfile.objects.get(user=current_user)
-    print(obj.user.first_name)
-    print(obj.user.last_name)
 
-    try:
-        context = {'name': obj.user.first_name, 'location': obj.location, 'age': obj.age,
-                   'gender': obj.gender, 'room': obj.room.no}
-    except:
-        context = {'name': obj.user.first_name, 'location': obj.location, 'age': obj.age,
-                   'gender': obj.gender, 'room': 'Not Assigned'}
+    if request.user.groups.filter(name__in=['warden']).exists() == True:
+        return room_all_view_warden(request)
 
-    # context = {'name': obj.user.first_name, 'location': obj.location, 'age': obj.age,
-    #            'gender': obj.gender, 'room': obj.room.no}
+    else:
+        obj = UserProfile.objects.get(user=current_user)
+        print(obj.user.first_name)
+        print(obj.user.last_name)
 
-    return render(request, 'accounts/detail_view.html', context)
+        try:
+            context = {'name': obj.user.first_name, 'location': obj.location, 'age': obj.age,
+                       'gender': obj.gender, 'room': obj.room.no}
+        except:
+            context = {'name': obj.user.first_name, 'location': obj.location, 'age': obj.age,
+                       'gender': obj.gender, 'room': 'Not Assigned'}
+            if request.user.is_authenticated and request.user.is_active:
+                request.session['userred'] = True
+
+        # context = {'name': obj.user.first_name, 'location': obj.location, 'age': obj.age,
+        #            'gender': obj.gender, 'room': obj.room.no}
+
+        return render(request, 'accounts/detail_view.html', context)
 
 
+@login_required()
 def room_all_view(request):
-    rooms = Room.objects.all()
-    roomdata = []
-    for x in rooms:
-        remains = x.capacity - x.present
-        y = {'no': x.no, 'type': x.room_type, 'present': x.present, 'remains': remains}
-        roomdata.append(y)
-    context = {'roomdata': roomdata}
-    return render(request, 'accounts/room_all.html', context)
+    if request.user.is_authenticated and request.user.is_active:
+        if 'userred' in request.session:
+            rooms = Room.objects.all()
+            roomdata = []
+            for x in rooms:
+                remains = x.capacity - x.present
+                y = {'no': x.no, 'type': x.room_type, 'present': x.present, 'remains': remains}
+                roomdata.append(y)
+            context = {'roomdata': roomdata}
+            return render(request, 'accounts/room_all.html', context)
+
+        else:
+            return render(request, 'accounts/testing.html')
 
 
+@login_required()
 def room_all_view_warden(request):
     rooms = Room.objects.all()
     roomdata = []
@@ -81,6 +97,7 @@ def room_all_view_warden(request):
     return render(request, 'accounts/room_all_warden.html', context)
 
 
+@login_required()
 def room_select(request, tag):
     current_user = request.user
     print(current_user)
@@ -102,6 +119,7 @@ def room_select(request, tag):
     return render(request, 'accounts/confirm.html', context)
 
 
+@login_required()
 def addroom(request):
     if request.method == 'POST':
         form = RoomCreationForm(request.POST)
@@ -116,6 +134,7 @@ def addroom(request):
     return render(request, 'accounts/add_room.html', context)
 
 
+@login_required()
 def room_details(request, tag):
     studs = UserProfile.objects.all()
     studdata = []

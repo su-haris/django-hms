@@ -11,7 +11,7 @@ urlpatterns = [
     # path('roomselect/', views.room_select, name='roomselect')
     path('roomselect/<str:tag>', views.room_select, name='roomselect'),
     path('roomstud/<str:tag>', views.room_details, name='roomdetails'),
-
+    path('warden', views.room_all_view_warden, name='wardenhome'),
     path('addroom/', views.addroom, name='addroom'),
     path('accounts/', include('django.contrib.auth.urls')),
 ]
