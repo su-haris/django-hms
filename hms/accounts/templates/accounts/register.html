@@ -1,6 +1,20 @@
-<form method="POST" action="{% url 'register' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    {{ profile_form.as_p }}
-    <input type="submit" value="Create Account">
-</form>
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+    <div class="w3-display-topleft w3-padding-large w3-xlarge">
+      HMS
+    </div>
+    <div style="padding-top: 30px"></div>
+    <div class="w3-small ">
+        <form method="POST" action="{% url 'register' %}">
+            {% csrf_token %}
+            <p>{{ form.as_table }}</p>
+            {{ profile_form.as_table }}
+            <input type="submit" value="Create Account">
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+

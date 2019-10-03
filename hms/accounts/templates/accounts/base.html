@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<title>HMS</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<style>
+  body,h1 {font-family: "Raleway", sans-serif}
+  body, html {height: 100%}
+  .bgimg {
+    background-image: url('{% static 'images/blue-back.jpg' %}');
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+  }
+  .button {
+    /*background-color: orange;*/ /* Green */
+    background-color: Transparent;
+    /*border: none;*/
+    border: 1px solid white;
+    color: white;
+    padding: 8px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    /*margin: 0px 1px;*/
+    cursor: pointer;
+  }
+
+</style>
+<body>
+
+  {% block content %}
+
+  {% endblock %}
+
+</body>
+</html>

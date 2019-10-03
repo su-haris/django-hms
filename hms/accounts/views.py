@@ -135,3 +135,7 @@ def room_details(request, tag):
     context = {'studdata': studdata, 'room': tag}
     print(context)
     return render(request, 'accounts/room_stud.html', context)
+
+
+def landing(request):
+    return render(request, 'accounts/landing.html')
