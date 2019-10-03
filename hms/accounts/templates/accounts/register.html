@@ -5,12 +5,12 @@
     <div class="w3-display-topleft w3-padding-large w3-xlarge">
       HMS
     </div>
-    <div style="padding-top: 30px"></div>
+    <div style="padding-top: 40px; padding-left: 20px;"></div>
     <div class="w3-small ">
         <form method="POST" action="{% url 'register' %}">
             {% csrf_token %}
-            <p>{{ form.as_table }}</p>
-            {{ profile_form.as_table }}
+            {{ form.username}}
+            {{ profile_form_p }}
             <input type="submit" value="Create Account">
         </form>
     </div>
