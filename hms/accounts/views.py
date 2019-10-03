@@ -70,8 +70,8 @@ def student_details_view(request):
 
 @login_required()
 def room_all_view(request):
-    if request.user.is_authenticated and request.user.is_active:
-        if 'userred' in request.session:
+    if 'userred' in request.session:
+            request.session['userred1'] = True
             rooms = Room.objects.all()
             roomdata = []
             for x in rooms:
@@ -81,8 +81,8 @@ def room_all_view(request):
             context = {'roomdata': roomdata}
             return render(request, 'accounts/room_all.html', context)
 
-        else:
-            return render(request, 'accounts/testing.html')
+    else:
+        return render(request, 'accounts/testing.html')
 
 
 @login_required()
@@ -99,6 +99,7 @@ def room_all_view_warden(request):
 
 @login_required()
 def room_select(request, tag):
+    # if 'userred1' in request.session:
     current_user = request.user
     print(current_user)
     obj = UserProfile.objects.get(user=current_user)
@@ -118,6 +119,9 @@ def room_select(request, tag):
     context = {'room': tag}
     return render(request, 'accounts/confirm.html', context)
 
+    # else:
+    #     return render(request, 'accounts/testing.html')
+
 
 @login_required()
 def addroom(request):
@@ -126,6 +130,7 @@ def addroom(request):
 
         if form.is_valid():
             room = form.save()
+            return student_details_view(request)
 
     else:
         form = RoomCreationForm()
@@ -157,4 +162,8 @@ def room_details(request, tag):
 
 
 def landing(request):
-    return render(request, 'accounts/landing.html')
+    if request.user.is_authenticated:
+        return student_details_view(request)
+
+    else:
+        return render(request, 'accounts/landing.html')

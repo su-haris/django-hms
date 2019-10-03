@@ -17,7 +17,7 @@
 
 
 
-    <form method="POST" action="{% url 'roomselect' y.no %}">
+    <form method="POST" action="{% url 'roomselect' y.no %}" >
             {% csrf_token %}
         {% if y.remains > 0 %}
             <input type="submit" id="{{y.no}}" value="Select Room">

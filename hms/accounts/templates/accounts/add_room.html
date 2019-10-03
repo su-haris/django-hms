@@ -1,6 +1,6 @@
-<form method="POST" action="{% url 'addroom' %}">
+<form method="POST" action="{% url 'addroom' %}" onsubmit="myButton.disabled = true; return true;" onclick="this.disabled = true;">
     {% csrf_token %}
     {{ form.as_p }}
 
-    <input type="submit" value="Create Room">
+    <input id="myButton" type="submit" value="Create Room">
 </form>

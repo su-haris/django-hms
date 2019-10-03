@@ -5,12 +5,64 @@
     <div class="w3-display-topleft w3-padding-large w3-xlarge">
       HMS
     </div>
-    <div style="padding-top: 40px; padding-left: 20px;"></div>
-    <div class="w3-small ">
-        <form method="POST" action="{% url 'register' %}">
+    <div style="padding-top: 50px; padding-left: 20px;"></div>
+    <div style="margin: auto;">
+        <form method="POST" action="{% url 'register' %}" onsubmit="myButton.disabled = true; return true;">
             {% csrf_token %}
-            {{ form.username}}
-            {{ profile_form_p }}
+        <table border="1">
+                 {{ form.as_table }}
+            {{ profile_form.as_table }}
+<!--            <tr>-->
+<!--               <td> First name	: </td>-->
+<!--               <td><input type="text" name="firstname"></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--               <td> Last name	:</td>-->
+<!--               <td> <input type="text" name="lastname"></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--               <td> Gender   	:</td>-->
+<!--               <td> <input type="radio" name="gender" value="male"> Male-->
+<!--                  <input type="radio" name="gender" value="female"> Female-->
+<!--               </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--               <td>    Address	: </td>-->
+<!--               <td>  <input type="text" name="address" ></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--               <td>    Languages	: </td>-->
+<!--               <td><input type="checkbox" name="lang1" value="English"> English-->
+<!--                  <input type="checkbox" name="lang2" value="Malayalam"> Malayalam-->
+<!--               </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>   Batch  : </td>-->
+<!--                <td>-->
+<!--                    <select>-->
+<!--                        <option value="cs">CSE</option>-->
+<!--                        <option value="it">IT</option>-->
+<!--                      </select>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--               <td>Mobile	: </td>-->
+<!--               <td> <input type="tel" name="mobile"  pattern="[0-9]{10}"></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--               <td>-->
+<!--                  Password	:-->
+<!--               </td>-->
+<!--               <td><input type="password" name="pass"></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--               <td><button type="button" >Submit</button>  <input type="reset" value="Reset"></td>-->
+<!--            </tr>-->
+
+      </table>
+<!--            {% csrf_token %}-->
+<!--            {{ form.username }}-->
+<!--            {{ profile_form_p }}-->
             <input type="submit" value="Create Account">
         </form>
     </div>
