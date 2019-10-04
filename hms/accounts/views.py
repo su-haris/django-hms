@@ -1,10 +1,11 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.db import transaction
 from django.shortcuts import render, redirect
 from .models import UserProfile, Room
 # Create your views here.
-from .forms import UserProfileForm, ExtendedUserCreationForm, RoomCreationForm
+from .forms import UserProfileForm, ExtendedUserCreationForm, RoomCreationForm, UserUpdateForm
 
 
 def register(request):
@@ -71,15 +72,15 @@ def student_details_view(request):
 @login_required()
 def room_all_view(request):
     if 'userred' in request.session:
-            request.session['userred1'] = True
-            rooms = Room.objects.all()
-            roomdata = []
-            for x in rooms:
-                remains = x.capacity - x.present
-                y = {'no': x.no, 'type': x.room_type, 'present': x.present, 'remains': remains}
-                roomdata.append(y)
-            context = {'roomdata': roomdata}
-            return render(request, 'accounts/room_all.html', context)
+        request.session['userred1'] = True
+        rooms = Room.objects.all()
+        roomdata = []
+        for x in rooms:
+            remains = x.capacity - x.present
+            y = {'no': x.no, 'type': x.room_type, 'present': x.present, 'remains': remains}
+            roomdata.append(y)
+        context = {'roomdata': roomdata}
+        return render(request, 'accounts/room_all.html', context)
 
     else:
         return render(request, 'accounts/testing.html')
@@ -99,7 +100,6 @@ def room_all_view_warden(request):
 
     else:
         return render(request, 'accounts/testing.html')
-
 
 
 @login_required()
@@ -172,3 +172,30 @@ def landing(request):
 
     else:
         return render(request, 'accounts/landing.html')
+
+
+@login_required
+def update(request):
+    if request.method == 'POST':
+        uname = request.POST['username']
+        fname = request.POST['first_name']
+        lname = request.POST['last_name']
+        email = request.POST['email']
+        user = User.objects.get(username=request.user)
+        user.username = uname
+        user.first_name = fname
+        user.last_name = lname
+        user.email = email
+        user.save()
+        return student_details_view(request)
+    else:
+        user = User.objects.get(username=request.user)
+        form = UserUpdateForm({
+            'username': user.username,
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'email': user.email,
+        })
+        return render(request, 'accounts/update.html', {
+            'form': form,
+        })

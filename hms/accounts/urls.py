@@ -14,4 +14,5 @@ urlpatterns = [
     path('warden', views.room_all_view_warden, name='wardenhome'),
     path('addroom/', views.addroom, name='addroom'),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('update/', views.update, name='update')
 ]

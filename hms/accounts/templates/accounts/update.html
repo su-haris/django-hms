@@ -7,14 +7,14 @@
     </div>
     <div style="padding-top: 50px; padding-left: 20px;"></div>
     <div style="margin: auto;">
-         <form method="POST" action="{% url 'addroom' %}" onsubmit="myButton.disabled = true; return true;" onclick="this.disabled = true;">
+        <form method="POST" action="{% url 'update' %}" onsubmit="myButton.disabled = true; return true;" onclick="this.disabled = true;">
             {% csrf_token %}
             <table border="1">
             {{ form.as_table }}
 
 
                 </table>
-            <input id="myButton" type="submit" value="Add Room">
+            <input id="myButton" type="submit" value="Update profile">
         </form>
 
 
@@ -41,11 +41,4 @@
 <!--    {{ form.as_p }}-->
 
 <!--    <input id="myButton" type="submit" value="Update profile">-->
-<!--</form>-->
-
-<!--<form method="POST" action="{% url 'addroom' %}" onsubmit="myButton.disabled = true; return true;" onclick="this.disabled = true;">-->
-<!--    {% csrf_token %}-->
-<!--    {{ form.as_p }}-->
-
-<!--    <input id="myButton" type="submit" value="Create Room">-->
 <!--</form>-->
