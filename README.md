@@ -7,17 +7,17 @@ The aim of the project is to build a hostel room management system which allows 
 
 
 ### Views
-Login Page
-Landing Page
-Profile View
-Room Confirm View
-Room View
-Selection Page
+* Login Page
+* Landing Page
+* Profile View
+* Room Confirm View
+* Room View
+* Selection Page
 
 
 ### Models
-Student: For holding student details
-Room: To hold room occupancy
+* Student: For holding student details
+* Room: To hold room occupancy
 
 
 ### Functions
