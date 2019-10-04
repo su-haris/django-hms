@@ -30,7 +30,7 @@ class ExtendedUserCreationForm(UserCreationForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('location', 'age', 'dob', 'gender')
+        fields = ('location', 'age', 'gender')
 
 
 class RoomCreationForm(forms.ModelForm):

@@ -87,14 +87,19 @@ def room_all_view(request):
 
 @login_required()
 def room_all_view_warden(request):
-    rooms = Room.objects.all()
-    roomdata = []
-    for x in rooms:
-        remains = x.capacity - x.present
-        y = {'no': x.no, 'type': x.room_type, 'present': x.present, 'remains': remains}
-        roomdata.append(y)
-    context = {'roomdata': roomdata}
-    return render(request, 'accounts/room_all_warden.html', context)
+    if request.user.groups.filter(name__in=['warden']).exists() == True:
+        rooms = Room.objects.all()
+        roomdata = []
+        for x in rooms:
+            remains = x.capacity - x.present
+            y = {'no': x.no, 'type': x.room_type, 'present': x.present, 'remains': remains}
+            roomdata.append(y)
+        context = {'roomdata': roomdata}
+        return render(request, 'accounts/room_all_warden.html', context)
+
+    else:
+        return render(request, 'accounts/testing.html')
+
 
 
 @login_required()
