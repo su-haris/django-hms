@@ -8,7 +8,7 @@ from django.db import models
 
 class Room(models.Model):
     no = models.CharField(max_length=5, default=None)
-
+    cover = models.ImageField(upload_to='images/')
     room_choice = [('S', 'Single Room'), ('D', 'Double Room'), ('T', 'Triple Room')]
     room_type = models.CharField(choices=room_choice, max_length=1, default=None)
     vacant = models.BooleanField(default=False)

@@ -77,8 +77,9 @@ def room_all_view(request):
         roomdata = []
         for x in rooms:
             remains = x.capacity - x.present
-            y = {'no': x.no, 'type': x.room_type, 'present': x.present, 'remains': remains}
+            y = {'no': x.no, 'type': x.room_type, 'present': x.present, 'remains': remains, 'cover': x.cover}
             roomdata.append(y)
+            print('hello', x.cover)
         context = {'roomdata': roomdata}
         return render(request, 'accounts/room_all.html', context)
 
@@ -93,8 +94,9 @@ def room_all_view_warden(request):
         roomdata = []
         for x in rooms:
             remains = x.capacity - x.present
-            y = {'no': x.no, 'type': x.room_type, 'present': x.present, 'remains': remains}
+            y = {'no': x.no, 'type': x.room_type, 'present': x.present, 'remains': remains, 'cover': x.cover}
             roomdata.append(y)
+            print(x.cover)
         context = {'roomdata': roomdata}
         return render(request, 'accounts/room_all_warden.html', context)
 
@@ -131,11 +133,12 @@ def room_select(request, tag):
 @login_required()
 def addroom(request):
     if request.method == 'POST':
-        form = RoomCreationForm(request.POST)
+        form = RoomCreationForm(request.POST, request.FILES)
 
         if form.is_valid():
             room = form.save()
             return student_details_view(request)
+
 
     else:
         form = RoomCreationForm()
