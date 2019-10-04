@@ -36,4 +36,4 @@ class UserProfileForm(forms.ModelForm):
 class RoomCreationForm(forms.ModelForm):
     class Meta:
         model = Room
-        fields = ('no', 'room_type', 'capacity', 'present')
+        fields = ('no', 'room_type', 'capacity')

@@ -13,7 +13,7 @@ class Room(models.Model):
     room_type = models.CharField(choices=room_choice, max_length=1, default=None)
     vacant = models.BooleanField(default=False)
     capacity = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(4)])
-    present = models.PositiveIntegerField(validators=[MaxValueValidator(4)])
+    present = models.PositiveIntegerField(validators=[MaxValueValidator(4)], default=0, blank=True, null=True)
 
     def __str__(self):
         return self.no
