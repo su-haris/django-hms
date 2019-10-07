@@ -102,6 +102,15 @@ def room_change_view(request):
     return render(request, 'accounts/change_allrooms.html', context)
 
 
+@login_required()
+def room_change_check(request):
+    current_user = request.user
+    try:
+        app = Approval.objects.get(requester__user__username=current_user)
+        print(app)
+        return render(request, 'accounts/room_notallowed.html')
+    except:
+        return room_change_view(request)
 
 
 @login_required()
@@ -214,7 +223,7 @@ def room_change(request, tag):
     # robj.save()
 
     context = {'room': tag}
-    return render(request, 'accounts/confirm.html', context)
+    return render(request, 'accounts/reqsent.html', context)
 
     # else:
     #     return render(request, 'accounts/testing.html')
