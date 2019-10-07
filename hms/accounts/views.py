@@ -167,7 +167,21 @@ def approve_confirm(request, tag):
         transaction.commit()
         return approve_all_view_warden(request)
 
+    else:
+        return render(request, 'accounts/testing.html')
 
+
+def approve_reject(request, tag):
+    if request.user.groups.filter(name__in=['warden']).exists() == True:
+
+        # app = Approval.objects.get(id=tag)
+        app = Approval.objects.filter(requester__user__username=tag).first()
+        app.delete()
+        transaction.commit()
+        return approve_all_view_warden(request)
+
+    else:
+        return render(request, 'accounts/testing.html')
 
 
 @login_required()

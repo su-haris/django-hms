@@ -21,14 +21,18 @@
 
 
 
-    <form method="POST" action="{% url 'appconfirm' y.user %}" >
+    <form method="POST" action="{% url 'appconfirm' y.user %}" onsubmit="myButton.disabled = true; return true;">
                         {% csrf_token %}
 
 
             <input type="submit" value="Approve">
     </form>
+        <form method="POST" action="{% url 'reject' y.user %}" onsubmit="myButton.disabled = true; return true;">
+                        {% csrf_token %}
 
 
+            <input type="submit" value="Reject">
+    </form>
     </div>
     <br>
 {% endfor %}

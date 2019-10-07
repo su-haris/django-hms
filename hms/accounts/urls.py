@@ -20,5 +20,6 @@ urlpatterns = [
     path('applist/', views.approve_all_view_warden, name='applist'),
     path('appconfirm/<str:tag>', views.approve_confirm, name='appconfirm'),
     path('roomcheck', views.room_change_check, name='roomcheck'),
+    path('reject/<str:tag>', views.approve_reject, name='reject'),
 
 ]
