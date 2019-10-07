@@ -1,0 +1,36 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+    <div class="w3-display-topleft w3-padding-large w3-xlarge">
+      HMS<br>
+        All Rooms
+    </div>
+    <div class="w3-display-topright w3-padding-large w3-xlarge">
+      <a href="{% url 'logout' %}">Logout</a><br>
+       <a href="{% url 'wardenhome' %}">All Rooms</a>
+    </div>
+    <div style="padding-top: 40px; padding-left: 20px;"></div>
+
+
+{% for y in appdata %}
+    <div style="border: 5px solid white; width:20%; margin: auto; text-align: center">
+    <h2>Old Room: {{y.old}}</h2>
+    <h2>New Room: {{y.new}} </h2>
+    <h3>Requested by: {{y.user}}</h3>
+
+
+
+    <form method="POST" action="{% url 'appconfirm' y.user %}" >
+                        {% csrf_token %}
+
+
+            <input type="submit" value="Approve">
+    </form>
+
+
+    </div>
+    <br>
+{% endfor %}
+    </div>
+    {% endblock %}

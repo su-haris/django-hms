@@ -22,6 +22,10 @@
     <form action="{% url 'rooms' %}">
         <input type="submit" value="Select Room">
     </form>
+{% else %}
+    <form action="{% url 'changeroom' %}">
+        <br><input type="submit" value="Change room">
+    </form>
 {% endif %}
         </div>
 </div>

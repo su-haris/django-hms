@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db import transaction
 from django.shortcuts import render, redirect
-from .models import UserProfile, Room
+from .models import UserProfile, Room, Approval
 # Create your views here.
 from .forms import UserProfileForm, ExtendedUserCreationForm, RoomCreationForm, UserUpdateForm
 
@@ -86,6 +86,23 @@ def room_all_view(request):
     else:
         return render(request, 'accounts/testing.html')
 
+@login_required()
+def room_change_view(request):
+    # request.session['userred1'] = True
+    rooms = Room.objects.all()
+    obj = UserProfile.objects.get(user=request.user)
+    roomdata = []
+    for x in rooms:
+        if x != obj.room:
+            remains = x.capacity - x.present
+            y = {'no': x.no, 'type': x.room_type, 'present': x.present, 'remains': remains, 'cover': x.cover}
+            roomdata.append(y)
+
+    context = {'roomdata': roomdata}
+    return render(request, 'accounts/change_allrooms.html', context)
+
+
+
 
 @login_required()
 def room_all_view_warden(request):
@@ -102,6 +119,46 @@ def room_all_view_warden(request):
 
     else:
         return render(request, 'accounts/testing.html')
+
+
+@login_required()
+def approve_all_view_warden(request):
+    if request.user.groups.filter(name__in=['warden']).exists() == True:
+        app = Approval.objects.all()
+        appdata = []
+        for x in app:
+            if x.is_approved == False:
+                y = {'old': x.old_room.no, 'new': x.new_room.no, 'user': x.requester}
+                appdata.append(y)
+                print(x)
+        context = {'appdata': appdata}
+        return render(request, 'accounts/approve_list.html', context)
+
+    else:
+        return render(request, 'accounts/testing.html')
+
+
+def approve_confirm(request, tag):
+    if request.user.groups.filter(name__in=['warden']).exists() == True:
+
+        # app = Approval.objects.get(id=tag)
+        app = Approval.objects.filter(requester__user__username=tag).first()
+        print('app is', app)
+        user = UserProfile.objects.get(user__username=tag)
+        oldroom = user.room
+        oldroom.present = oldroom.present - 1
+        newroom = app.new_room
+        newroom.present = newroom.present + 1
+        #Room additon problem
+        user.room = newroom
+        oldroom.save()
+        newroom.save()
+        user.save()
+        app.delete()
+        transaction.commit()
+        return approve_all_view_warden(request)
+
+
 
 
 @login_required()
@@ -129,6 +186,38 @@ def room_select(request, tag):
     # else:
     #     return render(request, 'accounts/testing.html')
 
+
+@login_required()
+def room_change(request, tag):
+    # if 'userred1' in request.session:
+    current_user = request.user
+    print(current_user)
+    obj = UserProfile.objects.get(user=current_user)
+    req = Approval()
+    req.requester = obj
+    req.old_room = obj.room
+
+    robj = Room.objects.get(no=tag)
+    req.new_room = robj
+    req.save()
+    transaction.commit()
+    # # print(obj.room.no)
+    #
+    #
+    # # print(word)
+    # robj = Room.objects.get(no=word)
+    # print(robj.no)
+    # robj.present = robj.present + 1
+    # obj.room = robj
+    # # print(obj.room.no)
+    # obj.save()
+    # robj.save()
+
+    context = {'room': tag}
+    return render(request, 'accounts/confirm.html', context)
+
+    # else:
+    #     return render(request, 'accounts/testing.html')
 
 @login_required()
 def addroom(request):

@@ -42,4 +42,11 @@ class UserProfile(models.Model):
         return self.user.username
 
 
+class Approval(models.Model):
+    old_room = models.ForeignKey(Room, on_delete=models.DO_NOTHING, blank=True, null=True, unique=False, related_name='old')
+    new_room = models.ForeignKey(Room, on_delete=models.DO_NOTHING, blank=True, null=True, unique=False, related_name='new')
+    requester = models.ForeignKey(UserProfile, on_delete=models.DO_NOTHING, blank=True, null=True, unique=False)
+    is_approved = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.requester.user.username
