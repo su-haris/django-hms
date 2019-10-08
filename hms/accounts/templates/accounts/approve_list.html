@@ -4,7 +4,7 @@
 <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
     <div class="w3-display-topleft w3-padding-large w3-xlarge">
       HMS<br>
-        All Rooms
+        Room Change Requests
     </div>
     <div class="w3-display-topright w3-padding-large w3-xlarge">
       <a href="{% url 'logout' %}">Logout</a><br>
@@ -15,6 +15,7 @@
 
 {% for y in appdata %}
     <div style="border: 5px solid white; width:20%; margin: auto; text-align: center">
+
     <h2>Old Room: {{y.old}}</h2>
     <h2>New Room: {{y.new}} </h2>
     <h3>Requested by: {{y.user}}</h3>
@@ -33,6 +34,10 @@
 
             <input type="submit" value="Reject">
     </form>
+    {% empty %}
+        <div class="w3-display-middle">
+        <h1 class="w3-jumbo w3-animate-top">No pending requests</h1>
+        </div>
     </div>
     <br>
 {% endfor %}
