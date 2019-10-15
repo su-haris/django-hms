@@ -6,6 +6,8 @@ from django.shortcuts import render, redirect
 from .models import UserProfile, Room, Approval
 # Create your views here.
 from .forms import UserProfileForm, ExtendedUserCreationForm, RoomCreationForm, UserUpdateForm
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 def register(request):
@@ -165,6 +167,13 @@ def approve_confirm(request, tag):
         user.save()
         app.delete()
         transaction.commit()
+
+        subject = 'Your request has been approved'
+        message = 'Your room change request has been approved by the warden. Login to see your new room.'
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [user.user.email]
+        send_mail(subject, message, email_from, recipient_list)
+
         return approve_all_view_warden(request)
 
     else:
@@ -176,8 +185,17 @@ def approve_reject(request, tag):
 
         # app = Approval.objects.get(id=tag)
         app = Approval.objects.filter(requester__user__username=tag).first()
+        user = UserProfile.objects.get(user__username=tag)
+
         app.delete()
         transaction.commit()
+
+        subject = 'Your request has been rejected'
+        message = 'Your room change request has been rejected by the warden.'
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [user.user.email]
+        send_mail(subject, message, email_from, recipient_list)
+
         return approve_all_view_warden(request)
 
     else:
