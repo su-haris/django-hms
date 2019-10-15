@@ -1,32 +1,145 @@
 {% extends 'accounts/base.html' %}
 
-{% block content %}
-<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+{% block side %}
+<a class="nav-link nav-social">Welcome {{ name }}</a>
+<!--<a class="nav-link nav-social" href="{% url 'update' %}">Update Profile</a>-->
+<a class="nav-link nav-social" href="{% url 'logout' %}">Logout</a>
 
-<div class="w3-display-topleft w3-padding-large w3-xlarge">
-      HMS
-    </div>
-    <div class="w3-display-topright w3-padding-large w3-xlarge">
-      Welcome {{ name }},<br><a href="{% url 'logout' %}">Logout</a><br>
-      <a href="{% url 'update' %}">Update Profile</a>
-    </div>
-<div style="padding-top: 40px; padding-left: 20px;"></div>
-    <div style="border: 5px solid white; width:40%; margin: auto; text-align: center">
-<h1>Student Info</h1>
-<h3> Name </h3> {{ name }}
-<h3> Location </h3> {{ location }}
-<h3> Age </h3> {{ age }}
-<h3> Gender </h3> {{ gender }}
-<h3> Room </h3> {{ room }}
-{% if room == 'Not Assigned' %}
-    <form action="{% url 'rooms' %}">
-        <input type="submit" value="Select Room">
-    </form>
-{% else %}
-    <form action="{% url 'roomcheck' %}">
-        <br><input type="submit" value="Change room">
-    </form>
-{% endif %}
-        </div>
-</div>
+
+
 {% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<div class="row">
+    <div class="col-md-4"></div>
+
+
+    <div class="col-sm-12 col-md-4 shadow px-3 py-4 m-3">
+        <div class="row">
+        <div class="col-sm-8">
+<!--            <p class="text-center">My Profile</p>-->
+            <h2>My Profile</h2>
+        </div>
+        <div class="col-sm-4">
+            <form action="{% url 'update' %}">
+                <button type="submit" class="btn btn-outline-secondary btn-sm"><i class="material-icons">edit</i></button>
+
+
+            </form>
+
+
+        </div>
+        </div>
+<!--        <div class="col-sm-12">-->
+<!--            {% load static %}-->
+<!--            <img src="{% static 'images/dp.png' %}" class="rounded-circle mx-auto d-block" height="32px" width="32px">-->
+<!--        </div>-->
+        <hr class="profilehr">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-1">
+                    <i class="material-icons">person</i>
+                </div>
+                <div class="col-sm-8">
+                    <p class="profiledetail">{{user}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-1">
+                    <i class="material-icons">email</i>
+                </div>
+                <div class="col-sm-8">
+                    <p class="profiledetail">{{email}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-1">
+                    <i class="material-icons">location_city</i>
+                </div>
+                <div class="col-sm-8">
+                    <p class="profiledetail">{{location}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-1">
+                    <i class="material-icons">emoji_people</i>
+                </div>
+                <div class="col-sm-8">
+                    <p class="profiledetail">{{age}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-1">
+                    <i class="material-icons">wc</i>
+                </div>
+                <div class="col-sm-8">
+                    <p class="profiledetail">{{gender}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-1">
+                    <i class="material-icons">airline_seat_individual_suite</i>
+                </div>
+                <div class="col-sm-8">
+                    <p class="profiledetail" >{{room}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-5">
+                    {% if room == 'Not Assigned' %}
+
+                            <form action="{% url 'rooms' %}">
+                            <button type="submit" class="btn btn-outline-secondary">Select Room</button>
+                             </form>
+
+                    {% else %}
+                        <form action="{% url 'roomcheck' %}">
+                            <button type="submit" class="btn btn-outline-secondary">Change Room</button>
+                            </form>
+<!--                            <button type="submit" class="btn btn-outline-secondary" onclick="location.href='{% url 'roomcheck' %}'">Change Room</button>-->
+
+                    {% endif %}
+
+                </div>
+                <div class="col-sm-5">
+                    <button type="button" class="btn btn-outline-secondary">Pay Fees</button>
+
+                </div>
+                <div class="col-sm-1"></div>
+
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+
+    <!--<div style="padding-top: 40px; padding-left: 20px;"></div>-->
+    <!--    <div style="border: 5px solid white; width:40%; margin: auto; text-align: center">-->
+    <!--<h1>Student Info</h1>-->
+    <!--<h3> Name </h3> {{ name }}-->
+    <!--<h3> Location </h3> {{ location }}-->
+    <!--<h3> Age </h3> {{ age }}-->
+    <!--<h3> Gender </h3> {{ gender }}-->
+    <!--<h3> Room </h3> {{ room }}-->
+    <!--{% if room == 'Not Assigned' %}-->
+    <!--    <form action="{% url 'rooms' %}">-->
+    <!--        <input type="submit" value="Select Room">-->
+    <!--    </form>-->
+    <!--{% else %}-->
+    <!--    <form action="{% url 'roomcheck' %}">-->
+    <!--        <br><input type="submit" value="Change room">-->
+    <!--    </form>-->
+    <!--{% endif %}-->
+    <!--        </div>-->
+    <!--</div>-->
+    {% endblock %}
+
+

@@ -58,10 +58,10 @@ def student_details_view(request):
 
         try:
             context = {'name': obj.user.first_name, 'location': obj.location, 'age': obj.age,
-                       'gender': obj.gender, 'room': obj.room.no}
+                       'gender': obj.gender, 'room': obj.room.no, 'email': current_user.email}
         except:
             context = {'name': obj.user.first_name, 'location': obj.location, 'age': obj.age,
-                       'gender': obj.gender, 'room': 'Not Assigned'}
+                       'gender': obj.gender, 'room': 'Not Assigned', 'email': current_user.email}
             if request.user.is_authenticated and request.user.is_active:
                 request.session['userred'] = True
 
