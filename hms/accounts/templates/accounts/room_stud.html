@@ -1,39 +1,52 @@
 {% extends 'accounts/base.html' %}
 
 {% block content %}
-<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
-
-<div class="w3-display-topleft w3-padding-large w3-xlarge">
-      HMS<br>
-    Room {{ room }}
-    </div>
-    <div class="w3-display-topright w3-padding-large w3-xlarge">
-      <a href="{% url 'wardenhome' %}">All Rooms</a><br>
-
-    </div>
-<div style="padding-top: 40px; padding-left: 20px;"></div>
-    <div style="border: 5px solid white; width:40%; margin: auto; text-align: center">
-{% for y in studdata %}
-    <h2>Username: {{y.username}}</h2>
-    <h3>Name: {{y.name}} </h3>
-
-    {% empty %}
-        Room is empty!
 
 
+<!--    <div class="w3-display-topright w3-padding-large w3-xlarge">-->
+<!--      <a href="{% url 'wardenhome' %}">All Rooms</a><br>-->
 
-{% endfor %}
+<!--    </div>-->
+<!--<div style="padding-top: 40px; padding-left: 20px;"></div>-->
+<!--    <div style="border: 5px solid white; width:40%; margin: auto; text-align: center">-->
+<div class="row" style="padding-top:10%">
+    {% for y in studdata %}
+    <div class="col-sm-4" style="padding-bottom: 5rem;">
+        <div class="card" style="width: 18rem;">
+            <div class="card-header">
+                <h5 class="card-title text-dark align-middle">{{y.name}}</h5>
+            </div>
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-dark">Branch will go here</h6>
+                <p class="card-text text-dark">Fees will go here.</p>
+                <a href="#" class="card-link text-dark">Card link</a>
+                <a href="#" class="card-link text-dark">Another link</a>
+            </div>
         </div>
+
+    </div>
+    {% empty %}
+    <div class="col-sm-12" style="padding-bottom: 5rem;">
+
+        <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+
+            <div class="w3-display-middle">
+                <h1 class="w3-jumbo w3-animate-top">Room is Empty!</h1>
+                <hr class="w3-border-grey" style="margin:auto;width:60%">
+                <p class="w3-large w3-center" style="text-align: center;">
+                    <!--         <h1>You have already given a change request</h1>-->
+
+                <h3>No inmates here</h3>
+                <a href="{% url 'student' %}">Go back</a>
+                </p>
+
+
+            </div>
+
+        </div>
+    </div>
+    {% endfor %}
 </div>
+
 {% endblock %}
 
-<!--<h1>Room {{ room }}</h1>-->
-<!--{% for y in studdata %}-->
-<!--    <h2>Username: {{y.username}}</h2>-->
-<!--    <h3>Name: {{y.name}} </h3>-->
-
-
-
-
-
-<!--{% endfor %}-->

@@ -1,47 +1,64 @@
 {% extends 'accounts/base.html' %}
 
+{% block side %}
+<!--<a class="nav-link nav-social">Welcome Warden</a><br>-->
+<!--<a class="nav-link nav-social" href="{% url 'update' %}">Update Profile</a>-->
+<a class="nav-link nav-social" href="{% url 'applist' %}">Approval List</a>
+<a class="nav-link nav-social" href="{% url 'addroom' %}">Add a room</a>
+
+<a class="nav-link nav-social" href="{% url 'logout' %}">Logout</a>
+
+
+{% endblock %}
+
 {% block content %}
-<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
-    <div class="w3-display-topleft w3-padding-large w3-xlarge">
-      HMS<br>
-        All Rooms
+
+
+<!--    <div class="w3-display-topright w3-padding-large w3-xlarge">-->
+<!--      <a href="{% url 'logout' %}">Logout</a><br>-->
+<!--       <a href="{% url 'addroom' %}">Add a room</a><br>-->
+<!--        <a href="{% url 'applist' %}">Approval List</a>-->
+
+<!--    </div>-->
+
+<div class="row" style="padding-top:10%;">
+    {% for y in roomdata %}
+    <div class="col-sm-4" style="padding-bottom: 5rem;">
+        <div class="card" style="width: 18rem;">
+            <div style="max-width: 100%; height: 12rem;">
+                <img src='{{ y.cover.url}}' class="card-img-top" alt="..." style="height:100%; max-width:100%;">
+            </div>
+            <div class="card-body">
+                <h4 class="card-title text-dark">Room No: {{y.no}}</h4>
+                <p class="card-text text-dark">Room Type: {{y.type}} <br>
+                    Occupied by: {{y.present}}
+                </p>
+                <!--                <p class="card-text text-secondary">-->
+                <!--                </p>-->
+
+                <form method="POST" action="{% url 'roomdetails' y.no %}"
+                      onsubmit="myButton.disabled = true; return true;">
+                    {% csrf_token %}
+
+                    <button type="submit" id="{{y.no}}" class="btn btn-outline-dark">View Inmates</button>
+
+
+                </form>
+
+
+            </div>
+        </div>
     </div>
-    <div class="w3-display-topright w3-padding-large w3-xlarge">
-      <a href="{% url 'logout' %}">Logout</a><br>
-       <a href="{% url 'addroom' %}">Add a room</a><br>
-        <a href="{% url 'applist' %}">Approval List</a>
 
-    </div>
-    <div style="padding-top: 40px; padding-left: 20px;"></div>
+    {% endfor %}
+</div>
 
-
-{% for y in roomdata %}
-    <div style="border: 5px solid white; width:20%; margin: auto; text-align: center">
-    <h2>Room No: {{y.no}}</h2>
-    <h3>Room Type: {{y.type}} </h3>
-    <h3>Occupied by: {{y.present}}</h3>
-    <img src='{{ y.cover.url}}' style="max-height:100%; max-width:100%;">
-
-
-    <form method="POST" action="{% url 'roomdetails' y.no %}">
-            {% csrf_token %}
-
-            <input type="submit" id="{{y.no}}" value="View Inmates">
-
-
-    </form>
-    </div>
-    <br>
-{% endfor %}
-    </div>
-    {% endblock %}
-
-<!--<h1>All Rooms</h1>-->
 <!--{% for y in roomdata %}-->
+<!--    <div style="border: 5px solid white; width:20%; margin: auto; text-align: center">-->
 <!--    <h2>Room No: {{y.no}}</h2>-->
 <!--    <h3>Room Type: {{y.type}} </h3>-->
 <!--    <h3>Occupied by: {{y.present}}</h3>-->
-
+<!--    <img src='{{ y.cover.url}}' style="max-height:100%; max-width:100%;">-->
 
 
 <!--    <form method="POST" action="{% url 'roomdetails' y.no %}">-->
@@ -51,4 +68,10 @@
 
 
 <!--    </form>-->
+<!--    </div>-->
+<!--    <br>-->
 <!--{% endfor %}-->
+
+{% endblock %}
+
+

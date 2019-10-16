@@ -13,22 +13,23 @@
     <div class="col-sm-4" style="padding-bottom: 5rem;">
         <div class="card" style="width: 18rem;">
             <div style="max-width: 100%; height: 12rem;">
-            <img src='{{ y.cover.url}}' class="card-img-top" alt="..." style="height:100%; max-width:100%;">
+                <img src='{{ y.cover.url}}' class="card-img-top" alt="..." style="height:100%; max-width:100%;">
             </div>
             <div class="card-body">
                 <h4 class="card-title text-dark">Room No: {{y.no}}</h4>
                 <p class="card-text text-dark">Room Type: {{y.type}} <br>
                     Occupied by: {{y.present}}
                 </p>
-<!--                <p class="card-text text-secondary">-->
-<!--                </p>-->
+                <!--                <p class="card-text text-secondary">-->
+                <!--                </p>-->
 
-                <form method="POST" action="{% url 'roomchangeap' y.no %}"  onsubmit="myButton.disabled = true; return true;">
-                        {% csrf_token %}
+                <form method="POST" action="{% url 'roomchangeap' y.no %}"
+                      onsubmit="myButton.disabled = true; return true;">
+                    {% csrf_token %}
                     {% if y.remains > 0 %}
-                        <button type="submit" class="btn btn-outline-dark">Select Room</button>
+                    <button type="submit" class="btn btn-outline-dark">Select Room</button>
                     {% else %}
-                        <h3 style="color: red;">Room Full</h3>
+                    <h3 style="color: red;">Room Full</h3>
                     {% endif %}
 
                 </form>
@@ -38,25 +39,7 @@
         </div>
     </div>
 
-<!--    <div style="border: 5px solid white; width:20%; margin: auto; text-align: center">-->
-<!--    <h2>Room No: {{y.no}}</h2>-->
-<!--    <h3>Room Type: {{y.type}} </h3>-->
-<!--    <h3>Occupied by: {{y.present}}</h3>-->
-<!--    <img src='{{ y.cover.url}}' style="max-height:100%; max-width:100%;">-->
-
-
-<!--    <form method="POST" action="{% url 'roomchangeap' y.no %}"  onsubmit="myButton.disabled = true; return true;">-->
-<!--            {% csrf_token %}-->
-<!--        {% if y.remains > 0 %}-->
-<!--            <input type="submit" id="{{y.no}}" value="Select Room">-->
-<!--        {% else %}-->
-<!--            <h3 style="color: red;">Room Full</h3>-->
-<!--        {% endif %}-->
-
-<!--    </form>-->
+    {% endfor %}
+</div>
 <!--    </div>-->
-
-{% endfor %}
-    </div>
-<!--    </div>-->
-    {% endblock %}
+{% endblock %}

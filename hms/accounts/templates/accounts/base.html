@@ -1,12 +1,8 @@
-
-
-
-
 <!DOCTYPE html>
 {% load static %}
 
 <html lang="en-US">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,67 +12,47 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
     <link href="{%static 'bootstrap/css/font-awesome.min.css' %}" rel="stylesheet">
     <link href="{%static 'bootstrap/styles/main.css' %}" rel="stylesheet">
-  </head>
-  <body id="top"><div class="site-wrapper">
-  <div class="site-wrapper-inner">
-    <div class="cover-container">
-      <div class="masthead clearfix">
-        <div class="inner">
-          <h3 class="masthead-brand">HMS</h3>
-          <nav class="nav nav-masthead">
-<!--            <a class="nav-link nav-social" href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>-->
-<!--            <a class="nav-link nav-social" href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>-->
-<!--            <a class="nav-link nav-social" href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>-->
-<!--            <a class="nav-link nav-social" href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>-->
-             {% block side %}
+</head>
+<body id="top">
+<div class="site-wrapper">
+    <div class="site-wrapper-inner">
+        <div class="cover-container">
+            <div class="masthead clearfix">
+                <div class="inner">
+                    <h3 class="masthead-brand">HMS</h3>
+                    <nav class="nav nav-masthead">
+                        <!--            <a class="nav-link nav-social" href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>-->
+                        <!--            <a class="nav-link nav-social" href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>-->
+                        <!--            <a class="nav-link nav-social" href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>-->
+                        <!--            <a class="nav-link nav-social" href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>-->
+                        {% block side %}
 
+
+                        {% endblock %}
+                    </nav>
+                </div>
+            </div>
+            <br>
+            {% block content %}
 
 
             {% endblock %}
-          </nav>
-        </div>
-      </div><br>
-      {% block content %}
+            <!--            <div class="mastfoot">-->
+            <!--                <div class="inner">-->
+            <!--                    <p>&copy; 2019 HMS </p>-->
+            <!--                </div>-->
+            <!--            </div>-->
 
 
-
-      {% endblock %}
-      <div class="mastfoot">
-        <div class="inner">
-          <p>&copy; 2019 HMS </p>
-        </div>
-      </div>
-
-
-
-      <div class="modal fade" id="subscribeModal" tabindex="-1" role="dialog" aria-labelledby="subscribeModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="subscribeModalLabel">Get Notified on Launch:</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form>
-                <div class="form-group">
-                  <label for="recipient-name" class="form-control-label">Enter you e-mail to get notified when we launch</label>
-                  <input type="text" class="form-control" id="recipient-name" placeholder="your-name@example.com">
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default">Subscribe</button>
-            </div>
-          </div>
         </div>
     </div>
-  </div>
 </div>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-    <script src="{%static 'bootstrap/scripts/main.js' %}"></script>
-  </body>
+<footer class="footer" style="background-color: rgba(0,0,0,.5);">
+    <span class="text-light">&copy; 2019 HMS </span>
+</footer>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+<script src="{%static 'bootstrap/scripts/main.js' %}"></script>
+</body>
 </html>

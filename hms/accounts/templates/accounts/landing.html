@@ -3,10 +3,15 @@
 {% block content %}
 
 <div class="inner cover">
-        <h1 class="cover-heading">Hostel Management System</h1>
-<!--         <p class="lead cover-copy">Hold tight as we get our working robots together and produce the most astonishing product ever.</p>
- -->        <p class="lead"><a href="{% url 'login' %}"><button type="button" class="btn btn-lg btn-default btn-notify">Sign In</button></a></p>
-    <p class="lead"> <a href="{% url 'register' %}"><button type="button" class="btn btn-lg btn-default btn-notify">Sign Up</button></a></p>
-      </div>
+    <h1 class="cover-heading">Hostel Management System</h1>
+    <!--         <p class="lead cover-copy">Hold tight as we get our working robots together and produce the most astonishing product ever.</p>
+     -->
+    <p class="lead"><a href="{% url 'login' %}">
+        <button type="button" class="btn btn-lg btn-default btn-notify">Sign In</button>
+    </a></p>
+    <p class="lead"><a href="{% url 'register' %}">
+        <button type="button" class="btn btn-lg btn-default btn-notify">Sign Up</button>
+    </a></p>
+</div>
 
 {% endblock %}

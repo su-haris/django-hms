@@ -3,31 +3,31 @@
 {% block content %}
 <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
     <div class="w3-display-topleft w3-padding-large w3-xlarge">
-      HMS<br>
+        HMS<br>
         All Rooms
     </div>
     <div style="padding-top: 40px; padding-left: 20px;"></div>
 
 
-{% for y in roomdata %}
+    {% for y in roomdata %}
     <div style="border: 5px solid white; width:20%; margin: auto; text-align: center">
-    <h2>Room No: {{y.no}}</h2>
-    <h3>Room Type: {{y.type}} </h3>
-    <h3>Occupied by: {{y.present}}</h3>
-    <img src='{{ y.cover.url}}' style="max-height:100%; max-width:100%;">
+        <h2>Room No: {{y.no}}</h2>
+        <h3>Room Type: {{y.type}} </h3>
+        <h3>Occupied by: {{y.present}}</h3>
+        <img src='{{ y.cover.url}}' style="max-height:100%; max-width:100%;">
 
 
-    <form method="POST" action="{% url 'roomselect' y.no %}" >
+        <form method="POST" action="{% url 'roomselect' y.no %}">
             {% csrf_token %}
-        {% if y.remains > 0 %}
+            {% if y.remains > 0 %}
             <input type="submit" id="{{y.no}}" value="Select Room">
-        {% else %}
+            {% else %}
             <h3 style="color: red;">Room Full</h3>
-        {% endif %}
+            {% endif %}
 
-    </form>
+        </form>
     </div>
     <br>
-{% endfor %}
-    </div>
-    {% endblock %}
+    {% endfor %}
+</div>
+{% endblock %}

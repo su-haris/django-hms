@@ -6,7 +6,6 @@
 <a class="nav-link nav-social" href="{% url 'logout' %}">Logout</a>
 
 
-
 {% endblock %}
 
 {% block content %}
@@ -18,24 +17,25 @@
 
     <div class="col-sm-12 col-md-4 shadow px-3 py-4 m-3">
         <div class="row">
-        <div class="col-sm-8">
-<!--            <p class="text-center">My Profile</p>-->
-            <h2>My Profile</h2>
+            <div class="col-sm-8">
+                <!--            <p class="text-center">My Profile</p>-->
+                <h2>My Profile</h2>
+            </div>
+            <div class="col-sm-4">
+                <form action="{% url 'update' %}">
+                    <button type="submit" class="btn btn-outline-secondary btn-sm"><i class="material-icons">edit</i>
+                    </button>
+
+
+                </form>
+
+
+            </div>
         </div>
-        <div class="col-sm-4">
-            <form action="{% url 'update' %}">
-                <button type="submit" class="btn btn-outline-secondary btn-sm"><i class="material-icons">edit</i></button>
-
-
-            </form>
-
-
-        </div>
-        </div>
-<!--        <div class="col-sm-12">-->
-<!--            {% load static %}-->
-<!--            <img src="{% static 'images/dp.png' %}" class="rounded-circle mx-auto d-block" height="32px" width="32px">-->
-<!--        </div>-->
+        <!--        <div class="col-sm-12">-->
+        <!--            {% load static %}-->
+        <!--            <img src="{% static 'images/dp.png' %}" class="rounded-circle mx-auto d-block" height="32px" width="32px">-->
+        <!--        </div>-->
         <hr class="profilehr">
         <div class="col-sm-12">
             <div class="row">
@@ -89,7 +89,7 @@
                     <i class="material-icons">airline_seat_individual_suite</i>
                 </div>
                 <div class="col-sm-8">
-                    <p class="profiledetail" >{{room}}</p>
+                    <p class="profiledetail">{{room}}</p>
                 </div>
             </div>
             <div class="row">
@@ -97,15 +97,15 @@
                 <div class="col-sm-5">
                     {% if room == 'Not Assigned' %}
 
-                            <form action="{% url 'rooms' %}">
-                            <button type="submit" class="btn btn-outline-secondary">Select Room</button>
-                             </form>
+                    <form action="{% url 'rooms' %}">
+                        <button type="submit" class="btn btn-outline-secondary">Select Room</button>
+                    </form>
 
                     {% else %}
-                        <form action="{% url 'roomcheck' %}">
-                            <button type="submit" class="btn btn-outline-secondary">Change Room</button>
-                            </form>
-<!--                            <button type="submit" class="btn btn-outline-secondary" onclick="location.href='{% url 'roomcheck' %}'">Change Room</button>-->
+                    <form action="{% url 'roomcheck' %}">
+                        <button type="submit" class="btn btn-outline-secondary">Change Room</button>
+                    </form>
+                    <!--                            <button type="submit" class="btn btn-outline-secondary" onclick="location.href='{% url 'roomcheck' %}'">Change Room</button>-->
 
                     {% endif %}
 
