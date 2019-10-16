@@ -1,45 +1,83 @@
 <!DOCTYPE html>
-<html>
 {% load static %}
-<title>HMS</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<style>
-  body,h1 {font-family: "Raleway", sans-serif}
-  body, html {height: 100%}
-  .bgimg {
-    background-image: url('{% static 'images/blue-back.jpg' %}');
-    min-height: 100%;
-    background-position: center;
-    background-size: cover;
-  }
-  .button {
-    /*background-color: orange;*/ /* Green */
-    background-color: Transparent;
-    /*border: none;*/
-    border: 1px solid white;
-    color: white;
-    padding: 8px 25px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 18px;
-    /*margin: 0px 1px;*/
-    cursor: pointer;
-  }
 
-</style>
-<body>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HMS</title>
+    <meta name="description" content="Demo of A Free Coming Soon Bootstrap 4 Template by TemplateFlip.com."/>
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{%static 'bootstrap/css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{%static 'bootstrap/styles/main.css' %}" rel="stylesheet">
+</head>
 
-  {% block content %}
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: rgba(0,0,0,.6);">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'student' %}"><strong>HMS</strong></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+         <ul class="nav  justify-content-end">
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link" href="#">Home</a>-->
+<!--          </li>-->
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link" href="#">Link</a>-->
+<!--          </li>-->
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link" href="#">Profile</a>-->
+<!--          </li>-->
+            {% block side %}
 
-  {% endblock %}
+             {% endblock %}
+        </ul>
 
-<div class="w3-display-bottomright w3-padding-large">
-  <div style="color: white;">© HMS 2019</div>
     </div>
-  </div>
+  </nav>
+</header>
+<body id="top">
+
+<div class="site-wrapper">
+    <div class="site-wrapper-inner">
+        <div class="cover-container">
+            <div class="masthead clearfix">
+<!--                <div class="inner">-->
+<!--                    <h3 class="masthead-brand">HMS</h3>-->
+<!--                    <nav class="nav nav-masthead">-->
+<!--                        &lt;!&ndash;            <a class="nav-link nav-social" href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>&ndash;&gt;-->
+<!--                        &lt;!&ndash;            <a class="nav-link nav-social" href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>&ndash;&gt;-->
+<!--                        &lt;!&ndash;            <a class="nav-link nav-social" href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>&ndash;&gt;-->
+<!--                        &lt;!&ndash;            <a class="nav-link nav-social" href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>&ndash;&gt;-->
+
+<!--                    </nav>-->
+<!--                </div>-->
+            </div>
+            <br>
+            {% block content %}
+
+
+            {% endblock %}
+            <!--            <div class="mastfoot">-->
+            <!--                <div class="inner">-->
+            <!--                    <p>&copy; 2019 HMS </p>-->
+            <!--                </div>-->
+            <!--            </div>-->
+
+
+        </div>
+    </div>
+</div>
+<footer class="footer" style="background-color: rgba(0,0,0,.6);">
+    <span class="text-light">&copy; 2019 HMS </span>
+</footer>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+<script src="{%static 'bootstrap/scripts/main.js' %}"></script>
 </body>
 </html>

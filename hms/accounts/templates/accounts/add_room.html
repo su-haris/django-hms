@@ -3,34 +3,34 @@
 {% block content %}
 <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
     <div class="w3-display-topleft w3-padding-large w3-xlarge">
-      HMS
+        HMS
     </div>
     <div style="padding-top: 50px; padding-left: 20px;"></div>
     <div style="margin: auto;">
-         <form method="POST" action="{% url 'addroom' %}" onsubmit="myButton.disabled = true; return true;" onclick="this.disabled = true;" enctype="multipart/form-data">
+        <form method="POST" action="{% url 'addroom' %}" onsubmit="myButton.disabled = true; return true;"
+              onclick="this.disabled = true;" enctype="multipart/form-data">
             {% csrf_token %}
             <table border="1">
-            {{ form.as_table }}
+                {{ form.as_table }}
 
 
-                </table>
+            </table>
             <input id="myButton" type="submit" value="Add Room">
         </form>
 
 
+        <!--        <form method="POST" action="{% url 'register' %}" onsubmit="myButton.disabled = true; return true;">-->
+        <!--            {% csrf_token %}-->
+        <!--        <table border="1">-->
+        <!--                 {{ form.as_table }}-->
+        <!--            {{ profile_form.as_table }}-->
 
-<!--        <form method="POST" action="{% url 'register' %}" onsubmit="myButton.disabled = true; return true;">-->
-<!--            {% csrf_token %}-->
-<!--        <table border="1">-->
-<!--                 {{ form.as_table }}-->
-<!--            {{ profile_form.as_table }}-->
-
-<!--        </table>-->
-<!--&lt;!&ndash;            {% csrf_token %}&ndash;&gt;-->
-<!--&lt;!&ndash;            {{ form.username }}&ndash;&gt;-->
-<!--&lt;!&ndash;            {{ profile_form_p }}&ndash;&gt;-->
-<!--            <input type="submit" value="Create Account">-->
-<!--        </form>-->
+        <!--        </table>-->
+        <!--&lt;!&ndash;            {% csrf_token %}&ndash;&gt;-->
+        <!--&lt;!&ndash;            {{ form.username }}&ndash;&gt;-->
+        <!--&lt;!&ndash;            {{ profile_form_p }}&ndash;&gt;-->
+        <!--            <input type="submit" value="Create Account">-->
+        <!--        </form>-->
     </div>
 </div>
 {% endblock %}
