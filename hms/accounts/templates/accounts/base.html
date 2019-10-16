@@ -13,24 +13,49 @@
     <link href="{%static 'bootstrap/css/font-awesome.min.css' %}" rel="stylesheet">
     <link href="{%static 'bootstrap/styles/main.css' %}" rel="stylesheet">
 </head>
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: rgba(0,0,0,.6);">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'student' %}"><strong>HMS</strong></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+         <ul class="nav  justify-content-end">
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link" href="#">Home</a>-->
+<!--          </li>-->
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link" href="#">Link</a>-->
+<!--          </li>-->
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link" href="#">Profile</a>-->
+<!--          </li>-->
+            {% block side %}
+
+             {% endblock %}
+        </ul>
+
+    </div>
+  </nav>
+</header>
 <body id="top">
+
 <div class="site-wrapper">
     <div class="site-wrapper-inner">
         <div class="cover-container">
             <div class="masthead clearfix">
-                <div class="inner">
-                    <h3 class="masthead-brand">HMS</h3>
-                    <nav class="nav nav-masthead">
-                        <!--            <a class="nav-link nav-social" href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>-->
-                        <!--            <a class="nav-link nav-social" href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>-->
-                        <!--            <a class="nav-link nav-social" href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>-->
-                        <!--            <a class="nav-link nav-social" href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>-->
-                        {% block side %}
+<!--                <div class="inner">-->
+<!--                    <h3 class="masthead-brand">HMS</h3>-->
+<!--                    <nav class="nav nav-masthead">-->
+<!--                        &lt;!&ndash;            <a class="nav-link nav-social" href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>&ndash;&gt;-->
+<!--                        &lt;!&ndash;            <a class="nav-link nav-social" href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>&ndash;&gt;-->
+<!--                        &lt;!&ndash;            <a class="nav-link nav-social" href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>&ndash;&gt;-->
+<!--                        &lt;!&ndash;            <a class="nav-link nav-social" href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>&ndash;&gt;-->
 
-
-                        {% endblock %}
-                    </nav>
-                </div>
+<!--                    </nav>-->
+<!--                </div>-->
             </div>
             <br>
             {% block content %}
@@ -47,7 +72,7 @@
         </div>
     </div>
 </div>
-<footer class="footer" style="background-color: rgba(0,0,0,.5);">
+<footer class="footer" style="background-color: rgba(0,0,0,.6);">
     <span class="text-light">&copy; 2019 HMS </span>
 </footer>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

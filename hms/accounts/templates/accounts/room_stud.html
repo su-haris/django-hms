@@ -1,4 +1,15 @@
 {% extends 'accounts/base.html' %}
+{% block side %}
+<!--<a class="nav-link nav-social">Welcome Warden</a><br>-->
+<!--<a class="nav-link nav-social" href="{% url 'update' %}">Update Profile</a>-->
+<a class="nav-link nav-social" href="{% url 'applist' %}">Approval List</a>
+<a class="nav-link nav-social" href="{% url 'addroom' %}">Add a room</a>
+
+<a class="nav-link nav-social" href="{% url 'logout' %}">Logout</a>
+
+
+{% endblock %}
+
 
 {% block content %}
 
