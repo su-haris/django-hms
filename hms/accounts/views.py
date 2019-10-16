@@ -14,8 +14,9 @@ def register(request):
     if request.method == 'POST':
         form = ExtendedUserCreationForm(request.POST)
         profile_form = UserProfileForm(request.POST)
-
+        print("sdfs")
         if form.is_valid() and profile_form.is_valid():
+            print("sdfs2")
             user = form.save()
 
             profile = profile_form.save(commit=False)

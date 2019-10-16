@@ -36,7 +36,16 @@ class UserProfile(models.Model):
         default=None,
         null=True
     )
+    course_choices = [('CSE', 'CSE'), ('IT', 'IT'), ('ECE', 'ECE')]
+    course = models.CharField(
+        choices=course_choices,
+        max_length=3,
+        default=None,
+        null=True
+    )
     room_allotted = models.BooleanField(default=False)
+    fees_paid = models.BooleanField(default=False)
+
 
     def __str__(self):
         return self.user.username

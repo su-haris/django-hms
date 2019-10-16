@@ -1,72 +1,146 @@
 {% extends 'accounts/base.html' %}
 
 {% block content %}
-<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
-    <div class="w3-display-topleft w3-padding-large w3-xlarge">
-        HMS
-    </div>
-    <div style="padding-top: 50px; padding-left: 20px;"></div>
-    <div style="margin: auto;">
-        <form method="POST" action="{% url 'register' %}" onsubmit="myButton.disabled = true; return true;">
-            {% csrf_token %}
-            <table border="1">
-                {{ form.as_table }}
-                {{ profile_form.as_table }}
-                <!--            <tr>-->
-                <!--               <td> First name	: </td>-->
-                <!--               <td><input type="text" name="firstname"></td>-->
-                <!--            </tr>-->
-                <!--            <tr>-->
-                <!--               <td> Last name	:</td>-->
-                <!--               <td> <input type="text" name="lastname"></td>-->
-                <!--            </tr>-->
-                <!--            <tr>-->
-                <!--               <td> Gender   	:</td>-->
-                <!--               <td> <input type="radio" name="gender" value="male"> Male-->
-                <!--                  <input type="radio" name="gender" value="female"> Female-->
-                <!--               </td>-->
-                <!--            </tr>-->
-                <!--            <tr>-->
-                <!--               <td>    Address	: </td>-->
-                <!--               <td>  <input type="text" name="address" ></td>-->
-                <!--            </tr>-->
-                <!--            <tr>-->
-                <!--               <td>    Languages	: </td>-->
-                <!--               <td><input type="checkbox" name="lang1" value="English"> English-->
-                <!--                  <input type="checkbox" name="lang2" value="Malayalam"> Malayalam-->
-                <!--               </td>-->
-                <!--            </tr>-->
-                <!--            <tr>-->
-                <!--                <td>   Batch  : </td>-->
-                <!--                <td>-->
-                <!--                    <select>-->
-                <!--                        <option value="cs">CSE</option>-->
-                <!--                        <option value="it">IT</option>-->
-                <!--                      </select>-->
-                <!--                </td>-->
-                <!--            </tr>-->
-                <!--            <tr>-->
-                <!--               <td>Mobile	: </td>-->
-                <!--               <td> <input type="tel" name="mobile"  pattern="[0-9]{10}"></td>-->
-                <!--            </tr>-->
-                <!--            <tr>-->
-                <!--               <td>-->
-                <!--                  Password	:-->
-                <!--               </td>-->
-                <!--               <td><input type="password" name="pass"></td>-->
-                <!--            </tr>-->
-                <!--            <tr>-->
-                <!--               <td><button type="button" >Submit</button>  <input type="reset" value="Reset"></td>-->
-                <!--            </tr>-->
+<div class="row">
+    <div class="col-sm-3">
 
-            </table>
-            <!--            {% csrf_token %}-->
-            <!--            {{ form.username }}-->
-            <!--            {{ profile_form_p }}-->
-            <input type="submit" value="Create Account">
-        </form>
     </div>
+    <div class="col-sm-6">
+        <!-- Default form register -->
+
+        <form method="POST" class="text-center border border-light p-5" action="{% url 'register' %}"
+              onsubmit="myButton.disabled = true; return true;">
+            {% csrf_token %}
+
+            <p class="h4 mb-4">Sign up</p>
+
+            <!-- Username -->
+            <input type="text" id="username" name="username" class="form-control mb-4" placeholder="Username">
+
+            <div class="form-row mb-4">
+                <div class="col">
+                    <!-- First name -->
+                    <input type="text" id="defaultRegisterFormFirstName" name="first_name" class="form-control"
+                           placeholder="First name">
+                </div>
+                <div class="col">
+                    <!-- Last name -->
+                    <input type="text" id="defaultRegisterFormLastName" name="last_name" class="form-control"
+                           placeholder="Last name">
+                </div>
+            </div>
+
+            <!-- E-mail -->
+            <input type="email" id="defaultRegisterFormEmail" name="email" class="form-control mb-4"
+                   placeholder="E-mail">
+
+
+            <!-- Password -->
+            <input type="password" id="defaultRegisterFormPassword" name="password1" class="form-control mb-4"
+                   placeholder="Password">
+
+            <!-- Password -->
+            <input type="password" id="defaultRegisterFormPassword1" name="password2" class="form-control mb-4"
+                   placeholder=" Confirm Password">
+
+
+            <input type="text" id="location" class="form-control mb-4" name="location" placeholder="Location">
+
+            <input type="number" id="age" class="form-control mb-4" name="age" min="0" placeholder="Age">
+
+            <select class="form-control mb-4" name="course">
+                <option value="CSE">CSE</option>
+                <option value="IT">IT</option>
+                <option value="IT">ECE</option>
+
+            </select>
+
+            <select class="form-control mb-4" name="gender">
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+
+
+            </select>
+
+
+            <!-- Sign up button -->
+            <button class="btn btn-info my-4 btn-block" type="submit">Sign Up</button>
+
+            <!-- Social register -->
+            <p>or</p>
+
+            <button class="loginBtn loginBtn--google">
+                Sign In with Google
+            </button>
+
+
+            <hr>
+
+            <!-- Terms of service -->
+            <p>Have An Account?</p>
+            <a href="" target="_blank">Login here</a>
+
+        </form>
+        <!-- Default form register -->
+    </div>
+    <div class="col-sm-3">
+        {% if form.errors %}
+        {% for field in form %}
+        {% for error in field.errors %}
+        <div class="alert alert-danger">
+            <small>({{ field.label }})</small>
+            <small>{{ error|escape }}</small>
+        </div>
+        {% endfor %}
+        {% endfor %}
+
+        {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <small>({{ field.label }})</small>
+            <small>{{ error|escape }}</small>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        {% if profile_form.errors %}
+        {% for field in profile_form %}
+        {% for error in field.errors %}
+        <div class="alert alert-danger">
+            <small>({{ field.label }})</small>
+            <small>{{ error|escape }}</small>
+        </div>
+        {% endfor %}
+        {% endfor %}
+
+        {% for error in profile_form.non_field_errors %}
+        <div class="alert alert-danger">
+            <small>({{ field.label }})</small>
+            <small>{{ error|escape }}</small>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
 </div>
+<br>
+<!--<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">-->
+<!--    <div class="w3-display-topleft w3-padding-large w3-xlarge">-->
+<!--        HMS-->
+<!--    </div>-->
+<!--    <div style="padding-top: 50px; padding-left: 20px;"></div>-->
+<!--    <div style="margin: auto;">-->
+<!--        <form method="POST" action="{% url 'register' %}" onsubmit="myButton.disabled = true; return true;">-->
+<!--            {% csrf_token %}-->
+<!--            <table border="1">-->
+<!--                {{ form.as_table }}-->
+<!--                {{ profile_form.as_table }}-->
+<!--                -->
+<!--            </table>-->
+<!--           -->
+<!--            <input type="submit" value="Create Account">-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</div>-->
 {% endblock %}
 
 
