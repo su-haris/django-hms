@@ -21,5 +21,6 @@ urlpatterns = [
     path('appconfirm/<str:tag>', views.approve_confirm, name='appconfirm'),
     path('roomcheck', views.room_change_check, name='roomcheck'),
     path('reject/<str:tag>', views.approve_reject, name='reject'),
+    path('history', views.fee_student_history, name='history'),
 
 ]

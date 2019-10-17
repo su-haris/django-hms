@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db import transaction
 from django.shortcuts import render, redirect
-from .models import UserProfile, Room, Approval
+from .models import UserProfile, Room, Approval, Fees
 # Create your views here.
 from .forms import UserProfileForm, ExtendedUserCreationForm, RoomCreationForm, UserUpdateForm, UserProfileUpdateForm
 from django.core.mail import send_mail
@@ -16,7 +16,6 @@ def register(request):
         profile_form = UserProfileForm(request.POST)
 
         if form.is_valid() and profile_form.is_valid():
-
             user = form.save()
 
             profile = profile_form.save(commit=False)
@@ -314,24 +313,36 @@ def landing(request):
 @login_required
 def update(request):
     if request.method == 'POST':
-        uname = request.POST['username']
-        fname = request.POST['first_name']
-        lname = request.POST['last_name']
-        email = request.POST['email']
-        loc = request.POST['location']
-        age1 = request.POST['age']
-        user = User.objects.get(username=request.user)
-        profile = UserProfile.objects.get(user=user)
-        user.username = uname
-        user.first_name = fname
-        user.last_name = lname
-        user.email = email
-        user.save()
-        profile.location = loc
-        profile.age = age1
-        profile.save()
-        transaction.commit()
-        return redirect('student')
+        print('into first post')
+        form = UserUpdateForm(request.POST)
+        profile_form = UserProfileUpdateForm(request.POST)
+
+        if form.is_valid() and profile_form.is_valid():
+            print('into validation')
+            uname = request.POST['username']
+            fname = request.POST['first_name']
+            lname = request.POST['last_name']
+            email = request.POST['email']
+            loc = request.POST['location']
+            age1 = request.POST['age']
+            user = User.objects.get(username=request.user)
+            profile = UserProfile.objects.get(user=user)
+            user.username = uname
+            user.first_name = fname
+            user.last_name = lname
+            user.email = email
+            user.save()
+            profile.location = loc
+            profile.age = age1
+            profile.save()
+            transaction.commit()
+            return redirect('student')
+
+        else:
+            print('not valid')
+            return redirect('update')
+
+
     else:
         user = User.objects.get(username=request.user)
         form = UserUpdateForm({
@@ -348,3 +359,18 @@ def update(request):
         return render(request, 'accounts/update.html', {
             'form': form, 'form1': profile_form,
         })
+
+
+def fee_student_history(request):
+    cuser = request.user
+    print(cuser)
+    allfees = Fees.objects.filter(student__user=cuser)
+    details = []
+    for x in allfees:
+        l = {'name': x.student.user.first_name, 'date': x.date_paid}
+        print(l)
+        details.append(l)
+
+    context = {'details': details}
+    print(allfees)
+    return render(request, 'accounts/feehistory.html', context)
