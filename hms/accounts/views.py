@@ -5,7 +5,7 @@ from django.db import transaction
 from django.shortcuts import render, redirect
 from .models import UserProfile, Room, Approval
 # Create your views here.
-from .forms import UserProfileForm, ExtendedUserCreationForm, RoomCreationForm, UserUpdateForm
+from .forms import UserProfileForm, ExtendedUserCreationForm, RoomCreationForm, UserUpdateForm, UserProfileUpdateForm
 from django.core.mail import send_mail
 from django.conf import settings
 
@@ -14,9 +14,9 @@ def register(request):
     if request.method == 'POST':
         form = ExtendedUserCreationForm(request.POST)
         profile_form = UserProfileForm(request.POST)
-        print("sdfs")
+
         if form.is_valid() and profile_form.is_valid():
-            print("sdfs2")
+
             user = form.save()
 
             profile = profile_form.save(commit=False)
@@ -59,10 +59,10 @@ def student_details_view(request):
 
         try:
             context = {'name': obj.user.first_name, 'location': obj.location, 'age': obj.age,
-                       'gender': obj.gender, 'room': obj.room.no, 'email': current_user.email}
+                       'gender': obj.gender, 'room': obj.room.no, 'email': current_user.email, 'course': obj.course}
         except:
             context = {'name': obj.user.first_name, 'location': obj.location, 'age': obj.age,
-                       'gender': obj.gender, 'room': 'Not Assigned', 'email': current_user.email}
+                       'gender': obj.gender, 'room': 'Not Assigned', 'email': current_user.email, 'course': obj.course}
             if request.user.is_authenticated and request.user.is_active:
                 request.session['userred'] = True
 
@@ -88,6 +88,7 @@ def room_all_view(request):
 
     else:
         return render(request, 'accounts/testing.html')
+
 
 @login_required()
 def room_change_view(request):
@@ -140,7 +141,8 @@ def approve_all_view_warden(request):
         appdata = []
         for x in app:
             if x.is_approved == False:
-                y = {'old': x.old_room.no, 'new': x.new_room.no, 'user': x.requester}
+                y = {'old': x.old_room.no, 'new': x.new_room.no, 'user': x.requester.user.first_name,
+                     'course': x.requester.course}
                 appdata.append(y)
                 print(x)
         context = {'appdata': appdata}
@@ -161,7 +163,7 @@ def approve_confirm(request, tag):
         oldroom.present = oldroom.present - 1
         newroom = app.new_room
         newroom.present = newroom.present + 1
-        #Room additon problem
+        # Room additon problem
         user.room = newroom
         oldroom.save()
         newroom.save()
@@ -261,6 +263,7 @@ def room_change(request, tag):
     # else:
     #     return render(request, 'accounts/testing.html')
 
+
 @login_required()
 def addroom(request):
     if request.method == 'POST':
@@ -289,7 +292,7 @@ def room_details(request, tag):
         try:
             y = x.room.no
             if y == rm:
-                l = {'name': x.user.first_name, 'username': x.user.username, 'room': x.room.no}
+                l = {'name': x.user.first_name, 'username': x.user.username, 'room': x.room.no, 'course': x.course}
                 print(l)
                 studdata.append(l)
         except:
@@ -315,13 +318,20 @@ def update(request):
         fname = request.POST['first_name']
         lname = request.POST['last_name']
         email = request.POST['email']
+        loc = request.POST['location']
+        age1 = request.POST['age']
         user = User.objects.get(username=request.user)
+        profile = UserProfile.objects.get(user=user)
         user.username = uname
         user.first_name = fname
         user.last_name = lname
         user.email = email
         user.save()
-        return student_details_view(request)
+        profile.location = loc
+        profile.age = age1
+        profile.save()
+        transaction.commit()
+        return redirect('student')
     else:
         user = User.objects.get(username=request.user)
         form = UserUpdateForm({
@@ -330,6 +340,11 @@ def update(request):
             'last_name': user.last_name,
             'email': user.email,
         })
+        profile = UserProfile.objects.get(user=user)
+        profile_form = UserProfileUpdateForm({
+            'location': profile.location,
+            'age': profile.age,
+        })
         return render(request, 'accounts/update.html', {
-            'form': form,
+            'form': form, 'form1': profile_form,
         })

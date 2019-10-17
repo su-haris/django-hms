@@ -39,6 +39,12 @@ class UserUpdateForm(forms.ModelForm):
         fields = ('username', 'email', 'first_name', 'last_name')
 
 
+class UserProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('location', 'age')
+
+
 class RoomCreationForm(forms.ModelForm):
     class Meta:
         model = Room

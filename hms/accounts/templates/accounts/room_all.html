@@ -1,33 +1,67 @@
 {% extends 'accounts/base.html' %}
 
 {% block content %}
-<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
-    <div class="w3-display-topleft w3-padding-large w3-xlarge">
-        HMS<br>
-        All Rooms
-    </div>
-    <div style="padding-top: 40px; padding-left: 20px;"></div>
 
-
+<div class="row" style="padding-top:10%">
     {% for y in roomdata %}
-    <div style="border: 5px solid white; width:20%; margin: auto; text-align: center">
-        <h2>Room No: {{y.no}}</h2>
-        <h3>Room Type: {{y.type}} </h3>
-        <h3>Occupied by: {{y.present}}</h3>
-        <img src='{{ y.cover.url}}' style="max-height:100%; max-width:100%;">
+    <div class="col-sm-4" style="padding-bottom: 5rem;">
+        <div class="card" style="width: 18rem;">
+            <div style="max-width: 100%; height: 12rem;">
+                <img src='{{ y.cover.url}}' class="card-img-top" alt="..." style="height:100%; max-width:100%;">
+            </div>
+            <div class="card-body">
+                <h4 class="card-title text-dark">Room No: {{y.no}}</h4>
+                <p class="card-text text-dark">Room Type: {{y.type}} <br>
+                    Occupied by: {{y.present}}
+                </p>
+                <!--                <p class="card-text text-secondary">-->
+                <!--                </p>-->
+
+                <form method="POST" action="{% url 'roomselect' y.no %}"
+                      onsubmit="myButton.disabled = true; return true;">
+                    {% csrf_token %}
+                    {% if y.remains > 0 %}
+                    <button type="submit" class="btn btn-outline-dark">Select Room</button>
+                    {% else %}
+                    <h3 style="color: red;">Room Full</h3>
+                    {% endif %}
+
+                </form>
 
 
-        <form method="POST" action="{% url 'roomselect' y.no %}">
-            {% csrf_token %}
-            {% if y.remains > 0 %}
-            <input type="submit" id="{{y.no}}" value="Select Room">
-            {% else %}
-            <h3 style="color: red;">Room Full</h3>
-            {% endif %}
-
-        </form>
+            </div>
+        </div>
     </div>
-    <br>
+
     {% endfor %}
 </div>
+<!--<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">-->
+<!--    <div class="w3-display-topleft w3-padding-large w3-xlarge">-->
+<!--        HMS<br>-->
+<!--        All Rooms-->
+<!--    </div>-->
+<!--    <div style="padding-top: 40px; padding-left: 20px;"></div>-->
+
+
+<!--    {% for y in roomdata %}-->
+<!--    <div style="border: 5px solid white; width:20%; margin: auto; text-align: center">-->
+<!--        <h2>Room No: {{y.no}}</h2>-->
+<!--        <h3>Room Type: {{y.type}} </h3>-->
+<!--        <h3>Occupied by: {{y.present}}</h3>-->
+<!--        <img src='{{ y.cover.url}}' style="max-height:100%; max-width:100%;">-->
+
+
+<!--        <form method="POST" action="{% url 'roomselect' y.no %}">-->
+<!--            {% csrf_token %}-->
+<!--            {% if y.remains > 0 %}-->
+<!--            <input type="submit" id="{{y.no}}" value="Select Room">-->
+<!--            {% else %}-->
+<!--            <h3 style="color: red;">Room Full</h3>-->
+<!--            {% endif %}-->
+
+<!--        </form>-->
+<!--    </div>-->
+<!--    <br>-->
+<!--    {% endfor %}-->
+<!--</div>-->
 {% endblock %}

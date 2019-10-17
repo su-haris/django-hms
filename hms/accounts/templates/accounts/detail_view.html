@@ -15,7 +15,7 @@
     <div class="col-md-4"></div>
 
 
-    <div class="col-sm-12 col-md-4 shadow px-3 py-4 m-3">
+    <div class="col-sm-12 col-md-4 shadow px-3 py-4 m-3 text-dark bg-light" style="border-radius: 25px;">
         <div class="row">
             <div class="col-sm-8">
                 <!--            <p class="text-center">My Profile</p>-->
@@ -23,7 +23,7 @@
             </div>
             <div class="col-sm-4">
                 <form action="{% url 'update' %}">
-                    <button type="submit" class="btn btn-outline-secondary btn-sm"><i class="material-icons">edit</i>
+                    <button type="submit" class="btn btn-outline-dark btn-sm"><i class="material-icons">edit</i>
                     </button>
 
 
@@ -54,6 +54,15 @@
                 </div>
                 <div class="col-sm-8">
                     <p class="profiledetail">{{email}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-1">
+                    <i class="material-icons">work</i>
+                </div>
+                <div class="col-sm-8">
+                    <p class="profiledetail">{{course}}</p>
                 </div>
             </div>
             <div class="row">
@@ -98,12 +107,12 @@
                     {% if room == 'Not Assigned' %}
 
                     <form action="{% url 'rooms' %}">
-                        <button type="submit" class="btn btn-outline-secondary">Select Room</button>
+                        <button type="submit" class="btn btn-outline-dark">Select Room</button>
                     </form>
 
                     {% else %}
                     <form action="{% url 'roomcheck' %}">
-                        <button type="submit" class="btn btn-outline-secondary">Change Room</button>
+                        <button type="submit" class="btn btn-outline-dark">Change Room</button>
                     </form>
                     <!--                            <button type="submit" class="btn btn-outline-secondary" onclick="location.href='{% url 'roomcheck' %}'">Change Room</button>-->
 
@@ -111,7 +120,7 @@
 
                 </div>
                 <div class="col-sm-5">
-                    <button type="button" class="btn btn-outline-secondary">Pay Fees</button>
+                    <button type="button" class="btn btn-outline-dark">Pay Fees</button>
 
                 </div>
                 <div class="col-sm-1"></div>
