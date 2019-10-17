@@ -142,7 +142,7 @@ def approve_all_view_warden(request):
         for x in app:
             if x.is_approved == False:
                 y = {'old': x.old_room.no, 'new': x.new_room.no, 'user': x.requester.user.first_name,
-                     'course': x.requester.course}
+                     'course': x.requester.course, 'username': x.requester}
                 appdata.append(y)
                 print(x)
         context = {'appdata': appdata}
