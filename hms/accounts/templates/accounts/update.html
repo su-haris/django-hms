@@ -15,23 +15,23 @@
             <p class="h4 mb-4">Update Profile</p>
 
             <!-- Username -->
-            <input  type="text" id="username" name="username" class="form-control mb-4" placeholder="Username">
+            <input  type="text" value="{{ form.username.value }}" id="username" name="username" class="form-control mb-4" placeholder="Username">
             <div class="form-row mb-4">
                 <div class="col">
                     <!-- First name -->
                     <input type="text" value="{{ form.first_name.value }}" id="first_name" name="first_name" class="form-control"
-                           placeholder="First name">
+                           placeholder="First name" required>
                 </div>
                 <div class="col">
                     <!-- Last name -->
                     <input type="text" value="{{ form.last_name.value }}" id="last_name" name="last_name" class="form-control"
-                           placeholder="Last name">
+                           placeholder="Last name" required>
                 </div>
             </div>
 
             <!-- E-mail -->
             <input type="email" value="{{ form.email.value }}" id="email" name="email" class="form-control mb-4"
-                   placeholder="E-mail">
+                   placeholder="E-mail" required>
 
 
 <!--            &lt;!&ndash; Password &ndash;&gt;-->
@@ -43,9 +43,9 @@
 <!--                   placeholder=" Confirm Password">-->
 
 
-            <input type="text" value="{{ form1.location.value }}" id="location" class="form-control mb-4" name="location" placeholder="Location">
+            <input type="text" value="{{ form1.location.value }}" id="location" class="form-control mb-4" name="location" placeholder="Location" required>
 
-            <input type="number" value="{{ form1.age.value }}" id="age" class="form-control mb-4" name="age" min="0" placeholder="Age">
+            <input type="number" value="{{ form1.age.value }}" id="age" class="form-control mb-4" name="age" min="0" placeholder="Age" required>
 
 <!--            <select class="form-control mb-4" name="course">-->
 <!--                <option value="CSE">CSE</option>-->

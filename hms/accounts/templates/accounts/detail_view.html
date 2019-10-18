@@ -2,6 +2,13 @@
 
 {% block side %}
 <a class="nav-link nav-social">Welcome {{ name }}</a>
+<!--<a class="nav-link nav-social" href="{% url 'history' %}">Fees History</a>-->
+{% if fees == False %}
+<!--<p class="profiledetail text-danger">Fees Not Paid</p>-->
+<a class="nav-link nav-social" href="{% url 'history' %}">Pay Fees</a>
+{% else %}
+<p class="profiledetail text-success">Fees Paid</p>
+{% endif %}
 <!--<a class="nav-link nav-social" href="{% url 'update' %}">Update Profile</a>-->
 <a class="nav-link nav-social" href="{% url 'logout' %}">Logout</a>
 
@@ -102,8 +109,21 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-1"></div>
-                <div class="col-sm-5">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-1">
+                    <i class="material-icons">local_atm</i>
+                </div>
+                <div class="col-sm-8">
+                    {% if fees == False %}
+                    <p class="profiledetail text-danger">Fees Not Paid</p>
+                    {% else %}
+                    <p class="profiledetail text-success">Fees Paid</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
                     {% if room == 'Not Assigned' %}
 
                     <form action="{% url 'rooms' %}">
@@ -119,11 +139,11 @@
                     {% endif %}
 
                 </div>
-                <div class="col-sm-5">
-                    <button type="button" class="btn btn-outline-dark">Pay Fees</button>
+<!--                <div class="col-sm-5">-->
+<!--                    <button type="button" class="btn btn-outline-dark">Pay Fees</button>-->
 
-                </div>
-                <div class="col-sm-1"></div>
+<!--                </div>-->
+<!--                <div class="col-sm-1"></div>-->
 
             </div>
         </div>

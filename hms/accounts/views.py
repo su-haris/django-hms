@@ -58,10 +58,12 @@ def student_details_view(request):
 
         try:
             context = {'name': obj.user.first_name, 'location': obj.location, 'age': obj.age,
-                       'gender': obj.gender, 'room': obj.room.no, 'email': current_user.email, 'course': obj.course}
+                       'gender': obj.gender, 'room': obj.room.no, 'email': obj.user.email,
+                       'course': obj.course, 'fees': obj.fees_paid}
         except:
             context = {'name': obj.user.first_name, 'location': obj.location, 'age': obj.age,
-                       'gender': obj.gender, 'room': 'Not Assigned', 'email': current_user.email, 'course': obj.course}
+                       'gender': obj.gender, 'room': 'Not Assigned', 'email': obj.user.email,
+                       'course': obj.course, 'fees': obj.fees_paid}
             if request.user.is_authenticated and request.user.is_active:
                 request.session['userred'] = True
 
@@ -317,7 +319,8 @@ def update(request):
         form = UserUpdateForm(request.POST)
         profile_form = UserProfileUpdateForm(request.POST)
 
-        if form.is_valid() and profile_form.is_valid():
+        # if form.is_valid() and profile_form.is_valid():
+        try:
             print('into validation')
             uname = request.POST['username']
             fname = request.POST['first_name']
@@ -338,24 +341,22 @@ def update(request):
             transaction.commit()
             return redirect('student')
 
-        else:
-            print('not valid')
-            return redirect('update')
+        # else:
+        except:
+            # print('not valid')
+            # return redirect('update')
+            return render(request, 'accounts/update.html', {
+                'form': form, 'form1': profile_form,
+            })
 
 
-    else:
+    if request.method == 'GET':
         user = User.objects.get(username=request.user)
-        form = UserUpdateForm({
-            'username': user.username,
-            'first_name': user.first_name,
-            'last_name': user.last_name,
-            'email': user.email,
-        })
+        form = UserUpdateForm(instance=user)
+
         profile = UserProfile.objects.get(user=user)
-        profile_form = UserProfileUpdateForm({
-            'location': profile.location,
-            'age': profile.age,
-        })
+        profile_form = UserProfileUpdateForm(instance=profile)
+
         return render(request, 'accounts/update.html', {
             'form': form, 'form1': profile_form,
         })
