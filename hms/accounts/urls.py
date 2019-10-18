@@ -22,5 +22,10 @@ urlpatterns = [
     path('roomcheck', views.room_change_check, name='roomcheck'),
     path('reject/<str:tag>', views.approve_reject, name='reject'),
     path('history', views.fee_student_history, name='history'),
+    path('topay', views.fee_instructions, name='topay'),
+    path('feeregister', views.fee_register, name='feeregister'),
+    path('feesall', views.fee_approval_list, name='feesall'),
+    path('feeconfirm/<str:tag>', views.fees_approve_confirm, name='feeconfirm'),
+    path('feereject/<str:tag>', views.fees_approve_reject, name='feereject'),
 
 ]

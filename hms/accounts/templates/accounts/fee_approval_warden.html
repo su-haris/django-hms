@@ -22,20 +22,20 @@
 <!--    <div style="padding-top: 40px; padding-left: 20px;"></div>-->
 
 <div class="row" style="padding-top:10%;">
-{% for y in appdata %}
+{% for y in feedata %}
     <div class="col-sm-4" style="padding-bottom: 5rem;">
         <div class="card" style="width: 18rem;">
             <div class="card-header">
-                <h5 class="card-title text-dark">Requested by: {{y.user}}</h5>
+                <h5 class="card-title text-dark">Paid by: {{y.name}}</h5>
                 <p class="card-title text-dark">Course: {{y.course}}</p>
 
             </div>
             <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-dark">New Room: {{y.new}}</h6>
-                <h6 class="card-subtitle mb-2 text-dark">Old Room: {{y.old}}</h6>
+                <h6 class="card-subtitle mb-2 text-dark">Fee Paid on: {{y.date}}</h6>
+<!--                <h6 class="card-subtitle mb-2 text-dark">Old Room: {{y.old}}</h6>-->
                 <div class="row">
                 <div class="col-sm-6">
-                    <form method="POST" action="{% url 'appconfirm' y.username %}"
+                    <form method="POST" action="{% url 'feeconfirm' y.username %}"
                           onsubmit="myButton.disabled = true; return true;">
                         {% csrf_token %}
 
@@ -45,7 +45,7 @@
                     </form>
                 </div>
                 <div class="col-sm-6">
-                    <form method="POST" action="{% url 'reject' y.username %}"
+                    <form method="POST" action="{% url 'feereject' y.username %}"
                           onsubmit="myButton.disabled = true; return true;">
                         {% csrf_token %}
 

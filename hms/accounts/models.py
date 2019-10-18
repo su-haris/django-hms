@@ -64,3 +64,4 @@ class Approval(models.Model):
 class Fees(models.Model):
     student = models.ForeignKey(UserProfile, on_delete=models.DO_NOTHING, blank=True, null=True, unique=False)
     date_paid = models.DateField(auto_now=True)
+    is_approved = models.BooleanField(default=False)

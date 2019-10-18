@@ -349,7 +349,6 @@ def update(request):
                 'form': form, 'form1': profile_form,
             })
 
-
     if request.method == 'GET':
         user = User.objects.get(username=request.user)
         form = UserUpdateForm(instance=user)
@@ -375,3 +374,89 @@ def fee_student_history(request):
     context = {'details': details}
     print(allfees)
     return render(request, 'accounts/feehistory.html', context)
+
+
+def fee_instructions(request):
+    try:
+        s = Fees.objects.get(student__user__username=request.user)
+        # app = Approval.objects.get(requester__user__username=current_user)
+        print(s, 'hello')
+        return render(request, 'accounts/room_notallowed.html')
+    except:
+        return render(request, 'accounts/topay.html')
+
+
+def fee_register(request):
+    cuser = request.user
+    newfee = Fees()
+    newfee.student = UserProfile.objects.get(user=cuser)
+    newfee.save()
+    transaction.commit()
+    return redirect('student')
+
+
+def fee_approval_list(request):
+    studfees = Fees.objects.all()
+    feedata = []
+
+    for x in studfees:
+        if x.is_approved == False:
+            l = {'name': x.student.user.first_name, 'course': x.student.course, 'date': x.date_paid,
+                 'username': x.student.user.username}
+            feedata.append(l)
+        # try:
+        #     y = x.room.no
+        #     if y == rm:
+        #         l = {'name': x.user.first_name, 'username': x.user.username, 'room': x.room.no, 'course': x.course}
+        #         print(l)
+        #         studdata.append(l)
+        # except:
+        #     print('error')
+
+    context = {'feedata': feedata}
+    print(context)
+    return render(request, 'accounts/fee_approval_warden.html', context)
+
+
+def fees_approve_confirm(request, tag):
+    if request.user.groups.filter(name__in=['warden']).exists() == True:
+
+        feepay = Fees.objects.get(student__user__username=tag)
+        userpro = UserProfile.objects.get(user__username=tag)
+        feepay.is_approved = True
+        userpro.fees_paid = True
+        userpro.save()
+        feepay.save()
+        transaction.commit()
+
+        subject = 'Your Fee Payment has been approved'
+        message = 'Your Fee Payment has been approved and accepted by the warden. Login to see your Fee Status.'
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [feepay.student.user.email]
+        send_mail(subject, message, email_from, recipient_list)
+
+        return redirect('feesall')
+
+    else:
+        return render(request, 'accounts/testing.html')
+
+
+def fees_approve_reject(request, tag):
+    if request.user.groups.filter(name__in=['warden']).exists() == True:
+
+        feepay = Fees.objects.get(student__user__username=tag)
+        userpro = UserProfile.objects.get(user__username=tag)
+        feepay.delete()
+        transaction.commit()
+
+        subject = 'Your Fee Payment has been rejected'
+        message = 'Your Fee Payment has been rejected by the warden. Contact your warden for more details. ' \
+                  'You can apply from your Profile again.'
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [userpro.user.email]
+        send_mail(subject, message, email_from, recipient_list)
+
+        return redirect('feesall')
+
+    else:
+        return render(request, 'accounts/testing.html')
