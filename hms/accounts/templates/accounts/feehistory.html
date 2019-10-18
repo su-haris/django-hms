@@ -3,13 +3,14 @@
 {% block content %}
 <!--Table-->
 <div class="row">
-    <div class="col-sm-3"></div>
-    <div class="col-sm-6">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
 <table class="table table-hover table-fixed text-dark bg-light">
   <thead class="bg-dark text-light">
     <tr class="font-weight-bold">
       <td>Paid By</td>
       <td>Paid On</td>
+        <td>Approved</td>
     </tr>
   </thead>
   <!--Table head-->
@@ -23,6 +24,7 @@
 
       <td>{{y.name}}</td>
       <td>{{y.date}}</td>
+         <td>{{y.approve}}</td>
     </tr>
 
 

@@ -364,10 +364,11 @@ def update(request):
 def fee_student_history(request):
     cuser = request.user
     print(cuser)
-    allfees = Fees.objects.filter(student__user=cuser)
+    # allfees = Fees.objects.filter(student__user=cuser)
+    allfees = Fees.objects.all()
     details = []
     for x in allfees:
-        l = {'name': x.student.user.first_name, 'date': x.date_paid}
+        l = {'name': x.student.user.first_name, 'date': x.date_paid, 'approve': x.is_approved}
         print(l)
         details.append(l)
 
