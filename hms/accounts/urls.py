@@ -27,5 +27,6 @@ urlpatterns = [
     path('feesall', views.fee_approval_list, name='feesall'),
     path('feeconfirm/<str:tag>', views.fees_approve_confirm, name='feeconfirm'),
     path('feereject/<str:tag>', views.fees_approve_reject, name='feereject'),
+    path('studsall', views.all_student, name='studsall'),
 
 ]

@@ -461,3 +461,18 @@ def fees_approve_reject(request, tag):
 
     else:
         return render(request, 'accounts/testing.html')
+
+
+def all_student(request):
+    # allfees = Fees.objects.filter(student__user=cuser)
+    allstud = UserProfile.objects.all()
+    details = []
+    for x in allstud:
+        l = {'name1': x.user.first_name, 'name2': x.user.last_name, 'course': x.course, 'approve': x.fees_paid,
+             'room': x.room}
+        print(l)
+
+        details.append(l)
+
+    context = {'details': details}
+    return render(request, 'accounts/students.html', context)
