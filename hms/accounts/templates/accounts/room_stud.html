@@ -29,7 +29,12 @@
             </div>
             <div class="card-body">
                 <h6 class="card-subtitle mb-2 text-dark">{{y.course}}</h6>
-                <p class="card-text text-dark">Fees will go here.</p>
+<!--                <p class="card-text text-dark">Fees will go here.</p>-->
+                {% if y.fees == False %}
+                <p class="card-text text-danger">Fees Not Paid</p>
+                {% else %}
+                <p class="card-text text-success">Fees Paid</p>
+                {% endif %}
                 <a href="#" class="card-link text-dark">Card link</a>
                 <a href="#" class="card-link text-dark">Another link</a>
             </div>

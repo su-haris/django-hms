@@ -287,13 +287,14 @@ def room_details(request, tag):
     studs = UserProfile.objects.all()
     studdata = []
     rm = str(tag)
-    print(studs[1].room.no)
+    # print(studs[1].room.no)
     print(rm)
     for x in studs:
         try:
             y = x.room.no
             if y == rm:
-                l = {'name': x.user.first_name, 'username': x.user.username, 'room': x.room.no, 'course': x.course}
+                l = {'name': x.user.first_name, 'username': x.user.username, 'room': x.room.no, 'course': x.course,
+                     'fees': x.fees_paid}
                 print(l)
                 studdata.append(l)
         except:
