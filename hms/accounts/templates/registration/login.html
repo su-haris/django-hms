@@ -1,23 +1,49 @@
 {% extends 'accounts/base.html' %}
 
 {% block content %}
-<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
-    <div class="w3-display-topleft w3-padding-large w3-xlarge">
-      HMS
+<div class="row">
+    <div class="col-sm-4">
+
     </div>
-    <div class="w3-display-middle">
-      <h1 class="w3-jumbo w3-animate-top">Login</h1>
-      <hr class="w3-border-grey" style="margin:auto;width:40%">
-      <p class="w3-large w3-center">
-         <form method="post" id="form_login">
+    <div class="col-sm-4">
+
+         <form method="post" class="text-center border border-light p-5" id="form_login">
+                     <p class="h4 mb-4">Login</p>
+
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Login</button>
+<!--            {{ form.as_p }}-->
+            <input type="text" class="form-control mb-4" name="username" autofocus="" required="" id="id_username"
+            placeholder="Username">
+
+            <input type="password" class="form-control mb-4" name="password" required="" id="id_password"
+            placeholder="Password">
+            <button class="btn btn-info my-4 btn-block" type="submit">Login</button>
+<!--            <button type="submit">Login</button>-->
+             <a href="{% url 'password_reset' %}">Forgot Password?</a>
+
+             <hr>
+
+            <!-- Terms of service -->
+            <p>Don't have an account?</p>
+            <a href="{% url 'register' %}">Sign up here</a>
             </form>
-      </p>
-
-
     </div>
+     <div class="col-sm-4">
+        {% if form.errors %}
+        {% for field in form %}
+        {% for error in field.errors %}
+        <div class="alert alert-danger">
+            <small>{{ error|escape }}</small>
+        </div>
+        {% endfor %}
+        {% endfor %}
 
+        {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <small>{{ error|escape }}</small>
+        </div>
+        {% endfor %}
+        {% endif %}
+     </div>
 </div>
 {% endblock %}

@@ -1,8 +1,15 @@
 {% extends 'accounts/base.html' %}
 
 {% block side %}
-
-
+<a class="nav-link nav-social">Welcome {{ name }}</a>
+<!--<a class="nav-link nav-social" href="{% url 'history' %}">Fees History</a>-->
+{% if fees == False %}
+<!--<p class="profiledetail text-danger">Fees Not Paid</p>-->
+<a class="nav-link nav-social" href="{% url 'topay' %}">Pay Fees</a>
+{% else %}
+{% endif %}
+<!--<a class="nav-link nav-social" href="{% url 'update' %}">Update Profile</a>-->
+<a class="nav-link nav-social" href="{% url 'logout' %}">Logout</a>
 {% endblock %}
 
 {% block content %}
