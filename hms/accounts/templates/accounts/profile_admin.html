@@ -1,8 +1,12 @@
 {% extends 'accounts/base.html' %}
 
 {% block side %}
-
-
+<a class="nav-link nav-social" href="{% url 'applist' %}">Room Approval</a>
+<a class="nav-link nav-social" href="{% url 'feesall' %}">Fees Approval</a>
+<a class="nav-link nav-social" href="{% url 'history' %}">Fees History</a>
+<a class="nav-link nav-social" href="{% url 'studsall' %}">All Students</a>
+<a class="nav-link nav-social" href="{% url 'addroom' %}">Add a room</a>
+<a class="nav-link nav-social" href="{% url 'logout' %}">Logout</a>
 {% endblock %}
 
 {% block content %}
@@ -16,18 +20,18 @@
         <div class="row">
             <div class="col-sm-8">
                 <!--            <p class="text-center">My Profile</p>-->
-                <h2>My Profile</h2>
+                <h2>{{name}}</h2>
             </div>
-            <div class="col-sm-4">
-                <form action="{% url 'update' %}">
-                    <button type="submit" class="btn btn-outline-dark btn-sm"><i class="material-icons">edit</i>
-                    </button>
+<!--            <div class="col-sm-4">-->
+<!--                <form action="{% url 'update' %}">-->
+<!--                    <button type="submit" class="btn btn-outline-dark btn-sm"><i class="material-icons">edit</i>-->
+<!--                    </button>-->
 
 
-                </form>
+<!--                </form>-->
 
 
-            </div>
+<!--            </div>-->
         </div>
         <!--        <div class="col-sm-12">-->
         <!--            {% load static %}-->
@@ -41,7 +45,7 @@
                     <i class="material-icons">person</i>
                 </div>
                 <div class="col-sm-8">
-                    <p class="profiledetail">{{user}}</p>
+                    <p class="profiledetail">{{uname}}</p>
                 </div>
             </div>
             <div class="row">
@@ -112,23 +116,15 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-2"></div>
-                <div class="col-sm-8">
-                    {% if room == 'Not Assigned' %}
-
-                    <form action="{% url 'rooms' %}">
-                        <button type="submit" class="btn btn-outline-dark">Select Room</button>
-                    </form>
-
-                    {% else %}
-                    <form action="{% url 'roomcheck' %}">
-                        <button type="submit" class="btn btn-outline-dark">Change Room</button>
-                    </form>
-                    <!--                            <button type="submit" class="btn btn-outline-secondary" onclick="location.href='{% url 'roomcheck' %}'">Change Room</button>-->
-
-                    {% endif %}
+                <div class="col-sm-12">
+                    <a href="{% url 'roomdetails' room %}" class="card-link text-dark">Go Back</a>
 
                 </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-2"></div>
+
 <!--                <div class="col-sm-5">-->
 <!--                    <button type="button" class="btn btn-outline-dark">Pay Fees</button>-->
 
@@ -140,25 +136,7 @@
         <div class="col-md-4"></div>
     </div>
 
-    <!--<div style="padding-top: 40px; padding-left: 20px;"></div>-->
-    <!--    <div style="border: 5px solid white; width:40%; margin: auto; text-align: center">-->
-    <!--<h1>Student Info</h1>-->
-    <!--<h3> Name </h3> {{ name }}-->
-    <!--<h3> Location </h3> {{ location }}-->
-    <!--<h3> Age </h3> {{ age }}-->
-    <!--<h3> Gender </h3> {{ gender }}-->
-    <!--<h3> Room </h3> {{ room }}-->
-    <!--{% if room == 'Not Assigned' %}-->
-    <!--    <form action="{% url 'rooms' %}">-->
-    <!--        <input type="submit" value="Select Room">-->
-    <!--    </form>-->
-    <!--{% else %}-->
-    <!--    <form action="{% url 'roomcheck' %}">-->
-    <!--        <br><input type="submit" value="Change room">-->
-    <!--    </form>-->
-    <!--{% endif %}-->
-    <!--        </div>-->
-    <!--</div>-->
+
     </div>
     {% endblock %}
 

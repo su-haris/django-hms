@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db import transaction
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from .models import UserProfile, Room, Approval, Fees
 # Create your views here.
@@ -477,3 +478,23 @@ def all_student(request):
 
     context = {'details': details}
     return render(request, 'accounts/students.html', context)
+
+
+def student_profile_admin(request, tag):
+    obj = UserProfile.objects.get(user__username=tag)
+
+    try:
+        context = {'name': obj.user.first_name, 'location': obj.location, 'age': obj.age,
+                   'gender': obj.gender, 'room': obj.room.no, 'email': obj.user.email,
+                   'course': obj.course, 'fees': obj.fees_paid, 'uname': obj.user.username}
+    except:
+        context = {'name': obj.user.first_name, 'location': obj.location, 'age': obj.age,
+                   'gender': obj.gender, 'room': 'Not Assigned', 'email': obj.user.email,
+                   'course': obj.course, 'fees': obj.fees_paid, 'uname': obj.user.username}
+
+        # context = {'name': obj.user.first_name, 'location': obj.location, 'age': obj.age,
+        #            'gender': obj.gender, 'room': obj.room.no}
+
+    return render(request, 'accounts/profile_admin.html', context)
+
+

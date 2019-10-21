@@ -28,5 +28,6 @@ urlpatterns = [
     path('feeconfirm/<str:tag>', views.fees_approve_confirm, name='feeconfirm'),
     path('feereject/<str:tag>', views.fees_approve_reject, name='feereject'),
     path('studsall', views.all_student, name='studsall'),
+    path('studetail/<str:tag>', views.student_profile_admin, name='studetail'),
 
 ]

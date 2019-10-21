@@ -2,9 +2,11 @@
 {% block side %}
 <!--<a class="nav-link nav-social">Welcome Warden</a><br>-->
 <!--<a class="nav-link nav-social" href="{% url 'update' %}">Update Profile</a>-->
-<a class="nav-link nav-social" href="{% url 'applist' %}">Approval List</a>
+<a class="nav-link nav-social" href="{% url 'applist' %}">Room Approval</a>
+<a class="nav-link nav-social" href="{% url 'feesall' %}">Fees Approval</a>
+<a class="nav-link nav-social" href="{% url 'history' %}">Fees History</a>
+<a class="nav-link nav-social" href="{% url 'studsall' %}">All Students</a>
 <a class="nav-link nav-social" href="{% url 'addroom' %}">Add a room</a>
-
 <a class="nav-link nav-social" href="{% url 'logout' %}">Logout</a>
 
 
@@ -35,8 +37,8 @@
                 {% else %}
                 <p class="card-text text-success">Fees Paid</p>
                 {% endif %}
-                <a href="#" class="card-link text-dark">Card link</a>
-                <a href="#" class="card-link text-dark">Another link</a>
+                <a href="{% url 'studetail' y.username %}" class="card-link text-dark">View Profile</a>
+<!--                <a href="#" class="card-link text-dark">Another link</a>-->
             </div>
         </div>
 
