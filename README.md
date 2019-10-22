@@ -1,35 +1,32 @@
 # django-hms
 
-## Hostel Room Management System
+## Hostel Management System
 
 ### Introduction
-The aim of the project is to build a hostel room management system which allows students to select their rooms online. It also allows wardens to see the status of rooms and its occupants.
-
-
-### Views
-* Login Page
-* Landing Page
-* Profile View
-* Room Confirm View
-* Room View
-* Selection Page
-* Room Change 
+The aim of the project is to build a hostel management system which allows students to select their rooms online. They can also change rooms and pay fees. It also allows wardens to see the status of rooms and its occupants and fee status.
 
 
 ### Models
 * Student: For holding student details
 * Room: To hold room occupancy
 * Approval: To hold room change requests
+* Fees: To hold fee details
 
 
 ### Functions
 * A Login page for authentication purpose (student or warden)
+* Password reset page
 * Allows students to view rooms and select rooms
 * Show Student Profile
 * Update Student Profile
+* Pay fees
 * Change allocated room (with warden approval)
-* Allows warden to view room status, its occupancy and the student details
+* Allows warden to view room status, its occupancy and the student profile
 * Allows warden to create room and manage change room requests
+* Email notification for students after room change request has been processed. 
+* Allows warden to do fee processing
+* Warden can see details of all students and fee history
+
 
 ### Workflow
 
@@ -46,11 +43,18 @@ The aim of the project is to build a hostel room management system which allows 
 		* Option to select room is given
 		* Onclick, list of rooms available shown
 		* After selection, room is confirmed, and redirected to user profile
-		
+		* Option to pay fees
+		* Onclick, a request will be registered (after reading instructions)
+		* Email confirmation for both room and fee status.	
 		
 * Warden
 	* Can login from home (sign up is done by admin only)
 	* Presented with All Rooms and an option to view inmates
 	* Option to add room, which sends to another page to fill in room details
-	* Can approve room change requests
+	* Can approve/reject room change requests
+	* Can approve/reject fee requests
+	* Can view detailed profile of room inmates
+	* Can view fee history
+	* Can view brief profile view of all students
+
 
