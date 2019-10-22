@@ -49,8 +49,8 @@ def student_details_view(request):
     current_user = request.user
     print(current_user)
 
-    if request.user.groups.filter(name__in=['warden']).exists() == True:
-        return room_all_view_warden(request)
+    if request.user.groups.filter(name__in=['warden']).exists():
+        return redirect('wardenhome')
 
     else:
         obj = UserProfile.objects.get(user=current_user)
@@ -268,42 +268,50 @@ def room_change(request, tag):
 
 @login_required()
 def addroom(request):
-    if request.method == 'POST':
-        form = RoomCreationForm(request.POST, request.FILES)
+    if request.user.groups.filter(name__in=['warden']).exists():
+        if request.method == 'POST':
+            form = RoomCreationForm(request.POST, request.FILES)
 
-        if form.is_valid():
-            room = form.save()
-            return student_details_view(request)
+            if form.is_valid():
+                room = form.save()
+                return student_details_view(request)
 
+
+        else:
+            form = RoomCreationForm()
+
+        context = {'form': form}
+        return render(request, 'accounts/add_room.html', context)
 
     else:
-        form = RoomCreationForm()
-
-    context = {'form': form}
-    return render(request, 'accounts/add_room.html', context)
+        return render(request, 'accounts/testing.html')
 
 
 @login_required()
 def room_details(request, tag):
-    studs = UserProfile.objects.all()
-    studdata = []
-    rm = str(tag)
-    # print(studs[1].room.no)
-    print(rm)
-    for x in studs:
-        try:
-            y = x.room.no
-            if y == rm:
-                l = {'name': x.user.first_name, 'username': x.user.username, 'room': x.room.no, 'course': x.course,
-                     'fees': x.fees_paid}
-                print(l)
-                studdata.append(l)
-        except:
-            print('error')
+    if request.user.groups.filter(name__in=['warden']).exists():
+        studs = UserProfile.objects.all()
+        studdata = []
+        rm = str(tag)
+        # print(studs[1].room.no)
+        print(rm)
+        for x in studs:
+            try:
+                y = x.room.no
+                if y == rm:
+                    l = {'name': x.user.first_name, 'username': x.user.username, 'room': x.room.no, 'course': x.course,
+                         'fees': x.fees_paid}
+                    print(l)
+                    studdata.append(l)
+            except:
+                print('error')
 
-    context = {'studdata': studdata, 'room': tag}
-    print(context)
-    return render(request, 'accounts/room_stud.html', context)
+        context = {'studdata': studdata, 'room': tag}
+        print(context)
+        return render(request, 'accounts/room_stud.html', context)
+
+    else:
+        return render(request, 'accounts/testing.html')
 
 
 def landing(request):
@@ -363,22 +371,28 @@ def update(request):
         })
 
 
+@login_required
 def fee_student_history(request):
-    cuser = request.user
-    print(cuser)
-    # allfees = Fees.objects.filter(student__user=cuser)
-    allfees = Fees.objects.all()
-    details = []
-    for x in allfees:
-        l = {'name': x.student.user.first_name, 'date': x.date_paid, 'approve': x.is_approved}
-        print(l)
-        details.append(l)
+    if request.user.groups.filter(name__in=['warden']).exists():
+        cuser = request.user
+        print(cuser)
+        # allfees = Fees.objects.filter(student__user=cuser)
+        allfees = Fees.objects.all()
+        details = []
+        for x in allfees:
+            l = {'name': x.student.user.first_name, 'date': x.date_paid, 'approve': x.is_approved}
+            print(l)
+            details.append(l)
 
-    context = {'details': details}
-    print(allfees)
-    return render(request, 'accounts/feehistory.html', context)
+        context = {'details': details}
+        print(allfees)
+        return render(request, 'accounts/feehistory.html', context)
+
+    else:
+        return render(request, 'accounts/testing.html')
 
 
+@login_required
 def fee_instructions(request):
     try:
         s = Fees.objects.get(student__user__username=request.user)
@@ -389,6 +403,7 @@ def fee_instructions(request):
         return render(request, 'accounts/topay.html')
 
 
+@login_required
 def fee_register(request):
     cuser = request.user
     newfee = Fees()
@@ -398,29 +413,27 @@ def fee_register(request):
     return redirect('student')
 
 
+@login_required
 def fee_approval_list(request):
-    studfees = Fees.objects.all()
-    feedata = []
+    if request.user.groups.filter(name__in=['warden']).exists():
+        studfees = Fees.objects.all()
+        feedata = []
 
-    for x in studfees:
-        if x.is_approved == False:
-            l = {'name': x.student.user.first_name, 'course': x.student.course, 'date': x.date_paid,
-                 'username': x.student.user.username}
-            feedata.append(l)
-        # try:
-        #     y = x.room.no
-        #     if y == rm:
-        #         l = {'name': x.user.first_name, 'username': x.user.username, 'room': x.room.no, 'course': x.course}
-        #         print(l)
-        #         studdata.append(l)
-        # except:
-        #     print('error')
+        for x in studfees:
+            if x.is_approved == False:
+                l = {'name': x.student.user.first_name, 'course': x.student.course, 'date': x.date_paid,
+                     'username': x.student.user.username}
+                feedata.append(l)
 
-    context = {'feedata': feedata}
-    print(context)
-    return render(request, 'accounts/fee_approval_warden.html', context)
+        context = {'feedata': feedata}
+        print(context)
+        return render(request, 'accounts/fee_approval_warden.html', context)
+
+    else:
+        return render(request, 'accounts/testing.html')
 
 
+@login_required
 def fees_approve_confirm(request, tag):
     if request.user.groups.filter(name__in=['warden']).exists() == True:
 
@@ -444,8 +457,9 @@ def fees_approve_confirm(request, tag):
         return render(request, 'accounts/testing.html')
 
 
+@login_required
 def fees_approve_reject(request, tag):
-    if request.user.groups.filter(name__in=['warden']).exists() == True:
+    if request.user.groups.filter(name__in=['warden']).exists():
 
         feepay = Fees.objects.get(student__user__username=tag)
         userpro = UserProfile.objects.get(user__username=tag)
@@ -465,36 +479,44 @@ def fees_approve_reject(request, tag):
         return render(request, 'accounts/testing.html')
 
 
+@login_required
 def all_student(request):
-    # allfees = Fees.objects.filter(student__user=cuser)
-    allstud = UserProfile.objects.all()
-    details = []
-    for x in allstud:
-        l = {'name1': x.user.first_name, 'name2': x.user.last_name, 'course': x.course, 'approve': x.fees_paid,
-             'room': x.room}
-        print(l)
+    if request.user.groups.filter(name__in=['warden']).exists():
+        # allfees = Fees.objects.filter(student__user=cuser)
+        allstud = UserProfile.objects.all()
+        details = []
+        for x in allstud:
+            l = {'name1': x.user.first_name, 'name2': x.user.last_name, 'course': x.course, 'approve': x.fees_paid,
+                 'room': x.room}
+            print(l)
 
-        details.append(l)
+            details.append(l)
 
-    context = {'details': details}
-    return render(request, 'accounts/students.html', context)
+        context = {'details': details}
+        return render(request, 'accounts/students.html', context)
+
+    else:
+        return render(request, 'accounts/testing.html')
 
 
+@login_required
 def student_profile_admin(request, tag):
-    obj = UserProfile.objects.get(user__username=tag)
+    if request.user.groups.filter(name__in=['warden']).exists():
+        obj = UserProfile.objects.get(user__username=tag)
 
-    try:
-        context = {'name': obj.user.first_name, 'location': obj.location, 'age': obj.age,
-                   'gender': obj.gender, 'room': obj.room.no, 'email': obj.user.email,
-                   'course': obj.course, 'fees': obj.fees_paid, 'uname': obj.user.username}
-    except:
-        context = {'name': obj.user.first_name, 'location': obj.location, 'age': obj.age,
-                   'gender': obj.gender, 'room': 'Not Assigned', 'email': obj.user.email,
-                   'course': obj.course, 'fees': obj.fees_paid, 'uname': obj.user.username}
+        try:
+            context = {'name': obj.user.first_name, 'location': obj.location, 'age': obj.age,
+                       'gender': obj.gender, 'room': obj.room.no, 'email': obj.user.email,
+                       'course': obj.course, 'fees': obj.fees_paid, 'uname': obj.user.username}
+        except:
+            context = {'name': obj.user.first_name, 'location': obj.location, 'age': obj.age,
+                       'gender': obj.gender, 'room': 'Not Assigned', 'email': obj.user.email,
+                       'course': obj.course, 'fees': obj.fees_paid, 'uname': obj.user.username}
 
-        # context = {'name': obj.user.first_name, 'location': obj.location, 'age': obj.age,
-        #            'gender': obj.gender, 'room': obj.room.no}
+            # context = {'name': obj.user.first_name, 'location': obj.location, 'age': obj.age,
+            #            'gender': obj.gender, 'room': obj.room.no}
 
-    return render(request, 'accounts/profile_admin.html', context)
+        return render(request, 'accounts/profile_admin.html', context)
 
-
+    else:
+        return render(request, 'accounts/testing.html')
