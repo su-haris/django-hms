@@ -121,7 +121,7 @@ def room_change_check(request):
 
 @login_required()
 def room_all_view_warden(request):
-    if request.user.groups.filter(name__in=['warden']).exists() == True:
+    if request.user.groups.filter(name__in=['warden']).exists():
         rooms = Room.objects.all()
         roomdata = []
         for x in rooms:
@@ -138,7 +138,7 @@ def room_all_view_warden(request):
 
 @login_required()
 def approve_all_view_warden(request):
-    if request.user.groups.filter(name__in=['warden']).exists() == True:
+    if request.user.groups.filter(name__in=['warden']).exists():
         app = Approval.objects.all()
         appdata = []
         for x in app:
@@ -155,38 +155,48 @@ def approve_all_view_warden(request):
 
 
 def approve_confirm(request, tag):
-    if request.user.groups.filter(name__in=['warden']).exists() == True:
-
+    if request.user.groups.filter(name__in=['warden']).exists():
         # app = Approval.objects.get(id=tag)
         app = Approval.objects.filter(requester__user__username=tag).first()
         print('app is', app)
         user = UserProfile.objects.get(user__username=tag)
         oldroom = user.room
-        oldroom.present = oldroom.present - 1
         newroom = app.new_room
-        newroom.present = newroom.present + 1
-        # Room additon problem
-        user.room = newroom
-        oldroom.save()
-        newroom.save()
-        user.save()
-        app.delete()
-        transaction.commit()
+        if newroom.present == newroom.capacity:
+            app.delete()
+            transaction.commit()
+            subject = 'Your request has been cancelled'
+            message = 'Your room change request has been cancelled by the warden because the room was already full' \
+                      ' at the time of processing.'
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [user.user.email]
+            send_mail(subject, message, email_from, recipient_list)
+            return redirect('applist')
 
-        subject = 'Your request has been approved'
-        message = 'Your room change request has been approved by the warden. Login to see your new room.'
-        email_from = settings.EMAIL_HOST_USER
-        recipient_list = [user.user.email]
-        send_mail(subject, message, email_from, recipient_list)
+        else:
+            oldroom.present = oldroom.present - 1
+            newroom.present = newroom.present + 1
+            user.room = newroom
+            oldroom.save()
+            newroom.save()
+            user.save()
+            app.delete()
+            transaction.commit()
 
-        return approve_all_view_warden(request)
+            subject = 'Your request has been approved'
+            message = 'Your room change request has been approved by the warden. Login to see your new room.'
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [user.user.email]
+            send_mail(subject, message, email_from, recipient_list)
+
+            return redirect('applist')
 
     else:
         return render(request, 'accounts/testing.html')
 
 
 def approve_reject(request, tag):
-    if request.user.groups.filter(name__in=['warden']).exists() == True:
+    if request.user.groups.filter(name__in=['warden']).exists():
 
         # app = Approval.objects.get(id=tag)
         app = Approval.objects.filter(requester__user__username=tag).first()
