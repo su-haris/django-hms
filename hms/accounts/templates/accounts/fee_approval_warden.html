@@ -41,7 +41,7 @@
                         {% csrf_token %}
 
 
-                        <button type="submit" class="btn btn-outline-success">Approve</button>
+                        <button type="submit" class="btn btn-outline-success" onclick="this.disabled=true; this.value='Please Wait';">Approve</button>
 
                     </form>
                 </div>
@@ -51,7 +51,7 @@
                         {% csrf_token %}
 
 
-                        <button type="submit" class="btn btn-outline-danger">Reject</button>
+                        <button type="submit" class="btn btn-outline-danger" onclick="this.disabled=true; this.value='Please Wait';">Reject</button>
 
                     </form>
                 </div>
