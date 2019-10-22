@@ -1,4 +1,3 @@
-
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
@@ -36,17 +35,33 @@ class UserProfile(models.Model):
         default=None,
         null=True
     )
+    course_choices = [('CSE', 'CSE'), ('IT', 'IT'), ('ECE', 'ECE')]
+    course = models.CharField(
+        choices=course_choices,
+        max_length=3,
+        default=None,
+        null=True
+    )
     room_allotted = models.BooleanField(default=False)
+    fees_paid = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username
 
 
 class Approval(models.Model):
-    old_room = models.ForeignKey(Room, on_delete=models.DO_NOTHING, blank=True, null=True, unique=False, related_name='old')
-    new_room = models.ForeignKey(Room, on_delete=models.DO_NOTHING, blank=True, null=True, unique=False, related_name='new')
+    old_room = models.ForeignKey(Room, on_delete=models.DO_NOTHING, blank=True, null=True, unique=False,
+                                 related_name='old')
+    new_room = models.ForeignKey(Room, on_delete=models.DO_NOTHING, blank=True, null=True, unique=False,
+                                 related_name='new')
     requester = models.ForeignKey(UserProfile, on_delete=models.DO_NOTHING, blank=True, null=True, unique=False)
     is_approved = models.BooleanField(default=False)
 
     def __str__(self):
         return self.requester.user.username
+
+
+class Fees(models.Model):
+    student = models.ForeignKey(UserProfile, on_delete=models.DO_NOTHING, blank=True, null=True, unique=False)
+    date_paid = models.DateField(auto_now=True)
+    is_approved = models.BooleanField(default=False)

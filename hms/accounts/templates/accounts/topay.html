@@ -1,0 +1,44 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+
+    <div class="w3-display-middle ">
+        <h1 class="w3-jumbo w3-animate-top">Important Instructions</h1>
+        <hr class="w3-border-grey" style="margin:auto;width:60%">
+        <p class="w3-large w3-center" style="text-align: center;">
+        <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6  text-left">
+            <ul>
+              <li>Please ensure you have paid the fees in hand to the warden.</li>
+              <li><strong>Only</strong> apply for Pay Fees if you have done the above.</li>
+              <li>Once you have given a request, it will go to warden for approval.</li>
+              <li>The warden can approve or reject your fee payment.</li>
+              <li>You will get an email alert on action.</li>
+              <li>Your Fee Status will get updated only after warden has processed your request.</li>
+            </ul>
+            </div>
+        </div>
+<!--        <h1>Your request has been registered</h1>-->
+<!--        <h3>Please wait for a warden to approve</h3>-->
+        <br><br>
+
+        <form method="POST" action="{% url 'feeregister' %}"
+                      onsubmit="myButton.disabled = true; return true;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-light">Pay Fees</button>
+                </form>
+<!--        <a href="{% url 'student' %}">Pay Fees</a>-->
+        <br>
+        <a href="{% url 'student' %}">Go back to Student</a>
+        </p>
+
+
+    </div>
+
+</div>
+
+<!--<h1>Selected Room is {{ room }}</h1>-->
+<!--<a href="{% url 'student' %}">student</a>-->
+{% endblock %}

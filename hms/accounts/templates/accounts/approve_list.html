@@ -2,9 +2,11 @@
 {% block side %}
 <!--<a class="nav-link nav-social">Welcome Warden</a><br>-->
 <!--<a class="nav-link nav-social" href="{% url 'update' %}">Update Profile</a>-->
-<a class="nav-link nav-social" href="{% url 'applist' %}">Approval List</a>
+<a class="nav-link nav-social" href="{% url 'applist' %}">Room Approval</a>
+<a class="nav-link nav-social" href="{% url 'feesall' %}">Fees Approval</a>
+<a class="nav-link nav-social" href="{% url 'history' %}">Fees History</a>
+<a class="nav-link nav-social" href="{% url 'studsall' %}">All Students</a>
 <a class="nav-link nav-social" href="{% url 'addroom' %}">Add a room</a>
-
 <a class="nav-link nav-social" href="{% url 'logout' %}">Logout</a>
 
 
@@ -26,7 +28,7 @@
         <div class="card" style="width: 18rem;">
             <div class="card-header">
                 <h5 class="card-title text-dark">Requested by: {{y.user}}</h5>
-                <p class="card-title text-dark">Branch comes here</p>
+                <p class="card-title text-dark">Course: {{y.course}}</p>
 
             </div>
             <div class="card-body">
@@ -34,7 +36,7 @@
                 <h6 class="card-subtitle mb-2 text-dark">Old Room: {{y.old}}</h6>
                 <div class="row">
                 <div class="col-sm-6">
-                    <form method="POST" action="{% url 'appconfirm' y.user %}"
+                    <form method="POST" action="{% url 'appconfirm' y.username %}"
                           onsubmit="myButton.disabled = true; return true;">
                         {% csrf_token %}
 
@@ -44,7 +46,7 @@
                     </form>
                 </div>
                 <div class="col-sm-6">
-                    <form method="POST" action="{% url 'reject' y.user %}"
+                    <form method="POST" action="{% url 'reject' y.username %}"
                           onsubmit="myButton.disabled = true; return true;">
                         {% csrf_token %}
 
@@ -59,27 +61,7 @@
         </div>
 
     </div>
-<!--    <h2>Old Room: {{y.old}}</h2>-->
-<!--    <h2>New Room: {{y.new}} </h2>-->
-<!--    <h3>Requested by: {{y.user}}</h3>-->
 
-
-
-<!--    <form method="POST" action="{% url 'appconfirm' y.user %}" onsubmit="myButton.disabled = true; return true;">-->
-<!--                        {% csrf_token %}-->
-
-
-<!--        <button type="submit" class="btn btn-outline-success">Approve</button>-->
-
-<!--    </form>-->
-<!--        <form method="POST" action="{% url 'reject' y.user %}" onsubmit="myButton.disabled = true; return true;">-->
-<!--                        {% csrf_token %}-->
-
-
-
-<!--                    <button type="submit" class="btn btn-outline-danger">Reject</button>-->
-
-<!--    </form>-->
     {% empty %}
     <div class="col-sm-12" style="padding-bottom: 5rem;">
 
@@ -100,11 +82,7 @@
 
         </div>
     </div>
-<!--        <div class="w3-display-middle">-->
-<!--        <h1 class="w3-jumbo w3-animate-top">No pending requests</h1>-->
-<!--        </div>-->
-<!--    -->
-<!--    <br>-->
+
 {% endfor %}
     </div>
 {% endblock %}
