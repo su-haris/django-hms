@@ -27,9 +27,8 @@
         <form method="POST" action="{% url 'feeregister' %}"
                       onsubmit="myButton.disabled = true; return true;">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-outline-light" onclick="this.disabled=true; this.value='Please Wait';>Pay Fees</button>
+                    <button type="submit" class="btn btn-outline-light" onclick="this.disabled=true; this.value='Please Wait';">Pay Fees</button>
                 </form>
-<!--        <a href="{% url 'student' %}">Pay Fees</a>-->
         <br>
         <a href="{% url 'student' %}">Go back to Student</a>
         </p>
