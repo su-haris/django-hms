@@ -1,0 +1,53 @@
+{% extends 'accounts/base.html' %}
+{% block side %}
+
+<a class="nav-link nav-social" href="{% url 'student' %}">Room Management</a>
+<a class="nav-link nav-social" href="{% url 'addpost' %}">New Notice</a>
+<a class="nav-link nav-social" href="{% url 'logout' %}">Logout</a>
+
+
+{% endblock %}
+
+{% block content %}
+<!--<div class="row text-left">-->
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+
+        <form method="POST" class="post-form text-center border border-light p-5" action="{% url 'addpost' %}">
+            {% csrf_token %}
+            <h3>Add a New Notice</h3>
+            <hr>
+
+            <input type="text" id="title" name="title" class="form-control mb-4" placeholder="Enter Title">
+            <textarea name="content" class="form-control mb-4" cols="40" rows="10"
+                      id="id_content" placeholder="Enter Content"></textarea>
+            <button type="submit" class="btn btn-info my-4 btn-block" onclick="this.disabled=true; this.value='Please Wait';">Save</button>
+        </form>
+    </div>
+
+    <div class="col-sm-3">
+        {% if form.errors %}
+        {% for field in form %}
+        {% for error in field.errors %}
+        <div class="alert alert-danger">
+            <small>({{ field.label }})</small>
+            <small>{{ error|escape }}</small>
+        </div>
+        {% endfor %}
+        {% endfor %}
+
+        {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <small>({{ field.label }})</small>
+            <small>{{ error|escape }}</small>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+</div>
+
+{% endblock %}
+
+
