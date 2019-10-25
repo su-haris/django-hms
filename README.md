@@ -3,7 +3,7 @@
 ## Hostel Management System
 
 ### Introduction
-The aim of the project is to build a hostel management system which allows students to select their rooms online. They can also change rooms and pay fees. It also allows wardens to see the status of rooms and its occupants and fee status.
+The aim of the project is to build a hostel management system which allows students to select their rooms online. They can also change rooms and pay fees. It also allows wardens to see the status of rooms and its occupants and fee status. Wardens can also make announcements which can be viewed by the students.
 
 
 ### Models
@@ -11,6 +11,7 @@ The aim of the project is to build a hostel management system which allows stude
 * Room: To hold room occupancy
 * Approval: To hold room change requests
 * Fees: To hold fee details
+* Posts: To hold notice posts
 
 
 ### Functions
@@ -21,8 +22,10 @@ The aim of the project is to build a hostel management system which allows stude
 * Update Student Profile
 * Pay fees
 * Change allocated room (with warden approval)
+* View announcements made by warden
 * Allows warden to view room status, its occupancy and the student profile
 * Allows warden to create room and manage change room requests
+* Allows warden to make annoucements in the notice board
 * Email notification for students after room change request has been processed. 
 * Allows warden to do fee processing
 * Warden can see details of all students and fee history
@@ -37,6 +40,7 @@ The aim of the project is to build a hostel management system which allows stude
 		* shows user profile and allotted room
 		* option to change room
 		* option to update profile
+		* option to view Notice Board
 	* If new user:
 		* Has to sign up
 		* After sign up redirected to user profile
@@ -55,6 +59,7 @@ The aim of the project is to build a hostel management system which allows stude
 	* Can approve/reject fee requests
 	* Can view detailed profile of room inmates
 	* Can view fee history
+	* Can add/delete notices
 	* Can view brief profile view of all students
 
 
