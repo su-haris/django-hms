@@ -31,13 +31,15 @@ def register(request):
             login(request, user)
             return redirect('student')
 
+        else:
+            context = {'form': form, 'profile_form': profile_form}
+            return render(request, 'accounts/register.html', context)
+
     else:
         form = ExtendedUserCreationForm()
         profile_form = UserProfileForm()
-
-    context = {'form': form, 'profile_form': profile_form}
-
-    return render(request, 'accounts/register.html', context)
+        context = {'form': form, 'profile_form': profile_form}
+        return render(request, 'accounts/register.html', context)
 
 
 def testing(request):

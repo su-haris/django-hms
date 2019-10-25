@@ -30,10 +30,10 @@ def post_delete(request, tag):
 
 
 class PostList(generic.ListView):
-    queryset = Post.objects.all().order_by('created_on')
+    queryset = Post.objects.all().order_by('-created_on')
     template_name = 'posts/allpost.html'
 
 
 class PostListStud(generic.ListView):
-    queryset = Post.objects.all().order_by('created_on')
+    queryset = Post.objects.all().order_by('-created_on')
     template_name = 'posts/allpost_student.html'
