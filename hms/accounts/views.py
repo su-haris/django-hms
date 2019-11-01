@@ -54,6 +54,9 @@ def student_details_view(request):
     if request.user.groups.filter(name__in=['warden']).exists():
         return redirect('wardenhome')
 
+    elif request.user.is_superuser:
+        return render(request, 'accounts/testing2.html')
+
     else:
         obj = UserProfile.objects.get(user=current_user)
         print(obj.user.first_name)
