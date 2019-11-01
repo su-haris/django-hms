@@ -437,7 +437,7 @@ def fee_approval_list(request):
         for x in studfees:
             if x.is_approved == False:
                 l = {'name': x.student.user.first_name, 'course': x.student.course, 'date': x.date_paid,
-                     'username': x.student.user.username}
+                     'username': x.student.user.username, 'lname': x.student.user.last_name}
                 feedata.append(l)
 
         context = {'feedata': feedata}
