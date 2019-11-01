@@ -9,30 +9,38 @@
         <!-- Default form register -->
 
         <form method="POST" class="text-center border border-light p-5" action="{% url 'register' %}"
-              onsubmit="myButton.disabled = true; return true;">
+              onsubmit="sub.disabled = true; return true;">
             {% csrf_token %}
 
             <p class="h4 mb-4">Sign up</p>
 
             <!-- Username -->
-            <input type="text" id="username" name="username" class="form-control mb-4" placeholder="Username">
+            <input type="text" id="username" name="username" class="form-control mb-4" placeholder="Username"
+            value="{% if form.username.value == None %}{% else %}{{form.username.value}}{% endif %}">
 
             <div class="form-row mb-4">
                 <div class="col">
                     <!-- First name -->
                     <input type="text" id="defaultRegisterFormFirstName" name="first_name" class="form-control"
-                           placeholder="First name">
+                           placeholder="First name"
+                           value="{% if form.first_name.value == None %}{% else %}{{form.first_name.value}}{% endif %}">
+
                 </div>
                 <div class="col">
                     <!-- Last name -->
                     <input type="text" id="defaultRegisterFormLastName" name="last_name" class="form-control"
-                           placeholder="Last name">
+                           placeholder="Last name"
+                           value="{% if form.last_name.value == None %}{% else %}{{form.last_name.value}}{% endif %}">
+
                 </div>
             </div>
 
             <!-- E-mail -->
             <input type="email" id="defaultRegisterFormEmail" name="email" class="form-control mb-4"
-                   placeholder="E-mail">
+                   placeholder="E-mail"
+                   value="{% if form.email.value == None %}{% else %}{{form.email.value}}{% endif %}">
+
+
 
 
             <!-- Password -->
@@ -44,9 +52,13 @@
                    placeholder=" Confirm Password">
 
 
-            <input type="text" id="location" class="form-control mb-4" name="location" placeholder="Location">
+            <input type="text" id="location" class="form-control mb-4" name="location" placeholder="Location"
+                   value="{% if profile_form.location.value == None %}{% else %}{{profile_form.location.value}}{% endif %}">
 
-            <input type="number" id="age" class="form-control mb-4" name="age" min="0" placeholder="Age">
+
+            <input type="number" id="age" class="form-control mb-4" name="age" min="0" placeholder="Age"
+                   value="{% if profile_form.age.value == None %}{% else %}{{profile_form.age.value}}{% endif %}">
+
 
             <select class="form-control mb-4" name="course">
                 <option value="CSE">CSE</option>
@@ -64,7 +76,7 @@
 
 
             <!-- Sign up button -->
-            <button class="btn btn-info my-4 btn-block" type="submit" onclick="this.disabled=true; this.value='Please Wait';">Sign Up</button>
+            <button class="btn btn-info my-4 btn-block" name="sub" id="sub" type="submit" >Sign Up</button>
 
             <!-- Social register -->
 <!--            <p>or</p>-->
