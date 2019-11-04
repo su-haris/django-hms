@@ -474,6 +474,7 @@ def update(request):
             fname = request.POST['first_name']
             lname = request.POST['last_name']
             email = request.POST['email']
+            course = request.POST['course']
             loc = request.POST['location']
             age1 = request.POST['age']
             user = User.objects.get(username=request.user)
@@ -485,6 +486,7 @@ def update(request):
             user.save()
             profile.location = loc
             profile.age = age1
+            profile.course = course
             profile.save()
             transaction.commit()
             return redirect('student')
