@@ -64,4 +64,11 @@ class Approval(models.Model):
 class Fees(models.Model):
     student = models.ForeignKey(UserProfile, on_delete=models.DO_NOTHING, blank=True, null=True, unique=False)
     date_paid = models.DateField(auto_now=True)
+    amount = models.PositiveIntegerField(validators=[MinValueValidator(9000), MaxValueValidator(15000)])
     is_approved = models.BooleanField(default=False)
+
+
+class NewRegistration(models.Model):
+    requester = models.ForeignKey(UserProfile, on_delete=models.DO_NOTHING, blank=True, null=True, unique=False)
+    new_room = models.ForeignKey(Room, on_delete=models.DO_NOTHING, blank=True, null=True, unique=False,
+                                 related_name='newroom')

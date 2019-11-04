@@ -4,7 +4,8 @@
 <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
 
     <div class="w3-display-middle ">
-        <h1 class="w3-jumbo w3-animate-top">Important Instructions</h1>
+        <h1 class="w3-jumbo w3-animate-top">Fee Amount is: {{amount}}</h1>
+        <h2 class="w3-jumbo w3-animate-top">Important Instructions</h2>
         <hr class="w3-border-grey" style="margin:auto;width:60%">
         <p class="w3-large w3-center" style="text-align: center;">
         <div class="row">
@@ -24,7 +25,7 @@
 <!--        <h3>Please wait for a warden to approve</h3>-->
         <br><br>
 
-        <form method="POST" action="{% url 'feeregister' %}"
+        <form method="POST" action="{% url 'feeregister' amount %}"
                       onsubmit="myButton.disabled = true; return true;">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-outline-light" onclick="this.disabled=true; this.value='Please Wait';">Pay Fees</button>

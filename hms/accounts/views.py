@@ -4,9 +4,10 @@ from django.contrib.auth.models import User
 from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from .models import UserProfile, Room, Approval, Fees
+from .models import UserProfile, Room, Approval, Fees, NewRegistration
 # Create your views here.
-from .forms import UserProfileForm, ExtendedUserCreationForm, RoomCreationForm, UserUpdateForm, UserProfileUpdateForm
+from .forms import UserProfileForm, ExtendedUserCreationForm, RoomCreationForm, UserUpdateForm, UserProfileUpdateForm, \
+    RejectForm
 from django.core.mail import send_mail
 from django.conf import settings
 
@@ -82,16 +83,21 @@ def student_details_view(request):
 @login_required()
 def room_all_view(request):
     if 'userred' in request.session:
-        request.session['userred1'] = True
-        rooms = Room.objects.all()
-        roomdata = []
-        for x in rooms:
-            remains = x.capacity - x.present
-            y = {'no': x.no, 'type': x.room_type, 'present': x.present, 'remains': remains, 'cover': x.cover}
-            roomdata.append(y)
-            print('hello', x.cover)
-        context = {'roomdata': roomdata}
-        return render(request, 'accounts/room_all.html', context)
+        try:
+            s = NewRegistration.objects.get(requester__user__username=request.user)
+            print(s, 'hello')
+            return render(request, 'accounts/room_notallowed.html')
+        except:
+            request.session['userred1'] = True
+            rooms = Room.objects.all()
+            roomdata = []
+            for x in rooms:
+                remains = x.capacity - x.present
+                y = {'no': x.no, 'type': x.room_type, 'present': x.present, 'remains': remains, 'cover': x.cover}
+                roomdata.append(y)
+                print('hello', x.cover)
+            context = {'roomdata': roomdata}
+            return render(request, 'accounts/room_all.html', context)
 
     else:
         return render(request, 'accounts/testing.html')
@@ -159,6 +165,91 @@ def approve_all_view_warden(request):
         return render(request, 'accounts/testing.html')
 
 
+@login_required()
+def new_approve_all_view_warden(request):
+    if request.user.groups.filter(name__in=['warden']).exists():
+        app = NewRegistration.objects.all()
+        appdata = []
+        for x in app:
+            y = {'new': x.new_room.no, 'user': x.requester.user.first_name, 'userl': x.requester.user.last_name,
+                 'course': x.requester.course, 'username': x.requester}
+            appdata.append(y)
+            print(x)
+        context = {'appdata': appdata}
+        return render(request, 'accounts/approve_list_new.html', context)
+
+    else:
+        return render(request, 'accounts/testing.html')
+
+
+def reject_form(request, tag):
+    if request.user.groups.filter(name__in=['warden']).exists():
+        if request.method == 'POST':
+            form = RejectForm(request.POST)
+
+            if form.is_valid():
+                # msg = request.POST['message']
+                msg = request.POST.get('message')
+                print(msg)
+                app = NewRegistration.objects.filter(requester__user__username=tag).first()
+                user = UserProfile.objects.get(user__username=tag)
+                subject = 'Your request has been rejected'
+                message = 'Your new room selection has been rejected by the warden.' \
+                          'Reason: '
+                message = message + msg
+                email_from = settings.EMAIL_HOST_USER
+                recipient_list = [user.user.email]
+                send_mail(subject, message, email_from, recipient_list)
+                app.delete()
+                return redirect('applistnew')
+
+            else:
+                form = RejectForm()
+                return render(request, 'accounts/reject_msg_new.html', {'form': form, 'username': tag})
+
+        else:
+            form = RejectForm()
+            return render(request, 'accounts/reject_msg_new.html', {'form': form, 'username': tag})
+
+
+def approve_confirm_new(request, tag):
+    if request.user.groups.filter(name__in=['warden']).exists():
+        # app = Approval.objects.get(id=tag)
+        app = NewRegistration.objects.filter(requester__user__username=tag).first()
+        print('app is', app)
+        user = UserProfile.objects.get(user__username=tag)
+        newroom = app.new_room
+        if newroom.present == newroom.capacity:
+            app.delete()
+            transaction.commit()
+            subject = 'Your request has been cancelled'
+            message = 'Your room change request has been cancelled by the warden because the room was already full' \
+                      ' at the time of processing.'
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [user.user.email]
+            send_mail(subject, message, email_from, recipient_list)
+            return render(request, 'accounts/room_full.html')
+
+        else:
+            newroom.present = newroom.present + 1
+            user.room = newroom
+            newroom.save()
+            user.save()
+            app.delete()
+            transaction.commit()
+
+            subject = 'Your request has been approved'
+            message = 'Your new room request has been approved by the warden. Login to see your new room.'
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [user.user.email]
+            send_mail(subject, message, email_from, recipient_list)
+
+            return redirect('applist')
+
+    else:
+        return render(request, 'accounts/testing.html')
+
+
 def approve_confirm(request, tag):
     if request.user.groups.filter(name__in=['warden']).exists():
         # app = Approval.objects.get(id=tag)
@@ -202,21 +293,35 @@ def approve_confirm(request, tag):
 
 def approve_reject(request, tag):
     if request.user.groups.filter(name__in=['warden']).exists():
+        if request.method == 'POST':
+            form = RejectForm(request.POST)
 
-        # app = Approval.objects.get(id=tag)
-        app = Approval.objects.filter(requester__user__username=tag).first()
-        user = UserProfile.objects.get(user__username=tag)
+            if form.is_valid():
+                # msg = request.POST['message']
+                msg = request.POST.get('message')
+                # app = Approval.objects.get(id=tag)
+                app = Approval.objects.filter(requester__user__username=tag).first()
+                user = UserProfile.objects.get(user__username=tag)
 
-        app.delete()
-        transaction.commit()
+                subject = 'Your request has been rejected'
+                message = 'Your room change request has been rejected by the warden. Reason:'
+                message = message + msg
+                email_from = settings.EMAIL_HOST_USER
+                recipient_list = [user.user.email]
+                send_mail(subject, message, email_from, recipient_list)
 
-        subject = 'Your request has been rejected'
-        message = 'Your room change request has been rejected by the warden.'
-        email_from = settings.EMAIL_HOST_USER
-        recipient_list = [user.user.email]
-        send_mail(subject, message, email_from, recipient_list)
+                app.delete()
+                transaction.commit()
 
-        return approve_all_view_warden(request)
+                return approve_all_view_warden(request)
+
+            else:
+                form = RejectForm()
+                return render(request, 'accounts/reject_msg_change.html', {'form': form, 'username': tag})
+
+        else:
+            form = RejectForm()
+            return render(request, 'accounts/reject_msg_change.html', {'form': form, 'username': tag})
 
     else:
         return render(request, 'accounts/testing.html')
@@ -246,6 +351,24 @@ def room_select(request, tag):
 
     # else:
     #     return render(request, 'accounts/testing.html')
+
+
+def room_select_new(request, tag):
+    try:
+        s = NewRegistration.objects.get(requester__user__username=request.user)
+        print(s, 'hello')
+        return render(request, 'accounts/room_notallowed.html')
+    except:
+        current_user = request.user
+        print(current_user)
+        obj = UserProfile.objects.get(user=current_user)
+
+        room = NewRegistration()
+        room.requester = obj
+        room.new_room = Room.objects.get(no=tag)
+        room.save()
+        context = {'room': tag}
+        return render(request, 'accounts/confirm.html', context)
 
 
 @login_required()
@@ -415,14 +538,28 @@ def fee_instructions(request):
         print(s, 'hello')
         return render(request, 'accounts/room_notallowed.html')
     except:
-        return render(request, 'accounts/topay.html')
+        # try:
+        cuser = UserProfile.objects.get(user__username=request.user)
+        room = cuser.room
+        type = room.room_type
+        if type == 'S':
+            amount = 15000
+        elif type == 'D':
+            amount = 12000
+        else:
+            amount = 9000
+
+        return render(request, 'accounts/topay.html', {'amount': amount})
+    # except:
+    #     return render(request, 'accounts/detail_view.html')
 
 
 @login_required
-def fee_register(request):
+def fee_register(request, tag):
     cuser = request.user
     newfee = Fees()
     newfee.student = UserProfile.objects.get(user=cuser)
+    newfee.amount = tag
     newfee.save()
     transaction.commit()
     return redirect('student')
@@ -437,7 +574,7 @@ def fee_approval_list(request):
         for x in studfees:
             if x.is_approved == False:
                 l = {'name': x.student.user.first_name, 'course': x.student.course, 'date': x.date_paid,
-                     'username': x.student.user.username, 'lname': x.student.user.last_name}
+                     'username': x.student.user.username, 'lname': x.student.user.last_name, 'amount': x.amount}
                 feedata.append(l)
 
         context = {'feedata': feedata}
@@ -475,20 +612,32 @@ def fees_approve_confirm(request, tag):
 @login_required
 def fees_approve_reject(request, tag):
     if request.user.groups.filter(name__in=['warden']).exists():
+        if request.method == 'POST':
+            form = RejectForm(request.POST)
 
-        feepay = Fees.objects.get(student__user__username=tag)
-        userpro = UserProfile.objects.get(user__username=tag)
-        feepay.delete()
-        transaction.commit()
+            if form.is_valid():
+                msg = request.POST.get('message')
+                feepay = Fees.objects.get(student__user__username=tag)
+                userpro = UserProfile.objects.get(user__username=tag)
 
-        subject = 'Your Fee Payment has been rejected'
-        message = 'Your Fee Payment has been rejected by the warden. Contact your warden for more details. ' \
-                  'You can apply from your Profile again.'
-        email_from = settings.EMAIL_HOST_USER
-        recipient_list = [userpro.user.email]
-        send_mail(subject, message, email_from, recipient_list)
+                subject = 'Your Fee Payment has been rejected'
+                message = 'Your Fee Payment has been rejected by the warden. Contact your warden for more details. ' \
+                          'You can apply from your Profile again. Reason: '
+                message = message + msg
+                email_from = settings.EMAIL_HOST_USER
+                recipient_list = [userpro.user.email]
+                send_mail(subject, message, email_from, recipient_list)
 
-        return redirect('feesall')
+                feepay.delete()
+                transaction.commit()
+
+                return redirect('feesall')
+
+        else:
+            username = tag
+            form = RejectForm()
+            return render(request, 'accounts/reject_msg_fees.html', {'username': username, 'form': form})
+
 
     else:
         return render(request, 'accounts/testing.html')
