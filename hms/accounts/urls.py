@@ -34,5 +34,6 @@ urlpatterns = [
     path('rejectnew/<str:tag>', views.reject_form, name='rejectnew'),
     path('appconfirmnew/<str:tag>', views.approve_confirm_new, name='appconfirmnew'),
     path('rejectfee/<str:tag>', views.reject_form, name='rejectfee'),
+    path('feestatus', views.fee_status, name='feestatus'),
 
 ]

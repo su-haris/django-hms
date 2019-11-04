@@ -137,9 +137,9 @@
                 </div>
                 <div class="col-sm-7 text-right">
                     {% if fees == False %}
-                    <p class="profiledetail text-danger">Fees Not Paid</p>
+                    <p class="profiledetail"><a class="text-danger" href="{% url 'feestatus' %}">Fees Not Paid</a></p>
                     {% else %}
-                    <p class="profiledetail text-success">Fees Paid</p>
+                    <p class="profiledetail"><a class="text-success" href="{% url 'feestatus' %}">Fees Paid</a></p>
                     {% endif %}
                 </div>
             </div>

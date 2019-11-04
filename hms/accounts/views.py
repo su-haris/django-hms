@@ -564,6 +564,20 @@ def fee_register(request, tag):
     transaction.commit()
     return redirect('student')
 
+@login_required
+def fee_status(request):
+    cuser = request.user
+    try:
+        fee = Fees.objects.get(student__user=cuser)
+        context = {'name1': cuser.first_name, 'name2': cuser.last_name, 'date': fee.date_paid, 'fees': fee.is_approved,
+                   'amount': fee.amount, 'course': fee.student.course}
+
+        return render(request, 'accounts/fee_status.html', context)
+
+    except:
+        return render(request, 'accounts/no_fees.html')
+
+
 
 @login_required
 def fee_approval_list(request):
