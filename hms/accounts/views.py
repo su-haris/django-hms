@@ -538,20 +538,20 @@ def fee_instructions(request):
         print(s, 'hello')
         return render(request, 'accounts/room_notallowed.html')
     except:
-        # try:
-        cuser = UserProfile.objects.get(user__username=request.user)
-        room = cuser.room
-        type = room.room_type
-        if type == 'S':
-            amount = 15000
-        elif type == 'D':
-            amount = 12000
-        else:
-            amount = 9000
+        try:
+            cuser = UserProfile.objects.get(user__username=request.user)
+            room = cuser.room
+            type = room.room_type
+            if type == 'S':
+                amount = 15000
+            elif type == 'D':
+                amount = 12000
+            else:
+                amount = 9000
+            return render(request, 'accounts/topay.html', {'amount': amount})
 
-        return render(request, 'accounts/topay.html', {'amount': amount})
-    # except:
-    #     return render(request, 'accounts/detail_view.html')
+        except:
+            return render(request, 'accounts/room_before_fees.html')
 
 
 @login_required
