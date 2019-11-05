@@ -310,6 +310,7 @@ def approve_confirm(request, tag):
             oldroom.present = oldroom.present - 1
             newroom.present = newroom.present + 1
             user.room = newroom
+
             oldroom.save()
             newroom.save()
             user.save()

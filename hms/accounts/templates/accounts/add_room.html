@@ -48,7 +48,7 @@ console.log('hello23');
         <!-- Default form register -->
 
         <form method="POST" class="text-center border border-light p-5" action="{% url 'addroom' %}"
-              onsubmit="myButton.disabled = true; return true;" enctype="multipart/form-data">
+              onsubmit="send.disabled = true; return true;" enctype="multipart/form-data">
             {% csrf_token %}
 
             <p class="h4 mb-4">Add New Room</p>
@@ -73,7 +73,7 @@ console.log('hello23');
             <input type="file" name="cover" class="form-control mb-4" accept="image/*" required="" id="id_cover">
             </div>
 
-            <button class="btn btn-info my-4 btn-block" type="submit">Add Room</button>
+            <button name="send" class="btn btn-info my-4 btn-block" type="submit">Add Room</button>
 
         </form>
         <!-- Default form register -->

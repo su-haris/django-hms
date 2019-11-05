@@ -14,14 +14,14 @@
     <div class="col-sm-3"></div>
     <div class="col-sm-6">
 
-        <form method="POST" class="post-form text-center border border-light p-5" action="{% url 'rejectnew' username %}">
+        <form method="POST" onsubmit="send.disabled = true; return true;" class="post-form text-center border border-light p-5" action="{% url 'rejectnew' username %}">
             {% csrf_token %}
             <h3>Reason for Rejection</h3>
             <hr>
 
             <textarea name="message" class="form-control mb-4" cols="40" rows="10"
                       id="message" placeholder="Enter Message" required></textarea>
-            <button type="submit" class="btn btn-info my-4 btn-block" onclick="this.disabled=true; this.value='Please Wait';">Send Message and Delete Request</button>
+            <button name="send" type="submit" class="btn btn-info my-4 btn-block">Send Message and Delete Request</button>
         </form>
     </div>
 

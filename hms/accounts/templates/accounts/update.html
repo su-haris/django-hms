@@ -9,7 +9,7 @@
         <!-- Default form register -->
 
         <form method="POST" class="text-center border border-light p-5" action="{% url 'update' %}"
-              onsubmit="myButton.disabled = true; return true;">
+              onsubmit="send.disabled = true; return true;">
             {% csrf_token %}
 
             <p class="h4 mb-4">Update Profile</p>
@@ -65,7 +65,7 @@
 
 
             <!-- Sign up button -->
-            <button class="btn btn-info my-4 btn-block" type="submit" >Update Details</button>
+            <button name="send" class="btn btn-info my-4 btn-block" type="submit" >Update Details</button>
 
             <!-- Social register -->
 <!--            <p>or</p>-->

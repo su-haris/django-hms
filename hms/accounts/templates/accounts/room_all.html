@@ -18,10 +18,10 @@
                 <!--                </p>-->
 
                 <form method="POST" action="{% url 'roomselect' y.no %}"
-                      onsubmit="myButton.disabled = true; return true;">
+                      onsubmit="send.disabled = true; return true;">
                     {% csrf_token %}
                     {% if y.remains > 0 %}
-                    <button type="submit" class="btn btn-outline-dark">Select Room</button>
+                    <button name="send" type="submit" class="btn btn-outline-dark">Select Room</button>
                     {% else %}
                     <h3 style="color: red;">Room Full</h3>
                     {% endif %}
