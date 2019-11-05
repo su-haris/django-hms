@@ -723,7 +723,7 @@ def student_profile_admin(request, tag):
         obj = UserProfile.objects.get(user__username=tag)
 
         try:
-            context = {'name': obj.user.first_name, 'location': obj.location, 'age': obj.age,
+            context = {'name': obj.user.first_name, 'namel': obj.user.last_name, 'location': obj.location, 'age': obj.age,
                        'gender': obj.gender, 'room': obj.room.no, 'email': obj.user.email,
                        'course': obj.course, 'fees': obj.fees_paid, 'uname': obj.user.username}
         except:

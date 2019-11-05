@@ -20,18 +20,9 @@
         <div class="row">
             <div class="col-sm-8">
                 <!--            <p class="text-center">My Profile</p>-->
-                <h2>{{name}}</h2>
+                <h2>{{name}} {{namel}}</h2>
             </div>
-<!--            <div class="col-sm-4">-->
-<!--                <form action="{% url 'update' %}">-->
-<!--                    <button type="submit" class="btn btn-outline-dark btn-sm"><i class="material-icons">edit</i>-->
-<!--                    </button>-->
 
-
-<!--                </form>-->
-
-
-<!--            </div>-->
         </div>
         <!--        <div class="col-sm-12">-->
         <!--            {% load static %}-->
@@ -39,79 +30,103 @@
         <!--        </div>-->
         <hr class="profilehr">
         <div class="col-sm-12">
-            <div class="row">
-                <div class="col-sm-2"></div>
+             <div class="row">
+<!--                <div class="col-sm-2"></div>-->
                 <div class="col-sm-1">
                     <i class="material-icons">person</i>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-3">
+                    <p class="profiledetail">Username:</p>
+                </div>
+                <div class="col-sm-7 text-right">
                     <p class="profiledetail">{{uname}}</p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-2"></div>
+<!--                <div class="col-sm-2"></div>-->
                 <div class="col-sm-1">
                     <i class="material-icons">email</i>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-3">
+                    <p class="profiledetail">Email:</p>
+                </div>
+                <div class="col-sm-7 text-right">
                     <p class="profiledetail">{{email}}</p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-2"></div>
+<!--                <div class="col-sm-2"></div>-->
                 <div class="col-sm-1">
                     <i class="material-icons">work</i>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-3">
+                    <p class="profiledetail">Course:</p>
+                </div>
+                <div class="col-sm-7 text-right">
                     <p class="profiledetail">{{course}}</p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-2"></div>
+<!--                <div class="col-sm-2"></div>-->
                 <div class="col-sm-1">
                     <i class="material-icons">location_city</i>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-3">
+                    <p class="profiledetail">Location:</p>
+                </div>
+                <div class="col-sm-7 text-right">
                     <p class="profiledetail">{{location}}</p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-2"></div>
+<!--                <div class="col-sm-2"></div>-->
                 <div class="col-sm-1">
                     <i class="material-icons">emoji_people</i>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-3">
+                    <p class="profiledetail">Age:</p>
+                </div>
+                <div class="col-sm-7 text-right">
                     <p class="profiledetail">{{age}}</p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-2"></div>
+<!--                <div class="col-sm-2"></div>-->
                 <div class="col-sm-1">
                     <i class="material-icons">wc</i>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-3">
+                    <p class="profiledetail">Gender:</p>
+                </div>
+                <div class="col-sm-7 text-right">
                     <p class="profiledetail">{{gender}}</p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-2"></div>
+<!--                <div class="col-sm-2"></div>-->
                 <div class="col-sm-1">
                     <i class="material-icons">airline_seat_individual_suite</i>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-3">
+                    <p class="profiledetail">Room:</p>
+                </div>
+                <div class="col-sm-7 text-right">
                     <p class="profiledetail">{{room}}</p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-2"></div>
+<!--                <div class="col-sm-2"></div>-->
                 <div class="col-sm-1">
                     <i class="material-icons">local_atm</i>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-3">
+                    <p class="profiledetail">Fees:</p>
+                </div>
+                <div class="col-sm-7 text-right">
                     {% if fees == False %}
-                    <p class="profiledetail text-danger">Fees Not Paid</p>
+                    <p class="profiledetail"><a class="text-danger">Fees Not Paid</a></p>
                     {% else %}
-                    <p class="profiledetail text-success">Fees Paid</p>
+                    <p class="profiledetail"><a class="text-success">Fees Paid</a></p>
                     {% endif %}
                 </div>
             </div>
