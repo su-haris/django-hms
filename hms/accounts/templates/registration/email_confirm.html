@@ -1,0 +1,21 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+
+    <div class="w3-display-middle">
+        <h1 class="w3-jumbo w3-animate-top">Success! You have verified your email!</h1>
+        <hr class="w3-border-grey" style="margin:auto;width:60%">
+        <p class="w3-large w3-center" style="text-align: center;">
+        <h3>You can now access this site.</h3>
+        <a href="{% url 'student' %}">Go to My Profile</a>
+        </p>
+
+
+    </div>
+
+</div>
+
+<!--<h1>Selected Room is {{ room }}</h1>-->
+<!--<a href="{% url 'student' %}">student</a>-->
+{% endblock %}
