@@ -36,12 +36,12 @@
                 <h6 class="card-subtitle mb-2 text-dark">Required Room: {{y.new}}</h6>
                 <div class="row">
                 <div class="col-sm-6">
-                    <form method="POST" action="{% url 'appconfirmnew' y.username %}"
+                    <form method="POST" id="{{y.username}}" action="{% url 'appconfirmnew' y.username %}"
                           onsubmit="send.disabled = true; return true;">
                         {% csrf_token %}
 
 
-                        <button name="send" type="submit" class="btn btn-outline-success">Approve</button>
+                        <button name="send" class="btn btn-outline-success" onclick="approve(event,{{y.username}})">Approve</button>
 
                     </form>
                 </div>
@@ -84,4 +84,20 @@
 
 {% endfor %}
     </div>
+<script>
+
+        function approve(event,id){
+        event.preventDefault();
+            var form = document.getElementById(id);
+            if(confirm('Are You Sure?')){
+                form.submit();
+                var btns = document.getElementsByClassName('btn');
+                console.log(btns);
+                for(let i=0; i<btns.length; i++){
+                    btns[i].disabled = true;
+                }
+            }
+        }
+
+</script>
 {% endblock %}

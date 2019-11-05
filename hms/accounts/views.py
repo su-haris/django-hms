@@ -192,7 +192,7 @@ def approve_all_view_warden(request):
         for x in app:
             if x.is_approved == False:
                 y = {'old': x.old_room.no, 'new': x.new_room.no, 'user': x.requester.user.first_name,
-                     'course': x.requester.course, 'username': x.requester}
+                     'course': x.requester.course, 'username': x.requester, 'userl': x.requester.user.last_name}
                 appdata.append(y)
                 print(x)
         context = {'appdata': appdata}
@@ -281,7 +281,7 @@ def approve_confirm_new(request, tag):
             recipient_list = [user.user.email]
             send_mail(subject, message, email_from, recipient_list)
 
-            return redirect('applist')
+            return redirect('applistnew')
 
     else:
         return render(request, 'accounts/testing.html')
@@ -558,7 +558,7 @@ def fee_student_history(request):
         allfees = Fees.objects.all()
         details = []
         for x in allfees:
-            l = {'name': x.student.user.first_name, 'date': x.date_paid, 'approve': x.is_approved}
+            l = {'name': x.student.user.first_name, 'date': x.date_paid, 'approve': x.is_approved, 'amount': x.amount}
             print(l)
             details.append(l)
 

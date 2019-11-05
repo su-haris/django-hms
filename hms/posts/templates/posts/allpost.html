@@ -24,7 +24,7 @@
                         Announced on: {{ post.created_on }}
 
                     </p>
-                    <a class="text-danger" href="{% url 'delete' post.title %}">Delete Post</a>
+                    <a class="text-danger" style="cursor:pointer;" onclick="confirmDelete('{% url 'delete' post.title %}')">Delete Post</a>
                 </div>
             </div>
         </div>
@@ -44,4 +44,15 @@
     {% endfor %}
 <!--</div>-->
 </div>
+
+<script>
+
+    function confirmDelete(url){
+        if(confirm('Are You sure to delete this?')){
+            location.href = url;
+        }
+    }
+
+</script>
+
 {% endblock %}
