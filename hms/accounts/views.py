@@ -314,11 +314,18 @@ def approve_confirm(request, tag):
             oldroom.save()
             newroom.save()
             user.save()
+
+            if newroom.capacity < oldroom.capacity:
+                msg = 'You will have to pay an extra amount. Please contact the warden immediately.'
+            else:
+                msg = 'Regards.'
+
             app.delete()
             transaction.commit()
 
             subject = 'Your request has been approved'
             message = 'Your room change request has been approved by the warden. Login to see your new room.'
+            message = message+msg
             email_from = settings.EMAIL_HOST_USER
             recipient_list = [user.user.email]
             send_mail(subject, message, email_from, recipient_list)
