@@ -36,7 +36,7 @@ class UserProfileForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for field in iter(self.fields):
             self.fields[field].widget.attrs.update({
-                'class': 'form-control'
+                'class': 'form-control mb-4'
             })
 
 

@@ -505,37 +505,82 @@ def update(request):
         form = UserUpdateForm(request.POST)
         profile_form = UserProfileUpdateForm(request.POST)
 
-        # if form.is_valid() and profile_form.is_valid():
-        try:
-            print('into validation')
-            uname = request.POST['username']
-            fname = request.POST['first_name']
-            lname = request.POST['last_name']
-            email = request.POST['email']
-            course = request.POST['course']
-            loc = request.POST['location']
-            age1 = request.POST['age']
-            user = User.objects.get(username=request.user)
-            profile = UserProfile.objects.get(user=user)
-            user.username = uname
-            user.first_name = fname
-            user.last_name = lname
-            user.email = email
-            user.save()
-            profile.location = loc
-            profile.age = age1
-            profile.course = course
-            profile.save()
-            transaction.commit()
+        if form.is_valid() and profile_form.is_valid():
+            form.save()
+            profile_form.save()
+            # user = User.objects.get(username=request.user)
+            # profile = UserProfile.objects.get(user=user)
+            #
+            # user.username = form.username
+            # print('into validation1')
+            #
+            # user.first_name = form.first_name
+            # print('into validation2')
+            #
+            # user.last_name = form.last_name
+            # user.email = form.email
+            # print('into validation3')
+            #
+            # user.save()
+            # print('into validation4')
+            #
+            # profile.location = profile_form.loc
+            # profile.age = profile_form.age
+            # profile.course = profile_form.course
+            # profile.save()
+
             return redirect('student')
 
-        # else:
-        except:
+        else:
             # print('not valid')
             # return redirect('update')
             return render(request, 'accounts/update.html', {
                 'form': form, 'form1': profile_form,
             })
+
+        # try:
+        #     print('into validation')
+        #     uname = request.POST['username']
+        #
+        #     fname = request.POST['first_name']
+        #     print('into validation2')
+        #
+        #     lname = request.POST['last_name']
+        #     email = request.POST['email']
+        #     course = request.POST['course']
+        #     loc = request.POST['location']
+        #     age1 = request.POST['age']
+        #     user = User.objects.get(username=request.user)
+        #     profile = UserProfile.objects.get(user=user)
+        #     print('into validation0')
+        #
+        #     user.username = uname
+        #     print('into validation1')
+        #
+        #     user.first_name = fname
+        #     print('into validation2')
+        #
+        #     user.last_name = lname
+        #     user.email = email
+        #     print('into validation3')
+        #
+        #     user.save()
+        #     print('into validation4')
+        #
+        #     profile.location = loc
+        #     profile.age = age1
+        #     profile.course = course
+        #     profile.save()
+        #
+        #     return redirect('student')
+        #
+        # # else:
+        # except:
+        #     # print('not valid')
+        #     # return redirect('update')
+        #     return render(request, 'accounts/update.html', {
+        #         'form': form, 'form1': profile_form,
+        #     })
 
     if request.method == 'GET':
         user = User.objects.get(username=request.user)

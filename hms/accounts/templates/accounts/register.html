@@ -59,13 +59,13 @@
             <input type="number" id="age" class="form-control mb-4" name="age" min="0" placeholder="Age"
                    value="{% if profile_form.age.value == None %}{% else %}{{profile_form.age.value}}{% endif %}">
 
+            {{ profile_form.course }}
+<!--            <select class="form-control mb-4" name="course">-->
+<!--                <option value="CSE">CSE</option>-->
+<!--                <option value="IT">IT</option>-->
+<!--                <option value="ECE">ECE</option>-->
 
-            <select class="form-control mb-4" name="course">
-                <option value="CSE">CSE</option>
-                <option value="IT">IT</option>
-                <option value="ECE">ECE</option>
-
-            </select>
+<!--            </select>-->
 
             <select class="form-control mb-4" name="gender">
                 <option value="M">Male</option>
