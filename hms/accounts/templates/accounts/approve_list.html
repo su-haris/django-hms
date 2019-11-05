@@ -38,11 +38,11 @@
                 <div class="row">
                 <div class="col-sm-6">
                     <form method="POST" id="{{y.username}}" action="{% url 'appconfirm' y.username %}"
-                          onsubmit="send.disabled = true; return true;">
+                          onsubmit="approve(event,{{y.username}})">
                         {% csrf_token %}
 
 
-                        <button name="send" class="btn btn-outline-success" onclick="approve(event,{{y.username}})">Approve</button>
+                        <button name="send" class="btn btn-outline-success" type="submit">Approve</button>
 
                     </form>
                 </div>
@@ -90,9 +90,10 @@
 
         function approve(event,id){
         event.preventDefault();
+        console.log(event)
             var form = document.getElementById(id);
             if(confirm('Are You Sure?')){
-                form.submit();
+                event.target.submit();
                 var btns = document.getElementsByClassName('btn');
                 console.log(btns);
                 for(let i=0; i<btns.length; i++){

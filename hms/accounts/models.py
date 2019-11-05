@@ -19,7 +19,7 @@ class Room(models.Model):
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     room = models.ForeignKey(Room, on_delete=models.DO_NOTHING, blank=True, null=True, unique=False)
     location = models.CharField(max_length=10)
     age = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(99)])
@@ -44,6 +44,10 @@ class UserProfile(models.Model):
     )
     room_allotted = models.BooleanField(default=False)
     fees_paid = models.BooleanField(default=False)
+
+    def delete(self, *args, **kwargs):
+        self.user.delete()
+        return super(self.__class__, self).delete(*args, **kwargs)
 
     def __str__(self):
         return self.user.username
