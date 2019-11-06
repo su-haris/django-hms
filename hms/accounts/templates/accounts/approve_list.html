@@ -18,11 +18,38 @@
 {% block content %}
 
 
-<!--    <div class="w3-display-topright w3-padding-large w3-xlarge">-->
-<!--      <a href="{% url 'logout' %}">Logout</a><br>-->
-<!--       <a href="{% url 'wardenhome' %}">All Rooms</a>-->
-<!--    </div>-->
-<!--    <div style="padding-top: 40px; padding-left: 20px;"></div>-->
+<style>
+    #popup{
+        position: fixed;
+        left: 40%;
+        top: 40%;
+        height: 130px;
+        width: 300px;
+        display: none;
+        z-index: 100;
+        padding: 20px;
+        background-color: #fff;
+        color: #000;
+    }
+</style>
+
+<div class="confirmPopup" id="popup">
+    <div class="row">
+        <div class="col-sm-12" style="margin-bottom: 20px;">
+            Are you sure?
+        </div>
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-6">
+                    <button id="yes" class="btn btn-outline-success" onclick="confirmed()">Yes</button>
+                </div>
+                <div class="col-sm-6">
+                    <button id="no" class="btn btn-outline-danger" onclick="abort()">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="row" style="padding-top:10%;">
 {% for y in appdata %}
@@ -44,7 +71,7 @@
                         {% csrf_token %}
 
 
-                        <button name="send" class="btn btn-outline-success" type="submit">Approve</button>
+                        <button name="send" class="btn btn-outline-success bs" type="submit">Approve</button>
 
                     </form>
                 </div>
@@ -54,7 +81,7 @@
                         {% csrf_token %}
 
 
-                        <button name="send" type="submit" class="btn btn-outline-danger">Reject</button>
+                        <button name="send" type="submit" class="btn btn-outline-danger bs">Reject</button>
 
                     </form>
                 </div>
@@ -90,17 +117,35 @@
     </div>
 <script>
 
+        var target;
         function approve(event,id){
+        console.log('something');
         event.preventDefault();
-        console.log(event)
-            var form = document.getElementById(id);
-            if(confirm('Are You Sure?')){
-                event.target.submit();
-                var btns = document.getElementsByClassName('btn');
-                console.log(btns);
-                for(let i=0; i<btns.length; i++){
-                    btns[i].disabled = true;
-                }
+        target = event.target;
+        $('#popup').show();
+        console.log($('#popup'));
+        console.log('something');
+        var btns = document.getElementsByClassName('bs');
+            console.log(btns);
+            for(let i=0; i<btns.length; i++){
+                btns[i].disabled = true;
+            }
+        }
+
+        function confirmed(){
+            target.submit();
+            var btns = document.getElementsByClassName('btn');
+            console.log(btns);
+            for(let i=0; i<btns.length; i++){
+                btns[i].disabled = true;
+            }
+        }
+
+        function abort(){
+            $('#popup').hide();
+            var btns = document.getElementsByClassName('bs');
+            for(let i=0; i<btns.length; i++){
+                btns[i].disabled = false;
             }
         }
 

@@ -130,7 +130,14 @@ def room_all_view(request):
             roomdata = []
             for x in rooms:
                 remains = x.capacity - x.present
-                y = {'no': x.no, 'type': x.room_type, 'present': x.present, 'remains': remains, 'cover': x.cover}
+                type = x.room_type
+                if type == 'S':
+                    amount = 15000
+                elif type == 'D':
+                    amount = 12000
+                else:
+                    amount = 9000
+                y = {'no': x.no, 'type': x.room_type, 'present': x.present, 'remains': remains, 'cover': x.cover, 'fees': amount}
                 roomdata.append(y)
                 print('hello', x.cover)
             context = {'roomdata': roomdata}
@@ -149,7 +156,14 @@ def room_change_view(request):
     for x in rooms:
         if x != obj.room:
             remains = x.capacity - x.present
-            y = {'no': x.no, 'type': x.room_type, 'present': x.present, 'remains': remains, 'cover': x.cover}
+            type = x.room_type
+            if type == 'S':
+                amount = 15000
+            elif type == 'D':
+                amount = 12000
+            else:
+                amount = 9000
+            y = {'no': x.no, 'type': x.room_type, 'present': x.present, 'remains': remains, 'cover': x.cover, 'fees': amount}
             roomdata.append(y)
 
     context = {'roomdata': roomdata}
@@ -171,13 +185,23 @@ def room_change_check(request):
 def room_all_view_warden(request):
     if request.user.groups.filter(name__in=['warden']).exists():
         rooms = Room.objects.all()
+
+        new_room = NewRegistration.objects.all()
+        new_room_count = len(new_room)
+
+        fee = Fees.objects.filter(is_approved=False)
+        fee_count = len(fee)
+
+        appr = Approval.objects.all()
+        appr_count = len(appr)
+
         roomdata = []
         for x in rooms:
             remains = x.capacity - x.present
             y = {'no': x.no, 'type': x.room_type, 'present': x.present, 'remains': remains, 'cover': x.cover}
             roomdata.append(y)
             print(x.cover)
-        context = {'roomdata': roomdata}
+        context = {'roomdata': roomdata, 'newroom': new_room_count, 'feen': fee_count, 'appr': appr_count}
         return render(request, 'accounts/room_all_warden.html', context)
 
     else:

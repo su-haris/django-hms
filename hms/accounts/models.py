@@ -1,6 +1,9 @@
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
+from django.db.models.signals import pre_delete
+from django.dispatch.dispatcher import receiver
+from django.core.exceptions import PermissionDenied
 
 
 # Create your models here.
@@ -76,3 +79,9 @@ class NewRegistration(models.Model):
     requester = models.ForeignKey(UserProfile, on_delete=models.DO_NOTHING, blank=True, null=True, unique=False)
     new_room = models.ForeignKey(Room, on_delete=models.DO_NOTHING, blank=True, null=True, unique=False,
                                  related_name='newroom')
+
+
+@receiver(pre_delete, sender=User)
+def delete_user(sender, instance, **kwargs):
+    if instance.is_superuser:
+        raise PermissionDenied

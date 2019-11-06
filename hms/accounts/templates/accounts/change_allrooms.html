@@ -7,8 +7,11 @@
 <!--        All Rooms-->
 <!--    </div>-->
 <!--    <div style="padding-top: 40px; padding-left: 20px;"></div>-->
-
-<div class="row" style="padding-top:10%">
+<div class="row">
+    <h4 class="card-title text-danger">In case you are selecting a room with higher fee amount, please contact your warden after applying.
+    No refund for already paid amount.</h4>
+</div>
+<div class="row" style="padding-top:5%">
     {% for y in roomdata %}
     <div class="col-sm-4" style="padding-bottom: 5rem;">
         <div class="card" style="width: 18rem;">
@@ -18,7 +21,8 @@
             <div class="card-body">
                 <h4 class="card-title text-dark">Room No: {{y.no}}</h4>
                 <p class="card-text text-dark">Room Type: {{y.type}} <br>
-                    Occupied by: {{y.present}}
+                    Occupied by: {{y.present}} <br>
+                    Fees : {{y.fees}}
                 </p>
                 <!--                <p class="card-text text-secondary">-->
                 <!--                </p>-->
@@ -42,10 +46,4 @@
     {% endfor %}
 </div>
 <!--    </div>-->
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
-<script>
-  $(document).ready(function(){
-    alert('If you select a room with lower capacity than your current one, please contact your warden for fee settlement');
-  });
-</script>
 {% endblock %}
