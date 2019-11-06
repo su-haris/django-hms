@@ -325,7 +325,7 @@ def approve_confirm(request, tag):
 
             subject = 'Your request has been approved'
             message = 'Your room change request has been approved by the warden. Login to see your new room.'
-            message = message+msg
+            message = message + msg
             email_from = settings.EMAIL_HOST_USER
             recipient_list = [user.user.email]
             send_mail(subject, message, email_from, recipient_list)
@@ -336,6 +336,7 @@ def approve_confirm(request, tag):
         return render(request, 'accounts/testing.html')
 
 
+@login_required()
 def approve_reject(request, tag):
     if request.user.groups.filter(name__in=['warden']).exists():
         if request.method == 'POST':
@@ -730,7 +731,8 @@ def student_profile_admin(request, tag):
         obj = UserProfile.objects.get(user__username=tag)
 
         try:
-            context = {'name': obj.user.first_name, 'namel': obj.user.last_name, 'location': obj.location, 'age': obj.age,
+            context = {'name': obj.user.first_name, 'namel': obj.user.last_name, 'location': obj.location,
+                       'age': obj.age,
                        'gender': obj.gender, 'room': obj.room.no, 'email': obj.user.email,
                        'course': obj.course, 'fees': obj.fees_paid, 'uname': obj.user.username}
         except:
