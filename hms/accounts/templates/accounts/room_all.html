@@ -13,6 +13,7 @@
                 <h4 class="card-title text-dark">Room No: {{y.no}}</h4>
                 <p class="card-text text-dark">Room Type: {{y.type}} <br>
                     Occupied by: {{y.present}}
+                    Fees: Rs. {{y.fees}}
                 </p>
                 <!--                <p class="card-text text-secondary">-->
                 <!--                </p>-->
@@ -64,11 +65,6 @@
 <!--    <br>-->
 <!--    {% endfor %}-->
 <!--</div>-->
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
-<script>
-  $(document).ready(function(){
-    alert('Amount: Single - 15000 | Double - 12000 | Triple - 9000');
-  });
-</script>
+
 
 {% endblock %}
