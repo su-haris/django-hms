@@ -10,12 +10,14 @@ The aim of the project is to build a hostel management system which allows stude
 * Student: For holding student details
 * Room: To hold room occupancy
 * Approval: To hold room change requests
+* NewRegistration: To hold New Room requests
 * Fees: To hold fee details
 * Posts: To hold notice posts
 
 
 ### Functions
 * A Login page for authentication purpose (student or warden)
+* Sign Up Verification
 * Password reset page
 * Allows students to view rooms and select rooms
 * Show Student Profile
@@ -44,9 +46,9 @@ The aim of the project is to build a hostel management system which allows stude
 	* If new user:
 		* Has to sign up
 		* After sign up redirected to user profile
-		* Option to select room is given
+		* Option to select room is given 
 		* Onclick, list of rooms available shown
-		* After selection, room is confirmed, and redirected to user profile
+		* After selection, selected room is given for warden approval, and redirected to user profile
 		* Option to pay fees
 		* Onclick, a request will be registered (after reading instructions)
 		* Email confirmation for both room and fee status.	
