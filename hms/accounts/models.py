@@ -1,6 +1,9 @@
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
+from django.db.models.signals import pre_delete
+from django.dispatch.dispatcher import receiver
+from django.core.exceptions import PermissionDenied
 
 
 # Create your models here.
@@ -19,7 +22,7 @@ class Room(models.Model):
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     room = models.ForeignKey(Room, on_delete=models.DO_NOTHING, blank=True, null=True, unique=False)
     location = models.CharField(max_length=10)
     age = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(99)])
@@ -45,6 +48,10 @@ class UserProfile(models.Model):
     room_allotted = models.BooleanField(default=False)
     fees_paid = models.BooleanField(default=False)
 
+    def delete(self, *args, **kwargs):
+        self.user.delete()
+        return super(self.__class__, self).delete(*args, **kwargs)
+
     def __str__(self):
         return self.user.username
 
@@ -64,4 +71,17 @@ class Approval(models.Model):
 class Fees(models.Model):
     student = models.ForeignKey(UserProfile, on_delete=models.DO_NOTHING, blank=True, null=True, unique=False)
     date_paid = models.DateField(auto_now=True)
+    amount = models.PositiveIntegerField(validators=[MinValueValidator(9000), MaxValueValidator(15000)])
     is_approved = models.BooleanField(default=False)
+
+
+class NewRegistration(models.Model):
+    requester = models.ForeignKey(UserProfile, on_delete=models.DO_NOTHING, blank=True, null=True, unique=False)
+    new_room = models.ForeignKey(Room, on_delete=models.DO_NOTHING, blank=True, null=True, unique=False,
+                                 related_name='newroom')
+
+
+@receiver(pre_delete, sender=User)
+def delete_user(sender, instance, **kwargs):
+    if instance.is_superuser:
+        raise PermissionDenied

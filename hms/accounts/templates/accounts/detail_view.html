@@ -44,78 +44,102 @@
         <hr class="profilehr">
         <div class="col-sm-12">
             <div class="row">
-                <div class="col-sm-2"></div>
+                <!--                <div class="col-sm-2"></div>-->
                 <div class="col-sm-1">
                     <i class="material-icons">person</i>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-3">
+                    <p class="profiledetail">Username:</p>
+                </div>
+                <div class="col-sm-7 text-right">
                     <p class="profiledetail">{{user}}</p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-2"></div>
+                <!--                <div class="col-sm-2"></div>-->
                 <div class="col-sm-1">
                     <i class="material-icons">email</i>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-3">
+                    <p class="profiledetail">Email:</p>
+                </div>
+                <div class="col-sm-7 text-right">
                     <p class="profiledetail">{{email}}</p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-2"></div>
+                <!--                <div class="col-sm-2"></div>-->
                 <div class="col-sm-1">
                     <i class="material-icons">work</i>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-3">
+                    <p class="profiledetail">Course:</p>
+                </div>
+                <div class="col-sm-7 text-right">
                     <p class="profiledetail">{{course}}</p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-2"></div>
+                <!--                <div class="col-sm-2"></div>-->
                 <div class="col-sm-1">
                     <i class="material-icons">location_city</i>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-3">
+                    <p class="profiledetail">Location:</p>
+                </div>
+                <div class="col-sm-7 text-right">
                     <p class="profiledetail">{{location}}</p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-2"></div>
+                <!--                <div class="col-sm-2"></div>-->
                 <div class="col-sm-1">
                     <i class="material-icons">emoji_people</i>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-3">
+                    <p class="profiledetail">Age:</p>
+                </div>
+                <div class="col-sm-7 text-right">
                     <p class="profiledetail">{{age}}</p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-2"></div>
+                <!--                <div class="col-sm-2"></div>-->
                 <div class="col-sm-1">
                     <i class="material-icons">wc</i>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-3">
+                    <p class="profiledetail">Gender:</p>
+                </div>
+                <div class="col-sm-7 text-right">
                     <p class="profiledetail">{{gender}}</p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-2"></div>
+                <!--                <div class="col-sm-2"></div>-->
                 <div class="col-sm-1">
                     <i class="material-icons">airline_seat_individual_suite</i>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-3">
+                    <p class="profiledetail">Room:</p>
+                </div>
+                <div class="col-sm-7 text-right">
                     <p class="profiledetail">{{room}}</p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-2"></div>
+                <!--                <div class="col-sm-2"></div>-->
                 <div class="col-sm-1">
                     <i class="material-icons">local_atm</i>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-3">
+                    <p class="profiledetail">Fees:</p>
+                </div>
+                <div class="col-sm-7 text-right">
                     {% if fees == False %}
-                    <p class="profiledetail text-danger">Fees Not Paid</p>
+                    <p class="profiledetail"><a class="text-danger" href="{% url 'feestatus' %}">Fees Not Paid</a></p>
                     {% else %}
-                    <p class="profiledetail text-success">Fees Paid</p>
+                    <p class="profiledetail"><a class="text-success" href="{% url 'feestatus' %}">Fees Paid</a></p>
                     {% endif %}
                 </div>
             </div>
@@ -137,11 +161,11 @@
                     {% endif %}
 
                 </div>
-<!--                <div class="col-sm-5">-->
-<!--                    <button type="button" class="btn btn-outline-dark">Pay Fees</button>-->
+                <!--                <div class="col-sm-5">-->
+                <!--                    <button type="button" class="btn btn-outline-dark">Pay Fees</button>-->
 
-<!--                </div>-->
-<!--                <div class="col-sm-1"></div>-->
+                <!--                </div>-->
+                <!--                <div class="col-sm-1"></div>-->
 
             </div>
         </div>
@@ -167,7 +191,7 @@
     <!--{% endif %}-->
     <!--        </div>-->
     <!--</div>-->
-    </div>
-    {% endblock %}
+</div>
+{% endblock %}
 
 

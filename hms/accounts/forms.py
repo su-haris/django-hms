@@ -32,9 +32,15 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ('location', 'age', 'gender', 'course')
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in iter(self.fields):
+            self.fields[field].widget.attrs.update({
+                'class': 'form-control'
+            })
+
 
 class UserUpdateForm(forms.ModelForm):
-
     class Meta:
         model = User
         fields = ('username', 'email', 'first_name', 'last_name')
@@ -43,10 +49,21 @@ class UserUpdateForm(forms.ModelForm):
 class UserProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('location', 'age')
+        fields = ('location', 'age', 'course')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in iter(self.fields):
+            self.fields[field].widget.attrs.update({
+                'class': 'form-control'
+            })
 
 
 class RoomCreationForm(forms.ModelForm):
     class Meta:
         model = Room
         fields = ('no', 'room_type', 'capacity', 'cover')
+
+
+class RejectForm(forms.Form):
+    message = forms.Textarea()

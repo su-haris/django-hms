@@ -12,16 +12,17 @@
             <div class="card-body">
                 <h4 class="card-title text-dark">Room No: {{y.no}}</h4>
                 <p class="card-text text-dark">Room Type: {{y.type}} <br>
-                    Occupied by: {{y.present}}
+                    Occupied by: {{y.present}} <br>
+                    Fees: Rs. {{y.fees}}
                 </p>
                 <!--                <p class="card-text text-secondary">-->
                 <!--                </p>-->
 
                 <form method="POST" action="{% url 'roomselect' y.no %}"
-                      onsubmit="myButton.disabled = true; return true;">
+                      onsubmit="send.disabled = true; return true;">
                     {% csrf_token %}
                     {% if y.remains > 0 %}
-                    <button type="submit" class="btn btn-outline-dark">Select Room</button>
+                    <button name="send" type="submit" class="btn btn-outline-dark">Select Room</button>
                     {% else %}
                     <h3 style="color: red;">Room Full</h3>
                     {% endif %}
@@ -64,4 +65,6 @@
 <!--    <br>-->
 <!--    {% endfor %}-->
 <!--</div>-->
+
+
 {% endblock %}

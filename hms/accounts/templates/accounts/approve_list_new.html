@@ -17,6 +17,7 @@
 
 {% block content %}
 
+
 <style>
     #popup{
         position: fixed;
@@ -30,14 +31,8 @@
         background-color: #fff;
         color: #000;
     }
+
 </style>
-
-
-<!--    <div class="w3-display-topright w3-padding-large w3-xlarge">-->
-<!--      <a href="{% url 'logout' %}">Logout</a><br>-->
-<!--       <a href="{% url 'wardenhome' %}">All Rooms</a>-->
-<!--    </div>-->
-<!--    <div style="padding-top: 40px; padding-left: 20px;"></div>-->
 
 <div class="confirmPopup" id="popup">
     <div class="row">
@@ -58,61 +53,67 @@
 </div>
 
 <div class="row" style="padding-top:10%;">
-{% for y in feedata %}
+    {% for y in appdata %}
     <div class="col-sm-4" style="padding-bottom: 5rem;">
         <div class="card" style="width: 18rem;">
             <div class="card-header">
-                <h4 class="card-title text-dark">Paid by: {{y.name}} {{y.lname}}</h4>
-                <h6 class="card-title text-dark">({{y.username}})</h6>
+                <h5 class="card-title text-dark">Requested by: {{y.user}} {{y.userl}}</h5>
                 <p class="card-title text-dark">Course: {{y.course}}</p>
+                <p class="card-title text-dark">({{y.username}})</p>
+
             </div>
             <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-dark">Fee Paid on: {{y.date}}</h6>
-                <h6 class="card-title text-dark">Amount: {{y.amount}}</h6>
-<!--                <h6 class="card-subtitle mb-2 text-dark">Old Room: {{y.old}}</h6>-->
+                <h6 class="card-subtitle mb-2 text-dark">Required Room: {{y.new}}</h6>
                 <div class="row">
-                <div class="col-sm-6">
-                    <form id="{{y.username}}" action="{% url 'feeconfirm' y.username %}"
-                          onsubmit="approve(event,{{y.username}})">
-                        {% csrf_token %}
+                    <div class="col-sm-6">
+                        <form method="POST" id='{{y.username}}' action="{% url 'appconfirmnew' y.username %}"
+                              onsubmit="approve(event,{{y.username}})">
+                            {% csrf_token %}
 
 
-                        <button name="send" class="btn btn-outline-success bs" type="submit">Approve</button>
+                            <button name="send" class="btn btn-outline-success bs" type="submit">Approve</button>
 
-                    </form>
+                        </form>
+                    </div>
+                    <div class="col-sm-6">
+                        <form action="{% url 'rejectnew' y.username %}"
+                              onsubmit="send.disabled = true; return true;">
+
+
+                            <button name="send" type="submit" class="btn btn-outline-danger bs">Reject</button>
+
+                        </form>
+                    </div>
+
                 </div>
-                <div class="col-sm-6">
-                    <form action="{% url 'feereject' y.username %}"
-                          onsubmit="send.disabled = true; return true;">
-                        {% csrf_token %}
-
-
-                        <button name="send" type="submit" class="btn btn-outline-danger bs">Reject</button>
-
-                    </form>
-                </div>
-
             </div>
-                </div>
         </div>
 
     </div>
 
     {% empty %}
     <div class="col-sm-12" style="padding-bottom: 5rem;">
+
         <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+
             <div class="w3-display-middle">
                 <h1 class="w3-jumbo w3-animate-top">No Pending Requests!</h1>
                 <hr class="w3-border-grey" style="margin:auto;width:60%">
                 <p class="w3-large w3-center" style="text-align: center;">
-                <a href="{% url 'student' %}">Go back</a>
+                    <!--         <h1>You have already given a change request</h1>-->
+
+                    <!--                <h3>No inmates here</h3>-->
+                    <a href="{% url 'student' %}">Go back</a>
                 </p>
+
+
             </div>
+
         </div>
     </div>
 
-{% endfor %}
-    </div>
+    {% endfor %}
+</div>
 <script>
 
         var target;

@@ -1,0 +1,88 @@
+{% extends 'accounts/base.html' %}
+
+{% block side %}
+<!--<a class="nav-link nav-social">Welcome {{ name }}</a>-->
+<!--&lt;!&ndash;<a class="nav-link nav-social" href="{% url 'history' %}">Fees History</a>&ndash;&gt;-->
+<!--{% if fees == False %}-->
+<!--&lt;!&ndash;<p class="profiledetail text-danger">Fees Not Paid</p>&ndash;&gt;-->
+<!--<a class="nav-link nav-social" href="{% url 'topay' %}">Pay Fees</a>-->
+<!--{% else %}-->
+<!--{% endif %}-->
+<!--&lt;!&ndash;<a class="nav-link nav-social" href="{% url 'update' %}">Update Profile</a>&ndash;&gt;-->
+<!--<a class="nav-link nav-social" href="{% url 'noticesstud' %}">Notice Board</a>-->
+<!--<a class="nav-link nav-social" href="{% url 'logout' %}">Logout</a>-->
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<div class="row">
+    <div class="col-md-4"></div>
+
+
+    <div class="col-sm-12 col-md-4 shadow px-3 py-4 m-3 text-dark bg-light" style="border-radius: 25px;">
+        <div class="row">
+            <div class="col-sm-8">
+                <!--            <p class="text-center">My Profile</p>-->
+                <h2>Fee Status</h2>
+            </div>
+
+        </div>
+        <!--        <div class="col-sm-12">-->
+        <!--            {% load static %}-->
+        <!--            <img src="{% static 'images/dp.png' %}" class="rounded-circle mx-auto d-block" height="32px" width="32px">-->
+        <!--        </div>-->
+        <hr class="profilehr">
+        <div class="col-sm-12">
+            <div class="row">
+                <!--                <div class="col-sm-2"></div>-->
+
+                <div class="col-sm-4">
+                    <p class="profiledetail">Name: </p>
+                </div>
+                <div class="col-sm-7 text-right">
+                    <p class="profiledetail">{{name1}} {{name2}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <p class="profiledetail">Date Paid:</p>
+                </div>
+                <div class="col-sm-7 text-right">
+                    <p class="profiledetail">{{date}}</p>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-sm-4">
+                    <p class="profiledetail">Status:</p>
+                </div>
+                <div class="col-sm-7 text-right">
+                    <p class="profiledetail text-success">{% if fees == False %}Processing{% else %}Paid and Approved{%
+                        endif %}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <p class="profiledetail">Amount:</p>
+                </div>
+                <div class="col-sm-7 text-right">
+                    <p class="profiledetail">Rs. {{amount}}</p>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <a href="{% url 'student' %}" class="card-link text-dark">Go Back</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+
+
+</div>
+{% endblock %}
+
+

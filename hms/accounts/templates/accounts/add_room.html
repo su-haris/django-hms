@@ -2,6 +2,8 @@
 {% block side %}
 <!--<a class="nav-link nav-social">Welcome Warden</a><br>-->
 <!--<a class="nav-link nav-social" href="{% url 'update' %}">Update Profile</a>-->
+<a class="nav-link nav-social" href="{% url 'notices' %}">Notice Board</a>
+<a class="nav-link nav-social" href="{% url 'applistnew' %}">New Approval</a>
 <a class="nav-link nav-social" href="{% url 'applist' %}">Room Approval</a>
 <a class="nav-link nav-social" href="{% url 'feesall' %}">Fees Approval</a>
 <a class="nav-link nav-social" href="{% url 'history' %}">Fees History</a>
@@ -39,6 +41,7 @@ console.log('hello23');
 
 
 });
+
 </script>
 <div class="row">
     <div class="col-sm-4">
@@ -48,13 +51,13 @@ console.log('hello23');
         <!-- Default form register -->
 
         <form method="POST" class="text-center border border-light p-5" action="{% url 'addroom' %}"
-              onsubmit="myButton.disabled = true; return true;" enctype="multipart/form-data">
+              onsubmit="send.disabled = true; return true;" enctype="multipart/form-data">
             {% csrf_token %}
 
             <p class="h4 mb-4">Add New Room</p>
 
             <!-- Username -->
-            <input  type="text" id="no" name="no" class="form-control mb-4" placeholder="Room Number">
+            <input type="text" id="no" name="no" class="form-control mb-4" placeholder="Room Number">
 
 
             <select class="form-control mb-4 room_type" name="room_type">
@@ -64,16 +67,17 @@ console.log('hello23');
 
             </select>
 
-            <input  type="text" id="capacity" name="capacity" required="" class="form-control mb-4 room_capacity" placeholder="Capacity" readonly>
+            <input type="text" id="capacity" name="capacity" value="1" required=""
+                   class="form-control mb-4 room_capacity" placeholder="Capacity" readonly>
 
-<!--            <small class="text-muted">We'll never share your email with anyone else.</small>-->
+            <!--            <small class="text-muted">We'll never share your email with anyone else.</small>-->
             <div class="col-xs-10">
-                                <small class="text-dark">Upload Photo of the Room</small>
+                <small class="text-dark">Upload Photo of the Room</small>
 
-            <input type="file" name="cover" class="form-control mb-4" accept="image/*" required="" id="id_cover">
+                <input type="file" name="cover" class="form-control mb-4" accept="image/*" required="" id="id_cover">
             </div>
 
-            <button class="btn btn-info my-4 btn-block" type="submit">Add Room</button>
+            <button name="send" class="btn btn-info my-4 btn-block" type="submit">Add Room</button>
 
         </form>
         <!-- Default form register -->
@@ -119,8 +123,6 @@ console.log('hello23');
 <!--    </div>-->
 <!--</div>-->
 {% endblock %}
-
-
 
 
 <!--<form method="POST" action="{% url 'addroom' %}" onsubmit="myButton.disabled = true; return true;" onclick="this.disabled = true;">-->

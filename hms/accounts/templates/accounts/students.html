@@ -1,5 +1,7 @@
 {% extends 'accounts/base.html' %}
 {% block side %}
+<a class="nav-link nav-social" href="{% url 'notices' %}">Notice Board</a>
+<a class="nav-link nav-social" href="{% url 'applistnew' %}">New Approval</a>
 <a class="nav-link nav-social" href="{% url 'applist' %}">Room Approval</a>
 <a class="nav-link nav-social" href="{% url 'feesall' %}">Fees Approval</a>
 <a class="nav-link nav-social" href="{% url 'history' %}">Fees History</a>
@@ -12,42 +14,41 @@
 <div class="row">
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
-<table class="table table-hover table-fixed text-dark bg-light">
-  <thead class="bg-dark text-light">
-    <tr class="font-weight-bold">
-      <td>First Name</td>
-      <td>Last Name</td>
-        <td>Branch</td>
-        <td>Room</td>
-        <td>Fees Paid</td>
-    </tr>
-  </thead>
-  <!--Table head-->
+        <table class="table table-hover table-fixed text-dark bg-light">
+            <thead class="bg-dark text-light">
+            <tr class="font-weight-bold">
+                <td>First Name</td>
+                <td>Last Name</td>
+                <td>Branch</td>
+                <td>Room</td>
+                <td>Fees Paid</td>
+            </tr>
+            </thead>
+            <!--Table head-->
 
-  <!--Table body-->
-  <tbody>
+            <!--Table body-->
+            <tbody>
 
-    {% for y in details %}
+            {% for y in details %}
 
-     <tr>
+            <tr>
 
-      <td>{{y.name1}}</td>
-               <td>{{y.name2}}</td>
-      <td>{{y.course}}</td>
-      <td>{{y.room}}</td>
-         <td>{{y.approve}}</td>
-    </tr>
+                <td>{{y.name1}}</td>
+                <td>{{y.name2}}</td>
+                <td>{{y.course}}</td>
+                <td>{{y.room}}</td>
+                <td>{{y.approve}}</td>
+            </tr>
 
 
+            {% endfor %}
 
-    {% endfor %}
+            </tbody>
+            <!--Table body-->
 
-  </tbody>
-  <!--Table body-->
-
-</table>
-<!--Table-->
-        </div>
+        </table>
+        <!--Table-->
+    </div>
 </div>
 
 {% endblock %}

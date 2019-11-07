@@ -14,16 +14,16 @@
     <div class="col-sm-3"></div>
     <div class="col-sm-6">
 
-        <form method="POST" class="post-form text-center border border-light p-5"
-              onsubmit="send.disabled = true; return true;" action="{% url 'addpost' %}">
+        <form method="POST" onsubmit="send.disabled = true; return true;"
+              class="post-form text-center border border-light p-5" action="{% url 'feereject' username %}">
             {% csrf_token %}
-            <h3>Add a New Notice</h3>
+            <h3>Reason for Rejection</h3>
             <hr>
 
-            <input type="text" id="title" name="title" class="form-control mb-4" placeholder="Enter Title">
-            <textarea name="content" class="form-control mb-4" cols="40" rows="10"
-                      id="id_content" placeholder="Enter Content"></textarea>
-            <button type="submit" name="send" class="btn btn-info my-4 btn-block">Save</button>
+            <textarea name="message" class="form-control mb-4" cols="40" rows="10"
+                      id="message" placeholder="Enter Message" required></textarea>
+            <button name="send" type="submit" class="btn btn-info my-4 btn-block">Send Message and Delete Request
+            </button>
         </form>
     </div>
 

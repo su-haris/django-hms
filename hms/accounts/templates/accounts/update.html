@@ -9,22 +9,25 @@
         <!-- Default form register -->
 
         <form method="POST" class="text-center border border-light p-5" action="{% url 'update' %}"
-              onsubmit="myButton.disabled = true; return true;">
+              onsubmit="send.disabled = true; return true;">
             {% csrf_token %}
 
             <p class="h4 mb-4">Update Profile</p>
 
             <!-- Username -->
-            <input  type="text" value="{{ form.username.value }}" id="username" name="username" class="form-control mb-4" placeholder="Username">
+            <input type="text" value="{{ form.username.value }}" id="username" name="username" class="form-control mb-4"
+                   placeholder="Username" required>
             <div class="form-row mb-4">
                 <div class="col">
                     <!-- First name -->
-                    <input type="text" value="{{ form.first_name.value }}" id="first_name" name="first_name" class="form-control"
+                    <input type="text" value="{{ form.first_name.value }}" id="first_name" name="first_name"
+                           class="form-control"
                            placeholder="First name" required>
                 </div>
                 <div class="col">
                     <!-- Last name -->
-                    <input type="text" value="{{ form.last_name.value }}" id="last_name" name="last_name" class="form-control"
+                    <input type="text" value="{{ form.last_name.value }}" id="last_name" name="last_name"
+                           class="form-control"
                            placeholder="Last name" required>
                 </div>
             </div>
@@ -34,50 +37,53 @@
                    placeholder="E-mail" required>
 
 
-<!--            &lt;!&ndash; Password &ndash;&gt;-->
-<!--            <input type="password" id="defaultRegisterFormPassword" name="password1" class="form-control mb-4"-->
-<!--                   placeholder="Password">-->
+            <!--            &lt;!&ndash; Password &ndash;&gt;-->
+            <!--            <input type="password" id="defaultRegisterFormPassword" name="password1" class="form-control mb-4"-->
+            <!--                   placeholder="Password">-->
 
-<!--            &lt;!&ndash; Password &ndash;&gt;-->
-<!--            <input type="password" id="defaultRegisterFormPassword1" name="password2" class="form-control mb-4"-->
-<!--                   placeholder=" Confirm Password">-->
-
-
-            <input type="text" value="{{ form1.location.value }}" id="location" class="form-control mb-4" name="location" placeholder="Location" required>
-
-            <input type="number" value="{{ form1.age.value }}" id="age" class="form-control mb-4" name="age" min="0" placeholder="Age" required>
-
-<!--            <select class="form-control mb-4" name="course">-->
-<!--                <option value="CSE">CSE</option>-->
-<!--                <option value="IT">IT</option>-->
-<!--                <option value="IT">ECE</option>-->
-
-<!--            </select>-->
-
-<!--            <select class="form-control mb-4" name="gender">-->
-<!--                <option value="M">Male</option>-->
-<!--                <option value="F">Female</option>-->
+            <!--            &lt;!&ndash; Password &ndash;&gt;-->
+            <!--            <input type="password" id="defaultRegisterFormPassword1" name="password2" class="form-control mb-4"-->
+            <!--                   placeholder=" Confirm Password">-->
 
 
-<!--            </select>-->
+            <input type="text" value="{{ form1.location.value }}" id="location" class="form-control mb-4"
+                   name="location" placeholder="Location" required>
+
+            <input type="number" value="{{ form1.age.value }}" id="age" class="form-control mb-4" name="age" min="0"
+                   placeholder="Age" required>
+
+            {{ form1.course }}
+            <!--            <select class="form-control mb-4" name="course">-->
+            <!--                <option value="CSE">CSE</option>-->
+            <!--                <option value="IT">IT</option>-->
+            <!--                <option value="IT">ECE</option>-->
+
+            <!--            </select>-->
+
+            <!--            <select class="form-control mb-4" name="gender">-->
+            <!--                <option value="M">Male</option>-->
+            <!--                <option value="F">Female</option>-->
+
+
+            <!--            </select>-->
 
 
             <!-- Sign up button -->
-            <button class="btn btn-info my-4 btn-block" type="submit" >Update Details</button>
+            <button name="send" class="btn btn-info my-4 btn-block" type="submit">Update Details</button>
 
             <!-- Social register -->
-<!--            <p>or</p>-->
+            <!--            <p>or</p>-->
 
-<!--            <button class="loginBtn loginBtn&#45;&#45;google">-->
-<!--                Sign In with Google-->
-<!--            </button>-->
+            <!--            <button class="loginBtn loginBtn&#45;&#45;google">-->
+            <!--                Sign In with Google-->
+            <!--            </button>-->
 
 
-<!--            <hr>-->
+            <!--            <hr>-->
 
-<!--            &lt;!&ndash; Terms of service &ndash;&gt;-->
-<!--            <p>Have An Account?</p>-->
-<!--            <a href="" target="_blank">Login here</a>-->
+            <!--            &lt;!&ndash; Terms of service &ndash;&gt;-->
+            <!--            <p>Have An Account?</p>-->
+            <!--            <a href="" target="_blank">Login here</a>-->
 
         </form>
         <!-- Default form register -->
