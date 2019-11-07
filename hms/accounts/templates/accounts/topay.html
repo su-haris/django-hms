@@ -9,26 +9,26 @@
         <hr class="w3-border-grey" style="margin:auto;width:60%">
         <p class="w3-large w3-center" style="text-align: center;">
         <div class="row">
-        <div class="col-sm-3"></div>
-        <div class="col-sm-6  text-left">
-            <ul>
-              <li>Please ensure you have paid the fees in hand to the warden.</li>
-              <li><strong>Only</strong> apply for Pay Fees if you have done the above.</li>
-              <li>Once you have given a request, it will go to warden for approval.</li>
-              <li>The warden can approve or reject your fee payment.</li>
-              <li>You will get an email alert on action.</li>
-              <li>Your Fee Status will get updated only after warden has processed your request.</li>
-            </ul>
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6  text-left">
+                <ul>
+                    <li>Please ensure you have paid the fees in hand to the warden.</li>
+                    <li><strong>Only</strong> apply for Pay Fees if you have done the above.</li>
+                    <li>Once you have given a request, it will go to warden for approval.</li>
+                    <li>The warden can approve or reject your fee payment.</li>
+                    <li>You will get an email alert on action.</li>
+                    <li>Your Fee Status will get updated only after warden has processed your request.</li>
+                </ul>
             </div>
         </div>
-<!--        <h1>Your request has been registered</h1>-->
-<!--        <h3>Please wait for a warden to approve</h3>-->
+        <!--        <h1>Your request has been registered</h1>-->
+        <!--        <h3>Please wait for a warden to approve</h3>-->
         <br><br>
 
         <form action="{% url 'feeregister' amount %}" id="form">
-                    {% csrf_token %}
-                    <button class="btn btn-outline-light" id="submitbutton" onclick="'formsubmit();">Pay Fees</button>
-                </form>
+            {% csrf_token %}
+            <button class="btn btn-outline-light" id="submitbutton" onclick="'formsubmit();">Pay Fees</button>
+        </form>
         <br>
         <a href="{% url 'student' %}">Go back to Student</a>
         </p>
@@ -46,6 +46,7 @@
         document.getElementById('submitbutton').disabled = true;
 
     }
+
 </script>
 
 <!--<h1>Selected Room is {{ room }}</h1>-->

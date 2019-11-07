@@ -137,7 +137,8 @@ def room_all_view(request):
                     amount = 12000
                 else:
                     amount = 9000
-                y = {'no': x.no, 'type': x.room_type, 'present': x.present, 'remains': remains, 'cover': x.cover, 'fees': amount}
+                y = {'no': x.no, 'type': x.room_type, 'present': x.present, 'remains': remains, 'cover': x.cover,
+                     'fees': amount}
                 roomdata.append(y)
                 print('hello', x.cover)
             context = {'roomdata': roomdata}
@@ -163,7 +164,8 @@ def room_change_view(request):
                 amount = 12000
             else:
                 amount = 9000
-            y = {'no': x.no, 'type': x.room_type, 'present': x.present, 'remains': remains, 'cover': x.cover, 'fees': amount}
+            y = {'no': x.no, 'type': x.room_type, 'present': x.present, 'remains': remains, 'cover': x.cover,
+                 'fees': amount}
             roomdata.append(y)
 
     context = {'roomdata': roomdata}

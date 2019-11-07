@@ -18,41 +18,40 @@
 <div class="row">
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
-<table class="table table-hover table-fixed text-dark bg-light">
-  <thead class="bg-dark text-light">
-    <tr class="font-weight-bold">
-      <td>Paid By</td>
-      <td>Paid On</td>
-        <td>Approved</td>
-        <td>Amount</td>
-    </tr>
-  </thead>
-  <!--Table head-->
+        <table class="table table-hover table-fixed text-dark bg-light">
+            <thead class="bg-dark text-light">
+            <tr class="font-weight-bold">
+                <td>Paid By</td>
+                <td>Paid On</td>
+                <td>Approved</td>
+                <td>Amount</td>
+            </tr>
+            </thead>
+            <!--Table head-->
 
-  <!--Table body-->
-  <tbody>
+            <!--Table body-->
+            <tbody>
 
-    {% for y in details %}
+            {% for y in details %}
 
-     <tr>
+            <tr>
 
-      <td>{{y.name}}</td>
-      <td>{{y.date}}</td>
-         <td>{{y.approve}}</td>
-                  <td>{{y.amount}}</td>
+                <td>{{y.name}}</td>
+                <td>{{y.date}}</td>
+                <td>{{y.approve}}</td>
+                <td>{{y.amount}}</td>
 
-    </tr>
+            </tr>
 
 
+            {% endfor %}
 
-    {% endfor %}
+            </tbody>
+            <!--Table body-->
 
-  </tbody>
-  <!--Table body-->
-
-</table>
-<!--Table-->
-        </div>
+        </table>
+        <!--Table-->
+    </div>
 </div>
 
 {% endblock %}
