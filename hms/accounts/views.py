@@ -216,7 +216,7 @@ def approve_all_view_warden(request):
         app = Approval.objects.all()
         appdata = []
         for x in app:
-            if x.is_approved == False:
+            if not x.is_approved:
                 y = {'old': x.old_room.no, 'new': x.new_room.no, 'user': x.requester.user.first_name,
                      'course': x.requester.course, 'username': x.requester, 'userl': x.requester.user.last_name}
                 appdata.append(y)
