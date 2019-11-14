@@ -96,7 +96,7 @@ def student_details_view(request):
         return render(request, 'accounts/testing2.html')
 
     else:
-        obj = UserProfile.objects.get(user=current_user)
+        obj = UserProfile.objects.select_related('user').get(user=current_user)
         print(obj.user.first_name)
         print(obj.user.last_name)
 
@@ -500,24 +500,25 @@ def addroom(request):
 @login_required()
 def room_details(request, tag):
     if request.user.groups.filter(name__in=['warden']).exists():
-        studs = UserProfile.objects.all()
-        studdata = []
         rm = str(tag)
+        # studs = UserProfile.objects.all()
+        studs = UserProfile.objects.select_related('user').select_related('room').filter(room__no=rm)
+
+        studdata = []
+
         # print(studs[1].room.no)
         print(rm)
         for x in studs:
             try:
-                y = x.room.no
-                if y == rm:
-                    l = {'name': x.user.first_name, 'username': x.user.username, 'room': x.room.no, 'course': x.course,
-                         'fees': x.fees_paid}
-                    print(l)
-                    studdata.append(l)
+                l = {'name': x.user.first_name, 'username': x.user.username, 'room': x.room.no, 'course': x.course,
+                     'fees': x.fees_paid}
+                #print(l)
+                studdata.append(l)
             except:
                 print('error')
 
         context = {'studdata': studdata, 'room': tag}
-        print(context)
+        #print(context)
         return render(request, 'accounts/room_stud.html', context)
 
     else:
